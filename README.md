@@ -1,8 +1,10 @@
-h1.best-bottle
+best-bottle
+========
 
 A little soft to share with some friends all our best bottles of beers and wines (and more maybe :)
 
-h2.Installation of ElasticSearch
+Installation of ElasticSearch
+=====
 
 * Download Elastic search on the official website (v0.90.x)
 * Unzip
@@ -16,6 +18,7 @@ h2.Installation of ElasticSearch
 
 * Send those request to prepare schema
 
-h2.Run application
+Run application
+=====
 
 TODO
