@@ -2,22 +2,47 @@
 <html lang="fr" ng-app="bestBottle">
 <head>
     <meta charset="utf-8">
+    <meta name="author" content="Yoann Prot - Vincent Tisseront">
     <title>Best bottle</title>
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-glyphicons.css"/>
     <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-<ul class="menu">
-    <li><a href="#/wine">Wine</a></li>
-    <li><a href="#/beer">Beer</a></li>
-</ul>
+
+<div class="navbar-wrapper">
+    <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Best bottle</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#/wine">Vins</a></li>
+                        <li><a href="#/beer">Bières</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <div ng-view></div>
+
+<!-- FOOTER -->
+<footer class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+
+    <p>&copy; VT/YP 2013</p>
+</footer>
 
 <script src="lib/jquery/jquery.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/angular/angular.js"></script>
-
 
 <script src="js/controller/main.js"></script>
 <script src="js/controller/wine.js"></script>
