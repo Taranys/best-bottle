@@ -1,1 +1,8 @@
-{{ beers }}
+<div class="container">
+    <form action="#/beer/new">
+        <input type="submit" class="btn btn-primary" value="Create a new bottle"/>
+    </form>
+    <ul>
+        <li ng-repeat="beer in beers">{{ beer._source.name }}</li>
+    </ul>
+</div>
