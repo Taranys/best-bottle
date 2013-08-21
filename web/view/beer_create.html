@@ -1,6 +1,51 @@
 <div class="container">
     <div class="alert alert-danger" ng-show="errorMessage">{{ errorMessage }}</div>
-    <form ng-submit="save()">
-        <input type="submit" class="btn btn-primary" value="Create bottle"/>
+    <div class="alert alert-success" ng-show="successMessage">{{ successMessage }}</div>
+    <form ng-submit="save()" role="form">
+        <div class="form-group">
+            <label for="beername">Beer name</label>
+            <input id="beername" type="text" ng-model="beer.name" placeholder="Enter a name" class="form-control"
+                   required ng-disabled="beerId">
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Score</h3></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="beer_score_bottle">Bottle</label>
+                    <input id="beer_score_bottle" type="number" ng-model="beer.score.bottle" min="1" max="5">
+                </div>
+                <div class="form-group">
+                    <label for="beer_score_draft">Draft</label>
+                    <input id="beer_score_draft" type="number" ng-model="beer.score.draft" min="1" max="5">
+                </div>
+                <div class="form-group">
+                    <label for="beer_score_can">Can</label>
+                    <input id="beer_score_can" type="number" ng-model="beer.score.can" min="1" max="5">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Cost</h3></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="beer_cost_bottle">Bottle</label>
+                    <input id="beer_cost_bottle" type="number" ng-model="beer.cost.bottle" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="beer_cost_bar">Bar (for a pint)</label>
+                    <input id="beer_cost_bar" type="number" ng-model="beer.cost.bar" step="any">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="beerdesc">Description</label>
+            <textarea id="beerdesc" type="text" ng-model="beer.description" placeholder="Enter a description"
+                      class="form-control" rows="5" required></textarea>
+        </div>
+        <div class="pull-right">
+            <input type="submit" class="btn btn-primary" value="Create bottle" ng-show="!beerId"/>
+            <button type="button" class="btn btn-info" ng-show="beerId" ng-click="load()">Reload</button>
+            <input type="submit" class="btn btn-primary" value="Save" ng-show="beerId"/>
+        </div>
     </form>
 </div>

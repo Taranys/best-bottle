@@ -1,13 +1,13 @@
 'use strict';
 
-controllers.controller('BeerController', function ($scope, Elastic) {
+controllers.controller('BeerController', function ($scope, api) {
     $scope.beers = {};
 
-    Elastic.getAll('beer',
-        function success(data) {
+    api.getAll('beer')
+        .success(function (data) {
             $scope.beers = data.hits.hits;
-        },
-        function error(data) {
-            $scope.error = data;
+        })
+        .error(function (error) {
+            $scope.error = error;
         });
 });
