@@ -42,6 +42,11 @@
             <textarea id="beerdesc" type="text" ng-model="beer.description" placeholder="Enter a description"
                       class="form-control" rows="5" required></textarea>
         </div>
+        <div class="pull-left">
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-show="beerId" ng-click="delete()"
+                    data-loading-text="Loading...">Delete
+            </button>
+        </div>
         <div class="pull-right">
             <input type="submit" class="btn btn-primary" value="Create bottle" ng-show="!beerId"/>
             <button type="button" class="btn btn-info" ng-show="beerId" ng-click="load()">Reload</button>

@@ -23,14 +23,14 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         //create a new beer
         if (!$scope.beerId) {
 
-            //generate id to have a beautiful URL :)
+            //generate id from name to have a beautiful URL :)
             var id = api.createIdFromString($scope.beer.name);
             api.createWithId(tableName, id, $scope.beer)
                 .success(function (beer) {
                     $location.path('/beer/' + beer._id);
                 })
                 .error(function (dataOnError) {
-                    $scope.errorMessage = "Impossible to save the beer : " + dataOnError;
+                    $scope.errorMessage = "Impossible to create beer : " + dataOnError;
                 });
         }
         //save current
@@ -44,7 +44,7 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                     }, 2000);
                 })
                 .error(function (error) {
-                    $scope.errorMessage = "Impossible to load current beer : " + error;
+                    $scope.errorMessage = "Impossible to update : " + error;
                 })
         }
     }
@@ -65,9 +65,28 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         }
     }
 
+    $scope.delete = function () {
+        if ($scope.beerId && confirm("Are you sure ?")) {
+            api.delete(tableName, $scope.beerId)
+                .success(function () {
+                    $('#deleteButton').button('loading')
+                    //wait 2s to let time to ES to remove the object - :/
+                    $timeout(function () {
+                        //if delete successful, come back to main beer page
+                        $location.path('/beer/');
+                    }, 2000);
+                })
+                .error(function (error) {
+                    $scope.errorMessage = "Impossible to delete current beer : " + error;
+                });
+        }
+    }
+
+
     //if $routeParams.id is defined => beer already exists : load from DB
     if ($routeParams.id) {
         $scope.beerId = $routeParams.id;
         $scope.load();
     }
+    $('#deleteButton').button();
 });
