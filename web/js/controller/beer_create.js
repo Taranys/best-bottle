@@ -6,11 +6,12 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
     // define default value
     $scope.beer = {
         name: "",
-        score: {
-            bottle: 0,
-            draft: 0,
-            can: 0
-        },
+        country: "Belgium",
+//        score: { <- Will be put into comment
+//            bottle: 0,
+//            draft: 0,
+//            can: 0
+//        },
         cost: {
             bottle: 0.0,
             bar: 0.0
@@ -67,14 +68,12 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
 
     $scope.delete = function () {
         if ($scope.beerId && confirm("Are you sure ?")) {
+            //set button to loading state
+            $('#deleteButton').button('loading')
+            //send delete request
             api.delete(tableName, $scope.beerId)
                 .success(function () {
-                    $('#deleteButton').button('loading')
-                    //wait 2s to let time to ES to remove the object - :/
-                    $timeout(function () {
-                        //if delete successful, come back to main beer page
-                        $location.path('/beer/');
-                    }, 2000);
+                    $location.path('/beer/');
                 })
                 .error(function (error) {
                     $scope.errorMessage = "Impossible to delete current beer : " + error;
