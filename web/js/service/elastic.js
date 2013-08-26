@@ -12,6 +12,24 @@ services.factory('api', function ($resource, $http) {
         return $http.get(this.elasticSearchPath + tableName + '/_search');
     };
 
+    api.getDistinctFieldValues = function (tableName, fieldName) {
+        // get all distinct values from field 'fieldname'
+        var data = {
+            "size": 0,
+            "facets": {
+                "tag": {
+                    "terms": {
+                        "field": fieldName,
+                        "order": "term"
+                    }
+                }
+            }
+        }
+        return $http.post(this.elasticSearchPath + '/_search', data || {},
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+
+    };
+
     api.create = function (tableName, data) {
         return $http.post(this.elasticSearchPath + tableName, data || {},
             {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});

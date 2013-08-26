@@ -6,18 +6,15 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
     // define default value
     $scope.beer = {
         name: "",
-        country: "Belgium",
-//        score: { <- Will be put into comment
-//            bottle: 0,
-//            draft: 0,
-//            can: 0
-//        },
+        country: "",
         cost: {
             bottle: 0.0,
             bar: 0.0
         },
         description: ""
     };
+
+    $scope.countries = []
 
     // save function
     $scope.save = function () {
@@ -81,6 +78,14 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         }
     }
 
+    //load countries from DB
+    api.getDistinctFieldValues(tableName, 'country')
+        .success(function (data) {
+            var terms = data.facets.tag.terms;
+            angular.forEach(terms, function (term) {
+                $scope.countries.push(term.term);
+            });
+        });
 
     //if $routeParams.id is defined => beer already exists : load from DB
     if ($routeParams.id) {
