@@ -17,7 +17,33 @@ Installation of ElasticSearch
     bin/plugin --install sonian/elasticsearch-jetty
 
 * Send those request to prepare schema :
-TODO
+Beer
+```
+POST http://localhost:9200/bb/beer/_mapping
+{
+  "beer": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "country": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "cost": {
+        "properties": {
+          "bottle": {
+            "type": "float"
+          },
+          "bar": {
+            "type": "float"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 Run application
 ---------------
