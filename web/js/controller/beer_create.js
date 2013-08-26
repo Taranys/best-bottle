@@ -92,5 +92,6 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         $scope.beerId = $routeParams.id;
         $scope.load();
     }
+    //configure delete button to have an fancy loading effect :)
     $('#deleteButton').button();
 });
