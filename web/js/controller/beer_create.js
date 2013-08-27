@@ -7,10 +7,6 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
     $scope.beer = {
         name: "",
         country: "",
-        cost: {
-            bottle: 0.0,
-            bar: 0.0
-        },
         description: ""
     };
 

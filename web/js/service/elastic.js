@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('api', function ($resource, $http) {
+services.factory('api', function ($http) {
     var api = {};
     api.elasticSearchPath = 'api/bb/';
 

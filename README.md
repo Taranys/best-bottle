@@ -21,27 +21,59 @@ Beer
 ```
 POST http://localhost:9200/bb/beer/_mapping
 {
-  "beer": {
-    "properties": {
-      "name": {
-        "type": "string"
-      },
-      "country": {
-        "type": "string",
-        "index": "not_analyzed"
-      },
-      "cost": {
+    "beer": {
         "properties": {
-          "bottle": {
-            "type": "float"
-          },
-          "bar": {
-            "type": "float"
-          }
+            "name": {
+                "type": "string"
+            },
+            "country": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "description": {
+                "type": "string"
+            },
+            "picture": {
+                "type" : "binary",
+                "index": "not_analyzed"
+            }
         }
-      }
     }
-  }
+}
+```
+
+Comment
+```
+POST http://localhost:9200/bb/comment/_mapping
+{
+    "comment": {
+        "properties": {
+            "rating": {
+                "type": "integer"
+            },
+            "description": {
+                "type": "string"
+            },
+            "place": {
+                "type": "string"
+            },
+            "drink": {
+                "properties": {
+                    "cost": {
+                        "type": "float"
+                    },
+                    "container": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "link": {
+                "type": "string",
+                "index": "not_analyzed"
+            }
+        }
+    }
 }
 ```
 
