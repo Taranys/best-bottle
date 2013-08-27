@@ -36,42 +36,47 @@ POST http://localhost:9200/bb/beer/_mapping
             "picture": {
                 "type" : "binary",
                 "index": "not_analyzed"
+            },
+            "comment": {
+                "properties": {
+                    "rating": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "drink": {
+                        "properties": {
+                            "price": {
+                                "type": "float"
+                            },
+                            "container": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            }
+                        }
+                    },
+                    "link": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
             }
         }
     }
 }
 ```
 
-Comment
+Constant
 ```
-POST http://localhost:9200/bb/comment/_mapping
+POST http://localhost:9200/bb/constant/data_fr
 {
-    "comment": {
-        "properties": {
-            "rating": {
-                "type": "integer"
-            },
-            "description": {
-                "type": "string"
-            },
-            "place": {
-                "type": "string"
-            },
-            "drink": {
-                "properties": {
-                    "cost": {
-                        "type": "float"
-                    },
-                    "container": {
-                        "type": "string",
-                        "index": "not_analyzed"
-                    }
-                }
-            },
-            "link": {
-                "type": "string",
-                "index": "not_analyzed"
-            }
+    "beer": {
+        "drink": {
+            "container" : ["Demi", "Pinte", "Chevalier", "Bouteille (33cl)", "Bouteille (50cl)", "Bouteille (150cl)"]
         }
     }
 }

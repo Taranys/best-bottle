@@ -1,6 +1,6 @@
 'use strict';
 
-var services = angular.module('bestBottle.services', ['ngResource']);
+var services = angular.module('bestBottle.services', []);
 
 var controllers = angular.module('bestBottle.controllers', ['bestBottle.services']);
 

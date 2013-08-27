@@ -1,22 +1,26 @@
 'use strict';
 
-controllers.controller('CreateEditBeerController', function ($scope, $location, $routeParams, $timeout, api) {
+controllers.controller('CreateEditBeerController', function ($scope, $location, $routeParams, $timeout, api, constant) {
     var tableName = 'beer';
 
     // define default value
     $scope.beer = {
         name: "",
         country: "",
-        description: ""
+        description: "",
+        rating: 0,
+        drink: [],
+        comment: []
     };
 
+    //define lists
     $scope.countries = []
+    $scope.containers = []
 
     // save function
     $scope.save = function () {
         //create a new beer
         if (!$scope.beerId) {
-
             //generate id from name to have a beautiful URL :)
             var id = api.createIdFromString($scope.beer.name);
             api.createWithId(tableName, id, $scope.beer)
@@ -82,6 +86,12 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                 $scope.countries.push(term.term);
             });
         });
+
+    //load constants
+    constant.get().success(function (data) {
+        $scope.containers = data._source.beer.drink.container;
+    });
+
 
     //if $routeParams.id is defined => beer already exists : load from DB
     if ($routeParams.id) {
