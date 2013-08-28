@@ -39,6 +39,12 @@ POST http://localhost:9200/bb/beer/_mapping
             },
             "comment": {
                 "properties": {
+                    "username" : {
+                        "type": "string"
+                    },
+                    "date" : {
+                        "type": "date"
+                    },
                     "rating": {
                         "type": "integer"
                     },
@@ -58,10 +64,6 @@ POST http://localhost:9200/bb/beer/_mapping
                                 "index": "not_analyzed"
                             }
                         }
-                    },
-                    "link": {
-                        "type": "string",
-                        "index": "not_analyzed"
                     }
                 }
             }
@@ -76,7 +78,7 @@ POST http://localhost:9200/bb/constant/data_fr
 {
     "beer": {
         "drink": {
-            "container" : ["Demi", "Pinte", "Chevalier", "Bouteille (33cl)", "Bouteille (50cl)", "Bouteille (150cl)"]
+            "container" : ["Pression (Demi)", "Pression (Pinte)", "Pression (Chevalier)", "Bouteille (25cl)", "Bouteille (33cl)"]
         }
     }
 }

@@ -3,19 +3,35 @@
 controllers.controller('CreateEditBeerController', function ($scope, $location, $routeParams, $timeout, api, constant) {
     var tableName = 'beer';
 
-    // define default value
+    // define default beer value
     $scope.beer = {
         name: "",
         country: "",
         description: "",
         rating: 0,
         drink: [],
-        comment: []
+        comments: []
     };
+
+    //Define default comment value
+    $scope.newComment = {
+        username: "",
+        date: "",
+        rating: 0,
+        description: "",
+        place: "",
+        drink: {
+            price: "",
+            container: ""
+        }
+    }
 
     //define lists
     $scope.countries = []
     $scope.containers = []
+
+    //define view states
+    $scope.addCommentViewActivated = false;
 
     // save function
     $scope.save = function () {
@@ -56,6 +72,12 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                         $scope.beer = beer._source;
                     }
                     $scope.beerId = beer._id;
+
+                    //create empty array if not exists
+                    if (!$scope.beer.drink) $scope.beer.drink = [];
+                    if (!$scope.beer.comments) $scope.beer.comments = [];
+
+                    $scope.addCommentViewActivated = false;
                 })
                 .error(function (error) {
                     $scope.errorMessage = "Impossible to load current beer : " + error;
@@ -78,6 +100,58 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         }
     }
 
+    //Update rating and drink each time beer is modified
+    $scope.$watch('beer', function () {
+        if ($scope.beer.comments.length == 0) {
+            $scope.beer.rating = 0;
+            $scope.beer.drink = [];
+        }
+
+        //Search average prices and rating
+        var newRating = 0;
+        var drinks = [];
+        for (var i = 0; i < $scope.beer.comments.length; i++) {
+            var comment = $scope.beer.comments[i];
+            newRating += comment.rating;
+            if (comment.drink.price) {
+                if (!drinks[comment.drink.container]) drinks[comment.drink.container] = {
+                    total: 0,
+                    count: 0
+                }
+                drinks[comment.drink.container].total += comment.drink.price;
+                drinks[comment.drink.container].count += 1;
+            }
+        }
+
+        $scope.beer.rating = newRating / $scope.beer.comments.length;
+        $scope.beer.drink = [];
+        for (var key in drinks) {
+            $scope.beer.drink.push({
+                price: drinks[key].total / drinks[key].count,
+                container: key
+            });
+        }
+    });
+
+    $scope.activateAddComment = function () {
+        $scope.addCommentViewActivated = true;
+    }
+
+    $scope.addComment = function () {
+        $scope.beer.comments.push($scope.newComment);
+        $scope.save();
+        $scope.load();
+    }
+
+    $scope.getPanelColor = function (rating) {
+        if (rating == 0) return { "panel-danger": true };
+        if (rating == 1) return { "panel-warning": true };
+        if (rating == 2) return { "panel-default": true };
+        if (rating == 3) return { "panel-info": true };
+        if (rating == 4) return { "panel-primary": true };
+        if (rating == 5) return { "panel-success": true };
+    }
+
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
         .success(function (data) {
@@ -91,7 +165,6 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
     constant.get().success(function (data) {
         $scope.containers = data._source.beer.drink.container;
     });
-
 
     //if $routeParams.id is defined => beer already exists : load from DB
     if ($routeParams.id) {
