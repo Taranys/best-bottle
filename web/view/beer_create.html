@@ -56,8 +56,8 @@
             </div>
         </form>
     </div>
-    <div class="row" style="margin-top: 20px">
-        <div class="panel panel-info" ng-hide="addCommentViewActivated">
+    <div class="row" style="margin-top: 20px" ng-show="addCommentViewActivated">
+        <div class="panel panel-info">
             <div class="panel-heading clearfix">
                 Nouveau commentaire
             </div>
@@ -95,37 +95,40 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 20px">
-        <div class="panel panel-info">
-            <div class="panel-heading clearfix">
+    <div class="row" style="margin-top: 20px" ng-show="beerId">
+        <div class="page-header clearfix">
+            <h3>
                 Commentaires
                 <button class="btn btn-primary pull-right" ng-hide="addCommentViewActivated"
                         ng-click="activateAddComment()">Ajouter un commentaire
                 </button>
+            </h3>
+        </div>
+        <div class="panel panel-info" ng-repeat="comment in beer.comments">
+            <div class="panel-heading clearfix">
+                <p class="text-center">
+                    {{ comment.username }}
+                </p>
+
+                <p class="text-right">
+                    {{ comment.date }}
+                </p>
+
+                <div class="panel-body text-left" rating readonly rating-value="comment.rating" max="5"></div>
             </div>
             <div class="panel-body">
-                <div class="media-list">
-                    <div class="media-object" ng-repeat="comment in beer.comments">
-                        <div class="pull-left">
-                            <div> 1 {{ comment.drink.container }}</div>
-                            <div>{{ comment.drink.price }} €</div>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                <p class="text-left">{{ comment.username }}</p>
-
-                                <p class="text-center">{{ comment.date }}</p>
-
-                                <p class="text-right">
-
-                                <div class="panel-body" rating readonly rating-value="comment.rating" max="5"></div>
-                                </p>
-                            </h4>
-                            <span>{{ comment.description }}</span>
-                            <a href="">{{ comment.place }}</a>
-                        </div>
-                    </div>
+                <div class="pull-left">
+                    <div> 1 {{ comment.drink.container }}</div>
+                    <div>{{ comment.drink.price }} €</div>
                 </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+
+                    </h4>
+                    <span>{{ comment.description }}</span>
+                    <a href="">{{ comment.place }}</a>
+                </div>
+                *
             </div>
         </div>
     </div>
