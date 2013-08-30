@@ -61,37 +61,43 @@
             <div class="panel-heading clearfix">
                 Nouveau commentaire
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <form ng-submit="addComment()" role="form">
-                        <div class="form-group">
-                            <label for="commentRating">Note</label>
-
-                            <div class="panel-body" rating rating-value="newComment.rating" max="5"
-                                 id="commentRating"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="commentDescription">Description</label>
-                            <textarea id="commentDescription" type="text" ng-model="newComment.description"
-                                      placeholder="Entrer une description"
-                                      class="form-control" rows="5"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="commentDrink">Type de consommation</label>
+            <div class="panel-body clearfix">
+                <form ng-submit="addComment()" role="form" class="form-horizontal">
+                    <div class="form-group col-lg-12">
+                        <div class="col-lg-10" style="padding-left: 0px">
+                            <label for="commentDrink" class="control-label">Type de consommation</label>
                             <select ng-model="newComment.drink.container" ng-options="item for item in containers"
-                                    id="commentDrink" required></select>
+                                    id="commentDrink" required class="form-control"></select>
                         </div>
-                        <div class="form-group">
-                            <label for="commentPrice">Prix</label>
-                            <input type="number" id="commentPrice" ng-model="newComment.drink.price" step="any">
+                        <div class="col-lg-2" style="padding-right: 0px">
+                            <label for="commentRating" class="control-label">Note</label>
+                            <span class="form-control" rating rating-value="newComment.rating" max="5"
+                                  id="commentRating"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="commentPlace">Emplacement d'achat</label>
-                            <input type="text" id="commentPlace" ng-model="newComment.place">
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label for="commentDescription" class="control-label">Description</label>
+                        <textarea id="commentDescription" type="text" ng-model="newComment.description"
+                                  placeholder="Entrer une description"
+                                  class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <div class="col-lg-2" style="padding-left: 0px">
+                            <label for="commentPrice" class="control-label">Prix</label>
+
+                            <div class="input-group">
+                                <input type="number" id="commentPrice" ng-model="newComment.drink.price" step="any"
+                                       class="form-control">
+                                <span class="input-group-addon">€</span>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-default">Ajouter le commentaire</button>
-                    </form>
-                </div>
+                        <div class="col-lg-10" style="padding-right: 0px">
+                            <label for="commentPlace" class="control-label">Emplacement d'achat</label>
+                            <input type="text" id="commentPlace" ng-model="newComment.place" class="form-control">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Ajouter le commentaire</button>
+                </form>
             </div>
         </div>
     </div>
@@ -126,9 +132,8 @@
 
                     </h4>
                     <span>{{ comment.description }}</span>
-                    <a href="">{{ comment.place }}</a>
+                    <a ng-href="{{ getMapUrl(comment.place) }}">{{ comment.place }}</a>
                 </div>
-                *
             </div>
         </div>
     </div>

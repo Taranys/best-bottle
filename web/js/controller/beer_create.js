@@ -152,6 +152,14 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         if (rating == 5) return { "panel-success": true };
     }
 
+    $scope.getMapUrl = function (str) {
+        if (str) {
+            var pattern = 'https://www.google.fr/maps?q=';
+            return pattern + encodeURIComponent(str);
+        }
+        return "";
+    }
+
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
         .success(function (data) {
