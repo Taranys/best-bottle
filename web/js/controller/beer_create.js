@@ -13,22 +13,9 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         comments: []
     };
 
-    //Define default comment value
-    $scope.newComment = {
-        username: "",
-        date: "",
-        rating: 0,
-        description: "",
-        place: "",
-        drink: {
-            price: "",
-            container: ""
-        }
-    }
-
     //define lists
-    $scope.countries = []
-    $scope.containers = []
+    $scope.countries = [];
+    $scope.containers = [];
 
     //define view states
     $scope.addCommentViewActivated = false;
@@ -61,7 +48,7 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                     $scope.errorMessage = "Impossible to update : " + error;
                 })
         }
-    }
+    };
 
     // load beer from server
     $scope.load = function () {
@@ -83,12 +70,12 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                     $scope.errorMessage = "Impossible to load current beer : " + error;
                 });
         }
-    }
+    };
 
     $scope.delete = function () {
         if ($scope.beerId && confirm("Are you sure ?")) {
             //set button to loading state
-            $('#deleteButton').button('loading')
+            $('#deleteButton').button('loading');
             //send delete request
             api.delete(tableName, $scope.beerId)
                 .success(function () {
@@ -98,7 +85,7 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
                     $scope.errorMessage = "Impossible to delete current beer : " + error;
                 });
         }
-    }
+    };
 
     //Update rating and drink each time beer is modified
     $scope.$watch('beer', function () {
@@ -114,9 +101,11 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
             var comment = $scope.beer.comments[i];
             newRating += comment.rating;
             if (comment.drink.price) {
-                if (!drinks[comment.drink.container]) drinks[comment.drink.container] = {
-                    total: 0,
-                    count: 0
+                if (!drinks[comment.drink.container]) {
+                    drinks[comment.drink.container] = {
+                        total: 0,
+                        count: 0
+                    };
                 }
                 drinks[comment.drink.container].total += comment.drink.price;
                 drinks[comment.drink.container].count += 1;
@@ -135,13 +124,30 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
 
     $scope.activateAddComment = function () {
         $scope.addCommentViewActivated = true;
-    }
+    };
+
+    //Define default comment value
+    $scope.createNewComment = function () {
+        return {
+            username: "",
+            date: "",
+            rating: 0,
+            description: "",
+            place: "",
+            drink: {
+                price: "",
+                container: ""
+            }
+        };
+    };
 
     $scope.addComment = function () {
+        $scope.newComment.date = Date.now();
         $scope.beer.comments.push($scope.newComment);
+        $scope.newComment = $scope.createNewComment();
         $scope.save();
         $scope.load();
-    }
+    };
 
     $scope.getPanelColor = function (rating) {
         if (rating == 0) return { "panel-danger": true };
@@ -150,7 +156,7 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         if (rating == 3) return { "panel-info": true };
         if (rating == 4) return { "panel-primary": true };
         if (rating == 5) return { "panel-success": true };
-    }
+    };
 
     $scope.getMapUrl = function (str) {
         if (str) {
@@ -158,7 +164,11 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
             return pattern + encodeURIComponent(str);
         }
         return "";
-    }
+    };
+
+    $scope.getDate = function (milliseconds) {
+        return new Date(milliseconds).toLocaleDateString();
+    };
 
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
@@ -179,6 +189,9 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         $scope.beerId = $routeParams.id;
         $scope.load();
     }
+
+    $scope.newComment = $scope.createNewComment();
+
     //configure delete button to have an fancy loading effect :)
     $('#deleteButton').button();
 });

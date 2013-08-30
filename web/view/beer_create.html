@@ -1,6 +1,7 @@
 <div class="container">
     <div class="alert alert-danger" ng-show="errorMessage">{{ errorMessage }}</div>
     <div class="alert alert-success" ng-show="successMessage">{{ successMessage }}</div>
+    <!--Formulaire d'une biere-->
     <div class="row">
         <form ng-submit="save()" role="form">
             <div class="row">
@@ -56,6 +57,7 @@
             </div>
         </form>
     </div>
+    <!--Ajout d'un commentaire-->
     <div class="row" style="margin-top: 20px" ng-show="addCommentViewActivated">
         <div class="panel panel-info">
             <div class="panel-heading clearfix">
@@ -101,6 +103,7 @@
             </div>
         </div>
     </div>
+    <!--Affichage des commentaires existants-->
     <div class="row" style="margin-top: 20px" ng-show="beerId">
         <div class="page-header clearfix">
             <h3>
@@ -112,15 +115,14 @@
         </div>
         <div class="panel panel-info" ng-repeat="comment in beer.comments">
             <div class="panel-heading clearfix">
-                <p class="text-center">
+                <div class="text-left col-lg-4" rating readonly rating-value="comment.rating" max="5"></div>
+                <p class="text-center col-lg-4">
                     {{ comment.username }}
                 </p>
 
-                <p class="text-right">
-                    {{ comment.date }}
+                <p class="text-right col-lg-4">
+                    {{ getDate(comment.date) }}
                 </p>
-
-                <div class="panel-body text-left" rating readonly rating-value="comment.rating" max="5"></div>
             </div>
             <div class="panel-body">
                 <div class="pull-left">
