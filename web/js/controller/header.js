@@ -4,7 +4,7 @@ controllers.controller('HeaderController', function ($scope, $location) {
     $scope.searchValue = "";
 
     $scope.genericSearch = function () {
-        $location.path('/search/' + $scope.searchValue);
+        $location.path('/search/' + $scope.searchValue).replace();
     };
 
     $scope.isActive = function (viewLocation) {
