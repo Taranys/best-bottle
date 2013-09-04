@@ -13,6 +13,10 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         comments: []
     };
 
+    $scope.beersByCountries = []
+
+    $scope.searchValue = "";
+
     //define lists
     $scope.countries = [];
     $scope.containers = [];
@@ -170,6 +174,32 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
         return new Date(milliseconds).toLocaleDateString();
     };
 
+    $scope.isEmpty = function (values) {
+        return angular.isArray(values) && values.length == 0;
+    };
+
+    $scope.refreshBeerList = function () {
+        api.getAll('beer')
+            .success(function (data) {
+                var beers = [];
+                angular.forEach(data.hits.hits, function (result) {
+                    var tmp = result._source;
+                    tmp.id = result._id;
+                    this.push(tmp);
+                }, beers);
+
+                $scope.beersByCountries = {};
+                for (var i = 0; i < beers.length; i++) {
+                    var beer = beers[i];
+                    if (!$scope.beersByCountries[beer.country]) $scope.beersByCountries[beer.country] = { name: beer.country, beers: []};
+                    $scope.beersByCountries[beer.country].beers.push(beer);
+                }
+            })
+            .error(function (error) {
+                $scope.error = error;
+            });
+    };
+
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
         .success(function (data) {
@@ -183,6 +213,9 @@ controllers.controller('CreateEditBeerController', function ($scope, $location, 
     constant.get().success(function (data) {
         $scope.containers = data._source.beer.drink.container;
     });
+
+    //load beer list
+    $scope.refreshBeerList();
 
     //if $routeParams.id is defined => beer already exists : load from DB
     if ($routeParams.id) {

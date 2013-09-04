@@ -8,7 +8,7 @@ angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives',
             .when('/wine', {templateUrl: 'view/wine.html', controller: 'WineController'})
             .when('/wine/new', {templateUrl: 'view/beer.html', controller: 'WineController'})
             .when('/wine/:id', {templateUrl: 'view/beer.html', controller: 'WineController'})
-            .when('/beer', {templateUrl: 'view/beer.html', controller: 'BeerController'})
+            .when('/beer', {templateUrl: 'view/beer_create.html', controller: 'CreateEditBeerController'})
             .when('/beer/new', {templateUrl: 'view/beer_create.html', controller: 'CreateEditBeerController'})
             .when('/beer/:id', {templateUrl: 'view/beer_create.html', controller: 'CreateEditBeerController'})
             .when('/search/:search', {templateUrl: 'view/search.html', controller: 'SearchController'})
