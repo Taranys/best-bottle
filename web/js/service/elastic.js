@@ -5,11 +5,23 @@ services.factory('api', function ($http) {
     api.elasticSearchPath = 'api/bb/';
 
     api.get = function (tableName, id) {
-        return $http.get(this.elasticSearchPath + tableName + '/' + id);
+        return $http.get(this.elasticSearchPath + tableName + '/' + id,
+            {
+                params: {
+                    refresh: true
+                }
+            }
+        );
     };
 
     api.getAll = function (tableName) {
-        return $http.get(this.elasticSearchPath + tableName + '/_search');
+        return $http.get(this.elasticSearchPath + tableName + '/_search',
+            {
+                params: {
+                    refresh: true
+                }
+            }
+        );
     };
 
     api.getDistinctFieldValues = function (tableName, fieldName) {
@@ -26,24 +38,43 @@ services.factory('api', function ($http) {
             }
         }
         return $http.post(this.elasticSearchPath + '/_search', data || {},
-            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+            {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                params: {
+                    refresh: true,
+                    realtime: false
+                }
+            });
 
     };
 
     api.create = function (tableName, data) {
         return $http.post(this.elasticSearchPath + tableName, data || {},
-            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+            {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                params: {
+                    refresh: true
+                }
+            });
     };
 
     api.createWithId = function (tableName, id, data) {
         return $http.put(this.elasticSearchPath + tableName + '/' + id, data || {},
-            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+            {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                params: {
+                    refresh: true
+                }
+            });
     };
 
     api.update = function (tableName, id, data) {
         return $http.post(this.elasticSearchPath + tableName + '/' + id, data || {}, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            params: {
+                refresh: true
             }
         });
     };
@@ -54,7 +85,6 @@ services.factory('api', function ($http) {
                 'Content-Type': 'text/plain'
             },
             params: {
-                //force update to avoid inconsistent state
                 refresh: true
             }
         });

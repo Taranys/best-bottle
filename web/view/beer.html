@@ -30,49 +30,48 @@
         <!--Affichage des bières-->
         <!--Formulaire d'une biere-->
         <div class="col-lg-9">
-            <form ng-submit="save()" role="form">
-                <div class="row">
-                    <div ng-class="{'col-lg-9' : beerId}">
-                        <div class="form-group">
-                            <label for="beername">Nom</label>
-                            <input id="beername" type="text" ng-model="beer.name"
-                                   placeholder="Entrer le nom de la bière"
-                                   class="form-control"
-                                   required ng-disabled="beerId">
-                        </div>
-                        <div class="form-group">
-                            <label for="beer_country">Pays</label>
-                            <input id="beer_country" type="text" placeholder="Entrer le pays" list="country-list"
-                                   class="form-control" required ng-model="beer.country">
-                            <datalist id="country-list">
-                                <option ng-repeat="country in countries" value="{{ country }}"></option>
-                            </datalist>
-                        </div>
-                        <div class="form-group">
-                            <label for="beerdesc">Description</label>
-                            <textarea id="beerdesc" type="text" ng-model="beer.description"
-                                      placeholder="Entrer une description"
-                                      class="form-control" rows="10" required></textarea>
-                        </div>
+            <form ng-submit="save()" role="form" class="row">
+                <div ng-class="{'col-lg-9' : beerId}">
+                    <div class="form-group">
+                        <label for="beername">Nom</label>
+                        <input id="beername" type="text" ng-model="beer.name"
+                               placeholder="Entrer le nom de la bière"
+                               class="form-control"
+                               required ng-disabled="beerId">
                     </div>
-                    <div ng-class="{'col-lg-3' : beerId}" ng-show="beerId">
-                        <div class="panel" ng-class="getPanelColor(beer.rating)">
-                            <div class="panel-heading">Note moyenne</div>
-                            <div class="panel-body" rating readonly rating-value="beer.rating" max="5"></div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Prix moyen</div>
-                            <ul class="list-group" id="drink">
-                                <li class="list-group-item" ng-repeat="drink in beer.drink">
-                                    <span class="label label-info pull-right"
-                                          ng-bind-template="{{ drink.price }} €"></span>
-                                    {{ drink.container }}
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="form-group">
+                        <label for="beer_country">Pays</label>
+                        <input id="beer_country" type="text" placeholder="Entrer le pays" list="country-list"
+                               class="form-control" required ng-model="beer.country">
+                        <datalist id="country-list">
+                            <option ng-repeat="country in countries" value="{{ country }}"></option>
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="beerdesc">Description</label>
+                        <textarea id="beerdesc" type="text" ng-model="beer.description"
+                                  placeholder="Entrer une description"
+                                  class="form-control" rows="10" required></textarea>
                     </div>
                 </div>
-                <div class="row">
+                <div ng-class="{'col-lg-3' : beerId}" ng-show="beerId">
+                    <div class="panel" ng-class="getPanelColor(beer.rating)">
+                        <div class="panel-heading">Note moyenne</div>
+                        <div class="panel-body" rating readonly="true" rating-value="beer.rating" max="5"></div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Prix moyen</div>
+                        <ul class="list-group" id="drink">
+                            <li class="list-group-item" ng-repeat="drink in beer.drink">
+                                    <span class="label label-info pull-right"
+                                          ng-bind-template="{{ drink.price }} €"></span>
+                                {{ drink.container }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-lg-12">
                     <div class="pull-left">
                         <button id="deleteButton" type="button" class="btn btn-danger" ng-show="beerId"
                                 ng-click="delete()"
@@ -81,13 +80,14 @@
                     </div>
                     <div class="pull-right">
                         <input type="submit" class="btn btn-primary" value="Créer" ng-show="!beerId"/>
-                        <button type="button" class="btn btn-info" ng-show="beerId" ng-click="load()">Recharger</button>
-                        <input type="submit" class="btn btn-primary" value="Sauvegarder" ng-show="beerId"/>
+                        <button type="button" class="btn btn-info" ng-show="beerId" ng-click="load()">Annuler</button>
+                        <input type="submit" class="btn btn-success" value="Sauvegarder" ng-show="beerId"/>
                     </div>
                 </div>
             </form>
             <!--Ajout d'un commentaire-->
-            <div class="row" style="margin-top: 20px" ng-show="addCommentViewActivated">
+            <div class="clearfix"></div>
+            <div style="margin-top: 20px" ng-show="addCommentViewActivated">
                 <div class="panel panel-info">
                     <div class="panel-heading clearfix">
                         Nouveau commentaire
@@ -130,14 +130,18 @@
                                            class="form-control">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Ajouter le commentaire</button>
+                            <div class="pull-right">
+                                <a class="btn btn-info" ng-click="activateAddComment(false)">Annuler</a>
+                                <input type="submit" class="btn btn-success" value="Ajouter le commentaire">
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
             <!--Affichage des commentaires existants-->
-            <div class="row" style="margin-top: 20px" ng-show="beerId">
-                <div class="page-header clearfix">
+            <div class="clearfix"></div>
+            <div ng-show="beerId">
+                <div class="page-header">
                     <h3>
                         Commentaires
                         <button class="btn btn-primary pull-right" ng-hide="addCommentViewActivated"
@@ -147,7 +151,8 @@
                 </div>
                 <div class="panel panel-info" ng-repeat="comment in beer.comments">
                     <div class="panel-heading clearfix">
-                        <div class="text-left col-lg-4" rating readonly rating-value="comment.rating" max="5"></div>
+                        <div class="text-left col-lg-4" rating="true" rating-value="comment.rating" max="5"
+                             readonly="true"></div>
                         <p class="text-center col-lg-4">
                             {{ comment.username }}
                         </p>
@@ -156,7 +161,7 @@
                             {{ getDate(comment.date) }}
                         </p>
                     </div>
-                    <div class="panel-body row">
+                    <div class="panel-body">
                         <div class="col-lg-2">
                             <div> 1 {{ comment.drink.container }}</div>
                             <div>{{ comment.drink.price }} €</div>

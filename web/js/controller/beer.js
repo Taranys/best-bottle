@@ -47,6 +47,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                     $timeout(function () {
                         delete $scope.successMessage;
                     }, 2000);
+                    $scope.load();
                 })
                 .error(function (error) {
                     $scope.errorMessage = "Impossible to update : " + error;
@@ -126,8 +127,11 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         }
     });
 
-    $scope.activateAddComment = function () {
-        $scope.addCommentViewActivated = true;
+    $scope.activateAddComment = function (activate) {
+        if (angular.isUndefined(activate)) {
+            activate = true;
+        }
+        $scope.addCommentViewActivated = activate;
     };
 
     //Define default comment value
@@ -150,7 +154,6 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         $scope.beer.comments.push($scope.newComment);
         $scope.newComment = $scope.createNewComment();
         $scope.save();
-        $scope.load();
     };
 
     $scope.getLabelColor = function (rating) {
