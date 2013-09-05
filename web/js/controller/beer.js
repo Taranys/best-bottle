@@ -153,14 +153,27 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         $scope.load();
     };
 
-    $scope.getPanelColor = function (rating) {
-        if (rating == 0) return { "panel-danger": true };
-        if (rating == 1) return { "panel-warning": true };
-        if (rating == 2) return { "panel-default": true };
-        if (rating == 3) return { "panel-info": true };
-        if (rating == 4) return { "panel-primary": true };
-        if (rating == 5) return { "panel-success": true };
+    $scope.getLabelColor = function (rating) {
+        var style = {};
+        style["label-" + $scope.getRatingColor(rating)] = true;
+        return style;
     };
+
+    $scope.getPanelColor = function (rating) {
+        var style = {};
+        style["panel-" + $scope.getRatingColor(rating)] = true;
+        return style;
+    };
+
+    $scope.getRatingColor = function (rating) {
+        if (rating == 1) return "danger";
+        if (rating == 2) return "warning";
+        if (rating == 3) return "info";
+        if (rating == 4) return "primary";
+        if (rating == 5) return "success";
+        return "default";
+    };
+
 
     $scope.getMapUrl = function (str) {
         if (str) {

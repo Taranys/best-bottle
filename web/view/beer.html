@@ -15,9 +15,12 @@
                             {{ beersByCountry.name }}
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="beer in beersByCountry.beers | filter:searchValue"
+                            <li class="list-group-item"
+                                ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue"
                                 style="padding: 5px">
-                                <a ng-href="#/beer/{{ beer.id }}">{{ beer.name }}</a>
+                                <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
+                                <span class="label pull-right" ng-show="currentBeer.rating"
+                                      ng-class="getLabelColor(currentBeer.rating)">{{ currentBeer.rating }}</span>
                             </li>
                         </ul>
                     </div>
