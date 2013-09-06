@@ -5,26 +5,31 @@
         <!--Liste des bières-->
         <div class="col-lg-3">
             <div class="well">
-                <form ng-submit="searchBeer()">
-                    <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control"
-                           style="margin-bottom: 20px">
-                    <a href="#/beer/new" class="btn btn-primary" style="margin-bottom: 20px">Nouveau</a>
-
-                    <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name' ">
-                        <div class="panel-heading">
-                            {{ beersByCountry.name }}
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                                ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue | orderBy:'name'"
-                                style="padding: 5px">
-                                <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
-                                <span class="label pull-right" ng-show="currentBeer.rating"
-                                      ng-class="getLabelColor(currentBeer.rating)">{{ currentBeer.rating }}</span>
-                            </li>
-                        </ul>
+                <form ng-submit="searchBeer()" class="form-inline" role="form" style="margin-bottom: 20px">
+                    <div class="form-group">
+                        <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <a href="#/beer/new" class="btn btn-success">+</a>
                     </div>
                 </form>
+                <!--<div class="clearfix"></div>-->
+                <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name'"
+                     ng-hide="checkBeersNumber(beersByCountry) == 0">
+                    <div class="panel-heading">
+                        {{ beersByCountry.name }}
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue | orderBy:'name'"
+                            style="padding: 5px">
+                            <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
+                                <span class="label pull-right" ng-show="currentBeer.rating"
+                                      ng-class="getLabelColor(currentBeer.rating)">{{ currentBeer.rating }}</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
         <!--Formulaire d'une biere-->
@@ -78,7 +83,7 @@
                         </button>
                     </div>
                     <div class="pull-right">
-                        <input type="submit" class="btn btn-primary" value="Créer" ng-show="!beerId"/>
+                        <input type="submit" class="btn btn-success" value="Créer" ng-show="!beerId"/>
                         <button type="button" class="btn btn-info" ng-show="beerId" ng-click="load()">Annuler</button>
                         <input type="submit" class="btn btn-success" value="Sauvegarder" ng-show="beerId"/>
                     </div>

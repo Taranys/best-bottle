@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('BeerController', function ($scope, $location, $routeParams, $timeout, api, constant) {
+controllers.controller('BeerController', function ($scope, $location, $routeParams, $filter, $timeout, api, constant) {
     var tableName = 'beer';
 
     // define default beer value
@@ -215,6 +215,10 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                 $scope.error = error;
             });
     };
+
+    $scope.checkBeersNumber = function (beersByCountry) {
+        return $filter('filter')(beersByCountry.beers, $scope.searchValue).length;
+    }
 
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
