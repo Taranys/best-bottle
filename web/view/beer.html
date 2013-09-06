@@ -10,13 +10,13 @@
                            style="margin-bottom: 20px">
                     <a href="#/beer/new" class="btn btn-primary" style="margin-bottom: 20px">Nouveau</a>
 
-                    <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries">
+                    <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name' ">
                         <div class="panel-heading">
                             {{ beersByCountry.name }}
                         </div>
                         <ul class="list-group">
                             <li class="list-group-item"
-                                ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue"
+                                ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue | orderBy:'name'"
                                 style="padding: 5px">
                                 <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
                                 <span class="label pull-right" ng-show="currentBeer.rating"
@@ -27,7 +27,6 @@
                 </form>
             </div>
         </div>
-        <!--Affichage des bières-->
         <!--Formulaire d'une biere-->
         <div class="col-lg-9">
             <form ng-submit="save()" role="form" class="row">
@@ -62,7 +61,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Prix moyen</div>
                         <ul class="list-group" id="drink">
-                            <li class="list-group-item" ng-repeat="drink in beer.drink">
+                            <li class="list-group-item" ng-repeat="drink in beer.drink | orderBy:'container'">
                                     <span class="label label-info pull-right"
                                           ng-bind-template="{{ drink.price }} €"></span>
                                 {{ drink.container }}
