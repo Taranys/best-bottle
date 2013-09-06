@@ -15,13 +15,13 @@
                 </form>
                 <!--<div class="clearfix"></div>-->
                 <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name'"
-                     ng-hide="checkBeersNumber(beersByCountry) == 0">
+                     ng-show="sortedVisibleBeers.length != 0">
                     <div class="panel-heading">
                         {{ beersByCountry.name }}
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item"
-                            ng-repeat="currentBeer in beersByCountry.beers | filter:searchValue | orderBy:'name'"
+                            ng-repeat="currentBeer in sortedVisibleBeers = (beersByCountry.beers | filter:searchValue | orderBy:'name')"
                             style="padding: 5px">
                             <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
                                 <span class="label pull-right" ng-show="currentBeer.rating"

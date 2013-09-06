@@ -216,10 +216,6 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
             });
     };
 
-    $scope.checkBeersNumber = function (beersByCountry) {
-        return $filter('filter')(beersByCountry.beers, $scope.searchValue).length;
-    }
-
     //load countries from DB
     api.getDistinctFieldValues(tableName, 'country')
         .success(function (data) {
