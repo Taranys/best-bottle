@@ -16,6 +16,20 @@ Installation of ElasticSearch
   - Plugin JETTY to manage rights (check configuration to enable it) : 
     bin/plugin --install sonian/elasticsearch-jetty
 
+Add into "config/elasticsearch.yml" to enable Jetty
+```
+http.type: com.sonian.elasticsearch.http.jetty.JettyHttpServerTransportModule
+sonian.elasticsearch.http.jetty:
+    config: jetty.xml,jetty-hash-auth.xml,jetty-restrict-writes.xml
+```
+
+And a file "config/realm.properties"
+```
+superuser: Adm1n,admin,readwrite
+user: Passw0rd,readwrite
+```
+
+
 * Send those request to prepare schema :
 Beer
 ```
@@ -112,7 +126,7 @@ http {
 
 		location / {
 		    index  index.html index.htm;
-            root   C:/Perso/dev/best-bottle/web;
+            root   <directory>/best-bottle/web;
 		}
 
 		location /api {
@@ -123,8 +137,9 @@ http {
 			proxy_set_header  X-Real-IP  $remote_addr;
 			proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header  Host $http_host;
+			# Avoid auto-browser connection window
+			proxy_hide_header  WWW-Authenticate;
 		}
-
     }
 }
 ```
