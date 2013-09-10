@@ -97,5 +97,9 @@ services.factory('api', function ($http) {
         });
     };
 
+    api.loginOk = function () {
+        return api.createWithId('testLogin', 'test', {login: 'ok'});
+    }
+
     return api;
 });

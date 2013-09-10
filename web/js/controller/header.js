@@ -17,4 +17,8 @@ controllers.controller('HeaderController', function ($scope, $location) {
     $scope.startWith = function (string, pattern) {
         return string.indexOf(pattern) == 0;
     }
+
+    $scope.login = function () {
+        $("#dialog-login").dialog("open");
+    };
 });

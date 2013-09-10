@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives', 'ngRoute'])
+angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives', 'ngRoute', 'ngCookies'])
     .config(function ($routeProvider) {
         $routeProvider
 //            .when('/', {templateUrl: 'view/main.html', controller: 'MainController'})

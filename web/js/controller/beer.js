@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('BeerController', function ($scope, $location, $routeParams, $filter, $timeout, api, constant) {
+controllers.controller('BeerController', function ($scope, $location, $routeParams, $filter, $timeout, Auth, api, constant) {
     var tableName = 'beer';
 
     // define default beer value
@@ -147,6 +147,10 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                 container: ""
             }
         };
+    };
+
+    $scope.isLogged = function () {
+        return Auth.isAuthenticated();
     };
 
     $scope.addComment = function () {
