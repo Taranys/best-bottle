@@ -6,14 +6,14 @@
         <div class="col-lg-3">
             <div class="well">
                 <form ng-submit="searchBeer()" class="form-inline" role="form" style="margin-bottom: 20px">
-                    <div class="form-group">
-                        <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <a href="#/beer/new" id="addBeerButton" class="btn btn-success btn-sm" data-toggle="tooltip"
-                           title="<p>Ajouter une nouvelle bière</p>"><span class="glyphicon glyphicon-plus"></span></a>
+                    <div class="form-group col-lg-12" style="padding: 0px">
+                        <a href="#/beer/new" id="addBeerButton" class="btn btn-success col-lg-12" data-toggle="tooltip"
+                           title="<p>Ajouter une nouvelle bière</p>">Ajouter <span
+                                class="glyphicon glyphicon-plus"></span></a>
                     </div>
                 </form>
+                <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control"
+                       style="margin-bottom: 20px">
                 <!--<div class="clearfix"></div>-->
                 <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name'"
                      ng-show="sortedVisibleBeers.length != 0">
