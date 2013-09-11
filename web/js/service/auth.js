@@ -27,5 +27,12 @@ services.factory('Auth', function (Base64, $cookieStore, $http) {
         return auth.login != "";
     }
 
+    auth.username = function () {
+        if (auth.login == "") {
+            return undefined;
+        }
+        return auth.login;
+    }
+
     return auth;
 });

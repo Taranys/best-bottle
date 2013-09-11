@@ -35,24 +35,20 @@
                 </ul>
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#login">Login</button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#login" ng-hide="username()">
+                            Connexion
+                        </button>
+                        <button class="btn btn-default" ng-click="logout()" ng-show="username()">Déconnexion {{
+                            username() }}
+                        </button>
                     </div>
                 </form>
-
-                <!--<form class="navbar-form navbar-right" ng-submit="genericSearch()">-->
-                <!--<div class="form-group">-->
-                <!--<input type="text" class="form-control" placeholder="Search" ng-model="searchValue">-->
-                <!--</div>-->
-                <!--<input type="submit" class="btn btn-default">Submit</input>-->
-                <!--</form>-->
             </div>
         </div>
     </div>
 </div>
 <div class="container">
-    <div class="container" style="padding-top: 50px;">
-        <div login></div>
-    </div>
+    <div login></div>
     <div ng-view></div>
 </div>
 <!-- FOOTER -->

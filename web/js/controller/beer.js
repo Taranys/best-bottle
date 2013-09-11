@@ -94,6 +94,10 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
 
     //Update rating and drink each time beer is modified
     $scope.$watch('beer', function () {
+        $scope.refreshValuesOnCurrentBeer();
+    });
+
+    $scope.refreshValuesOnCurrentBeer = function () {
         if ($scope.beer.comments.length == 0) {
             $scope.beer.rating = 0;
             $scope.beer.drink = [];
@@ -125,7 +129,11 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                 container: key
             });
         }
-    });
+    }
+
+    $scope.isLogged = function () {
+        return Auth.isAuthenticated();
+    };
 
     $scope.activateAddComment = function (activate) {
         if (angular.isUndefined(activate)) {
@@ -149,14 +157,12 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         };
     };
 
-    $scope.isLogged = function () {
-        return Auth.isAuthenticated();
-    };
-
     $scope.addComment = function () {
         $scope.newComment.date = Date.now();
+        $scope.newComment.username = Auth.username;
         $scope.beer.comments.push($scope.newComment);
         $scope.newComment = $scope.createNewComment();
+        $scope.refreshValuesOnCurrentBeer();
         $scope.save();
     };
 
@@ -247,4 +253,5 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
 
     //configure delete button to have an fancy loading effect :)
     $('#deleteButton').button();
+    $('#addBeerButton').tooltip({placement: "auto right", html: "true", container: 'body', delay: { show: 500, hide: 100 }});
 });

@@ -10,7 +10,8 @@
                         <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control">
                     </div>
                     <div class="form-group">
-                        <a href="#/beer/new" class="btn btn-success">+</a>
+                        <a href="#/beer/new" id="addBeerButton" class="btn btn-success btn-sm" data-toggle="tooltip"
+                           title="<p>Ajouter une nouvelle bière</p>"><span class="glyphicon glyphicon-plus"></span></a>
                     </div>
                 </form>
                 <!--<div class="clearfix"></div>-->
@@ -34,6 +35,9 @@
         </div>
         <!--Formulaire d'une biere-->
         <div class="col-lg-9">
+            <div class="page-header" style="margin-top: 0px" ng-show="!beerId">
+                <h3>Création d'une nouvelle bière</h3>
+            </div>
             <form ng-submit="save()" role="form" class="row">
                 <div ng-class="{'col-lg-9' : beerId}">
                     <div class="form-group">
@@ -79,16 +83,21 @@
                     <div class="pull-left">
                         <button id="deleteButton" type="button" class="btn btn-danger" ng-show="beerId && isLogged()"
                                 ng-click="delete()"
-                                data-loading-text="Suppression...">Supprimer
+                                data-loading-text="Suppression...">Supprimer <span
+                                class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
                     <div class="pull-right">
-                        <input type="submit" class="btn btn-success" value="Créer" ng-show="!beerId && isLogged()"/>
-                        <button type="button" class="btn btn-info" ng-show="beerId && isLogged()" ng-click="load()">
-                            Annuler
+                        <button type="submit" class="btn btn-success" ng-show="!beerId && isLogged()">
+                            Créer <span class="glyphicon glyphicon-cloud-upload"></span>
                         </button>
-                        <input type="submit" class="btn btn-success" value="Sauvegarder"
-                               ng-show="beerId && isLogged()"/>
+
+                        <button type="button" class="btn btn-info" ng-show="beerId && isLogged()" ng-click="load()">
+                            Annuler <span class="glyphicon glyphicon-cloud-download"></span>
+                        </button>
+                        <button type="submit" class="btn btn-success" ng-show="beerId && isLogged()">
+                            Sauvegarder <span class="glyphicon glyphicon-cloud-upload"></span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -138,8 +147,12 @@
                                 </div>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-info" ng-click="activateAddComment(false)">Annuler</a>
-                                <input type="submit" class="btn btn-success" value="Ajouter le commentaire">
+                                <a class="btn btn-info" ng-click="activateAddComment(false)">
+                                    Annuler <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    Ajouter le commentaire <span class="glyphicon glyphicon-plus"></span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -152,7 +165,8 @@
                     <h3>
                         Commentaires
                         <button class="btn btn-primary pull-right" ng-hide="addCommentViewActivated || !isLogged()"
-                                ng-click="activateAddComment()">Ajouter un commentaire
+                                ng-click="activateAddComment()">Ajouter un commentaire <span
+                                class="glyphicon glyphicon-plus"></span>
                         </button>
                     </h3>
                 </div>
@@ -160,8 +174,9 @@
                     <div class="panel-heading clearfix">
                         <div class="text-left col-lg-4" rating="true" rating-value="comment.rating" max="5"
                              readonly="true"></div>
+
                         <p class="text-center col-lg-4">
-                            {{ comment.username }}
+                            <strong>{{ comment.username }}</strong>
                         </p>
 
                         <p class="text-right col-lg-4">

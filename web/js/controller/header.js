@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('HeaderController', function ($scope, $location) {
+controllers.controller('HeaderController', function ($scope, $location, Auth) {
     $scope.searchValue = "";
 
     $scope.genericSearch = function () {
@@ -18,7 +18,15 @@ controllers.controller('HeaderController', function ($scope, $location) {
         return string.indexOf(pattern) == 0;
     }
 
-    $scope.login = function () {
-        $("#dialog-login").dialog("open");
+    $scope.logout = function () {
+        Auth.clearCredentials();
     };
+
+    $scope.isLogged = function () {
+        return Auth.isAuthenticated;
+    }
+
+    $scope.username = function () {
+        return Auth.username();
+    }
 });
