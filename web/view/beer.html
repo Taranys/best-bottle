@@ -5,10 +5,10 @@
         <!--Liste des bières-->
         <div class="col-lg-3">
             <div class="well">
-                <form ng-submit="searchBeer()" class="form-inline" role="form" style="margin-bottom: 20px">
+                <form ng-submit="searchBeer()" class="form-inline" role="form" style="margin-bottom: 20px"
+                      ng-show="isLogged()">
                     <div class="form-group col-lg-12" style="padding: 0px">
-                        <a href="#/beer/new" id="addBeerButton" class="btn btn-success col-lg-12" data-toggle="tooltip"
-                           title="<p>Ajouter une nouvelle bière</p>">Ajouter <span
+                        <a href="#/beer/new" id="addBeerButton" class="btn btn-success col-lg-12">Ajouter <span
                                 class="glyphicon glyphicon-plus"></span></a>
                     </div>
                 </form>
@@ -17,7 +17,7 @@
                 <!--<div class="clearfix"></div>-->
                 <div class="panel panel-primary" ng-repeat="beersByCountry in beersByCountries | orderBy:'name'"
                      ng-show="sortedVisibleBeers.length != 0">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style="padding: 7px">
                         {{ beersByCountry.name }}
                     </div>
                     <ul class="list-group">
@@ -26,7 +26,7 @@
                             style="padding: 5px">
                             <a ng-href="#/beer/{{ currentBeer.id }}">{{ currentBeer.name }}</a>
                                 <span class="label pull-right" ng-show="currentBeer.rating"
-                                      ng-class="getLabelColor(currentBeer.rating)">{{ currentBeer.rating }}</span>
+                                      ng-class="getLabelColor(currentBeer.rating)">{{ currentBeer.rating | number:2 }}</span>
                         </li>
                     </ul>
                 </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <!--Formulaire d'une biere-->
-        <div class="col-lg-9">
+        <div class="col-lg-9" ng-show="beerId || isLogged()">
             <div class="page-header" style="margin-top: 0px" ng-show="!beerId">
                 <h3>Création d'une nouvelle bière</h3>
             </div>
@@ -45,12 +45,12 @@
                         <input id="beername" type="text" ng-model="beer.name"
                                placeholder="Entrer le nom de la bière"
                                class="form-control"
-                               required ng-disabled="beerId">
+                               required ng-disabled="beerId ||!isLogged()">
                     </div>
                     <div class="form-group">
                         <label for="beer_country">Pays</label>
                         <input id="beer_country" type="text" placeholder="Entrer le pays" list="country-list"
-                               class="form-control" required ng-model="beer.country">
+                               class="form-control" required ng-model="beer.country" ng-disabled="!isLogged()">
                         <datalist id="country-list">
                             <option ng-repeat="country in countries" value="{{ country }}"></option>
                         </datalist>
@@ -59,7 +59,7 @@
                         <label for="beerdesc">Description</label>
                         <textarea id="beerdesc" type="text" ng-model="beer.description"
                                   placeholder="Entrer une description"
-                                  class="form-control" rows="10" required></textarea>
+                                  class="form-control" rows="10" required ng-disabled="!isLogged()"></textarea>
                     </div>
                 </div>
                 <div ng-class="{'col-lg-3' : beerId}" ng-show="beerId">

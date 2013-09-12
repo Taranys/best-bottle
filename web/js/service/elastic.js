@@ -14,14 +14,17 @@ services.factory('api', function ($http) {
         );
     };
 
-    api.getAll = function (tableName) {
-        return $http.get(this.elasticSearchPath + tableName + '/_search',
-            {
-                params: {
-                    refresh: true
-                }
+    api.getAll = function (tableName, fields) {
+        var data = {};
+        if (fields) {
+            data.fields = fields;
+        }
+
+        return $http.post(this.elasticSearchPath + tableName + '/_search', data, {
+            params: {
+                refresh: true
             }
-        );
+        });
     };
 
     api.getDistinctFieldValues = function (tableName, fieldName) {

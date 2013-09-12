@@ -159,7 +159,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
 
     $scope.addComment = function () {
         $scope.newComment.date = Date.now();
-        $scope.newComment.username = Auth.username;
+        $scope.newComment.username = Auth.username();
         $scope.beer.comments.push($scope.newComment);
         $scope.newComment = $scope.createNewComment();
         $scope.refreshValuesOnCurrentBeer();
@@ -179,11 +179,12 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
     };
 
     $scope.getRatingColor = function (rating) {
-        if (rating == 1) return "danger";
-        if (rating == 2) return "warning";
-        if (rating == 3) return "info";
-        if (rating == 4) return "primary";
-        if (rating == 5) return "success";
+        if (rating < 0) return "default";
+        if (rating <= 1) return "danger";
+        if (rating <= 2) return "warning";
+        if (rating <= 3) return "info";
+        if (rating <= 4) return "primary";
+        if (rating <= 5) return "success";
         return "default";
     };
 
@@ -205,11 +206,17 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
     };
 
     $scope.refreshBeerList = function () {
-        api.getAll('beer')
+        //get all but only displayed fields : name/country/rating
+        api.getAll('beer', ['name', 'country', 'rating'])
             .success(function (data) {
                 var beers = [];
                 angular.forEach(data.hits.hits, function (result) {
-                    var tmp = result._source;
+                    var tmp = {};
+                    if (result._source) {
+                        tmp = result._source;
+                    } else if (result.fields) {
+                        tmp = result.fields;
+                    }
                     tmp.id = result._id;
                     this.push(tmp);
                 }, beers);
@@ -253,5 +260,4 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
 
     //configure delete button to have an fancy loading effect :)
     $('#deleteButton').button();
-    $('#addBeerButton').tooltip({placement: "auto right", html: "true", container: 'body', delay: { show: 500, hide: 100 }});
 });

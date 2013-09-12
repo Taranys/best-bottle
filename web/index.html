@@ -38,8 +38,8 @@
                         <button class="btn btn-default" data-toggle="modal" data-target="#login" ng-hide="username()">
                             Connexion
                         </button>
-                        <button class="btn btn-default" ng-click="logout()" ng-show="username()">Déconnexion {{
-                            username() }}
+                        <button class="btn btn-default" ng-click="logout()" ng-show="username()"
+                                ng-bind-template="Déconnexion {{ username() }}">
                         </button>
                     </div>
                 </form>
