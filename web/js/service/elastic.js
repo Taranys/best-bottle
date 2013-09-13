@@ -8,7 +8,7 @@ services.factory('api', function ($http) {
         return $http.get(this.elasticSearchPath + tableName + '/' + id,
             {
                 params: {
-//                    refresh: true
+                    refresh: true
                 }
             }
         );

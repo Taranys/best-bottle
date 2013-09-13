@@ -25,6 +25,8 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
     //define view states
     $scope.addCommentViewActivated = false;
 
+    $scope.onLoad = false;
+
     // save function
     $scope.save = function () {
         //create a new beer
@@ -59,6 +61,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
     // load beer from server
     $scope.load = function () {
         if ($scope.beerId) {
+            $scope.onLoad = true;
             api.get(tableName, $scope.beerId)
                 .success(function (beer) {
                     if (beer.exists == true) {
@@ -71,10 +74,13 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                     if (!$scope.beer.comments) $scope.beer.comments = [];
 
                     $scope.addCommentViewActivated = false;
+
+                    $scope.onLoad = false;
                 })
                 .error(function (error) {
                     $location.path('/beer/');
                     $scope.errorMessage = "Impossible to load current beer : " + error;
+                    $scope.onLoad = false;
                 });
         }
     };
@@ -279,7 +285,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                         canvas.width = image.width * factor;
                         canvas.height = image.height * factor;
                         context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
-                        var vData = canvas.toDataURL().split(',')[1];
+                        var vData = canvas.toDataURL(0.5).split(',')[1];
                         $scope.beer.picture = vData;
                     }, 100);
                 });

@@ -34,7 +34,10 @@
     </div>
 </div>
 <!--Formulaire d'une biere-->
-<div class="col-lg-9" ng-show="beerId || isLogged()">
+<div ng-show="onLoad">
+    <img src="./img/loading.gif">
+</div>
+<div class="col-lg-9" ng-show="(beerId || isLogged()) && !onLoad">
     <div class="page-header" style="margin-top: 0px" ng-show="!beerId">
         <h3>Création d'une nouvelle bière</h3>
     </div>
