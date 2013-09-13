@@ -73,6 +73,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                     $scope.addCommentViewActivated = false;
                 })
                 .error(function (error) {
+                    $location.path('/beer/');
                     $scope.errorMessage = "Impossible to load current beer : " + error;
                 });
         }
@@ -265,7 +266,22 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
             //on image load, add image to beer model
             reader.onload = function (e) {
                 $scope.$apply(function () {
-                    $scope.beer.picture = e.target.result.split(',')[1];
+                    //retreive data
+                    var base64 = e.target.result.split(',')[1];
+
+                    //reduce image size to 200 width
+                    var image = new Image();
+                    image.src = "data:image/*;base64," + base64;
+                    $timeout(function () {
+                        var canvas = document.getElementById('canvas');
+                        var context = canvas.getContext("2d");
+                        var factor = 200.0 / image.width;
+                        canvas.width = image.width * factor;
+                        canvas.height = image.height * factor;
+                        context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
+                        var vData = canvas.toDataURL().split(',')[1];
+                        $scope.beer.picture = vData;
+                    }, 100);
                 });
             };
             reader.readAsDataURL(f);
