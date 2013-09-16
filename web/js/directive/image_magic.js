@@ -13,7 +13,7 @@ directives.directive('image', function ($timeout) {
         scope: {
             "pictureContent": "=",
             "contentType": "=",
-            "imageWidth": "="
+            "imageWidth": "=?"
         },
         link: function postLink($scope) {
             //return base64 picture
@@ -60,15 +60,19 @@ directives.directive('image', function ($timeout) {
                             var image = new Image();
                             image.src = base64;
 
+                            //wait 100 ms because it took a little bit time to calculate image width/height from base64
                             $timeout(function () {
-                                var canvas = document.getElementById('canvas');
-                                var context = canvas.getContext("2d");
-                                var factor = $scope.imageWidth / image.width;
-                                canvas.width = image.width * factor;
-                                canvas.height = image.height * factor;
-                                context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
+                                var result = base64.split(',');
+                                if ($scope.imageWidth) {
+                                    var canvas = document.getElementById('canvas');
+                                    var context = canvas.getContext("2d");
+                                    var factor = $scope.imageWidth / image.width;
+                                    canvas.width = image.width * factor;
+                                    canvas.height = image.height * factor;
+                                    context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
 
-                                var result = canvas.toDataURL().split(',');
+                                    result = canvas.toDataURL().split(',');
+                                }
                                 var contentType = result[0];
                                 contentType = contentType.split(";")[0].split(":")[1];
 
