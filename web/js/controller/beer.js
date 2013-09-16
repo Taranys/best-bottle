@@ -137,7 +137,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
                 container: key
             });
         }
-    }
+    };
 
     $scope.isLogged = function () {
         return Auth.isAuthenticated();
@@ -241,97 +241,43 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
             });
     };
 
-    $scope.getPicture = function () {
-        return "data:image/*;base64," + $scope.beer.picture;
-    }
-
-    $scope.handleDragOver = function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    };
-
-    $scope.handleFileSelect = function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        var files = [];
-        if (evt.dataTransfer) {
-            files = evt.dataTransfer.files;
-        } else if (evt.target) {
-            files = evt.target.files;
-        }
-
-        for (var i = 0, f; f = files[i]; i++) {
-            // Only process image files.
-            if (!f.type.match('image.*')) {
-                continue;
-            }
-
-            var reader = new FileReader();
-            //on image load, add image to beer model
-            reader.onload = function (e) {
-                $scope.$apply(function () {
-                    //retreive data
-                    var base64 = e.target.result.split(',')[1];
-
-                    //reduce image size to 200 width
-                    var image = new Image();
-                    image.src = "data:image/*;base64," + base64;
-                    $timeout(function () {
-                        var canvas = document.getElementById('canvas');
-                        var context = canvas.getContext("2d");
-                        var factor = 200.0 / image.width;
-                        canvas.width = image.width * factor;
-                        canvas.height = image.height * factor;
-                        context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
-                        var vData = canvas.toDataURL(0.5).split(',')[1];
-                        $scope.beer.picture = vData;
-                    }, 100);
+    $scope.initializeView = function () {
+        //load countries from DB
+        api.getDistinctFieldValues(tableName, 'country')
+            .success(function (data) {
+                var terms = data.facets.tag.terms;
+                angular.forEach(terms, function (term) {
+                    $scope.countries.push(term.term);
                 });
-            };
-            reader.readAsDataURL(f);
-            return;
-        }
-    };
-
-    $scope.activeFileButton = function () {
-        document.getElementById('addPictureByClick').click();
-    };
-
-    //load countries from DB
-    api.getDistinctFieldValues(tableName, 'country')
-        .success(function (data) {
-            var terms = data.facets.tag.terms;
-            angular.forEach(terms, function (term) {
-                $scope.countries.push(term.term);
             });
+
+        //load constants
+        constant.get().success(function (data) {
+            $scope.containers = data._source.beer.drink.container;
         });
 
-    //load constants
-    constant.get().success(function (data) {
-        $scope.containers = data._source.beer.drink.container;
-    });
+        //load beer list
+        $scope.refreshBeerList();
 
-    //load beer list
-    $scope.refreshBeerList();
+        //if $routeParams.id is defined => beer already exists : load from DB
+        if ($routeParams.id) {
+            $scope.beerId = $routeParams.id;
+            $scope.load();
+        }
 
-    //if $routeParams.id is defined => beer already exists : load from DB
-    if ($routeParams.id) {
-        $scope.beerId = $routeParams.id;
-        $scope.load();
-    }
+        $scope.newComment = $scope.createNewComment();
 
-    $scope.newComment = $scope.createNewComment();
+        //configure delete button to have an fancy loading effect :)
+        $('#deleteButton').button();
 
-    //configure delete button to have an fancy loading effect :)
-    $('#deleteButton').button();
+//        // Setup the dnd listeners.
+//        var dropZone = document.getElementById('drop_zone');
+//        dropZone.addEventListener('dragover', $scope.handleDragOver, false);
+//        dropZone.addEventListener('drop', $scope.handleFileSelect, false);
+//        dropZone.addEventListener('click', $scope.activeFileButton, false);
+//
+//        document.getElementById('addPictureByClick').addEventListener('change', $scope.handleFileSelect, false);
+    };
 
-    // Setup the dnd listeners.
-    var dropZone = document.getElementById('drop_zone');
-    dropZone.addEventListener('dragover', $scope.handleDragOver, false);
-    dropZone.addEventListener('drop', $scope.handleFileSelect, false);
-    dropZone.addEventListener('click', $scope.activeFileButton, false);
-
-    document.getElementById('addPictureByClick').addEventListener('change', $scope.handleFileSelect, false);
+    $scope.initializeView();
 });

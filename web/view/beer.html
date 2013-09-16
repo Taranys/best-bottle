@@ -71,9 +71,7 @@
                 <div class="panel-body" rating readonly="true" rating-value="beer.rating" max="5"></div>
             </div>
 
-            <input id="addPictureByClick" type="file" style="display: none">
-            <canvas id="canvas" style="display: none"></canvas>
-            <img id="drop_zone" class="img-thumbnail" style="margin-bottom: 20px" ng-src="{{ getPicture() }}">
+            <div image content-type="'image/*'" picture-content="beer.picture" image-width="200"></div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Prix moyen</div>
