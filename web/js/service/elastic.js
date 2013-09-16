@@ -40,7 +40,7 @@ services.factory('api', function ($http) {
                 }
             }
         }
-        return $http.post(this.elasticSearchPath + '/_search', data || {},
+        return $http.post(this.elasticSearchPath + tableName + '/_search', data || {},
             {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 params: {

@@ -18,7 +18,10 @@ directives.directive('image', function ($timeout) {
         link: function postLink($scope) {
             //return base64 picture
             $scope.getPicture = function () {
-                return "data:" + $scope.contentType + ";base64," + $scope.pictureContent;
+                if ($scope.contentType && $scope.pictureContent)
+                    return "data:" + $scope.contentType + ";base64," + $scope.pictureContent;
+                else
+                    return "";
             };
 
             //manage dreag over the img field
