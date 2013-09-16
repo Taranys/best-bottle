@@ -60,7 +60,7 @@ directives.directive('image', function ($timeout) {
                             $timeout(function () {
                                 var canvas = document.getElementById('canvas');
                                 var context = canvas.getContext("2d");
-                                var factor = $scope.imageFactor / image.width;
+                                var factor = $scope.imageWidth / image.width;
                                 canvas.width = image.width * factor;
                                 canvas.height = image.height * factor;
                                 context.drawImage(image, image.x, image.y, image.width, image.height, 0, 0, canvas.width, canvas.height);
@@ -91,10 +91,6 @@ directives.directive('image', function ($timeout) {
             dropZone.addEventListener('click', $scope.activeFileButton, false);
 
             document.getElementById('addPictureByClick').addEventListener('change', $scope.handleFileSelect, false);
-
-            $scope.imageFactor = 200.0;
-            if ($scope.imageWidth)
-                $scope.imageFactor = $scope.imageWidth;
         }
     };
 
