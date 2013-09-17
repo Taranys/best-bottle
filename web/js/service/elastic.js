@@ -4,14 +4,12 @@ services.factory('api', function ($http) {
     var api = {};
     api.elasticSearchPath = 'api/bb/';
 
-    api.get = function (tableName, id) {
-        return $http.get(this.elasticSearchPath + tableName + '/' + id,
-            {
-                params: {
-                    refresh: true
-                }
-            }
-        );
+    api.get = function (tableName, id, fields) {
+        var params = { refresh: true };
+        if (fields) {
+            params.fields = fields;
+        }
+        return $http.get(this.elasticSearchPath + tableName + '/' + id, { params: params});
     };
 
     api.getAll = function (tableName, fields) {

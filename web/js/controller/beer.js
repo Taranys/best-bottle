@@ -33,9 +33,9 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         if (!$scope.beerId) {
             //generate id from name to have a beautiful URL :)
             var id = api.createIdFromString($scope.beer.name);
-            api.get('constant', 'images')
+            api.get('constant', 'images', 'images.empty_image')
                 .success(function (result) {
-                    $scope.beer.picture = result._source.images.empty_image;
+                    $scope.beer.picture = result.fields['images.empty_image'];
                     api.createWithId(tableName, id, $scope.beer)
                         .success(function (beer) {
                             $location.path('/beer/' + beer._id);
