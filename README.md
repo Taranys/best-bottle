@@ -47,6 +47,20 @@ POST http://localhost:9200/bb/beer/_mapping
             "description": {
                 "type": "string"
             },
+            "rating": {
+                "type": "float"
+            },
+            "drink": {
+                "properties": {
+                    "price": {
+                        "type": "float"
+                    },
+                    "container": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
             "picture": {
                 "properties": {
                     "contentType": {
@@ -59,7 +73,7 @@ POST http://localhost:9200/bb/beer/_mapping
                     }
                 }
             },
-            "comment": {
+            "comments": {
                 "properties": {
                     "username" : {
                         "type": "string"

@@ -9,7 +9,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
         country: "",
         description: "",
         picture: {},
-        rating: 0,
+        rating: 0.0,
         drink: [],
         comments: []
     };
@@ -114,7 +114,7 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
 
     $scope.refreshValuesOnCurrentBeer = function () {
         if ($scope.beer.comments.length == 0) {
-            $scope.beer.rating = 0;
+            $scope.beer.rating = 0.0;
             $scope.beer.drink = [];
         }
 
