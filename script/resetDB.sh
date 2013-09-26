@@ -1,10 +1,14 @@
 #!/bin/bash
 
-#delete beer mapping
-curl -XDELETE 'http://localhost:9200/bb/beer/_mapping'
+HOST="http://localhost:9200/bb"
+USER_PASS="-u user:pass"
 
-#create beer mapping
-curl -XPOST 'http://localhost:9200/bb/beer/_mapping'  -d '
+echo "Delete beer mapping"
+curl $USER_PASS -XDELETE $HOST'/beer/_mapping'
+echo ""
+
+echo "Create beer mapping"
+curl $USER_PASS -XPUT $HOST'/beer/_mapping'  -d '
 {
     "beer": {
         "properties": {
@@ -78,12 +82,14 @@ curl -XPOST 'http://localhost:9200/bb/beer/_mapping'  -d '
     }
 }
 '
+echo ""
 
-#delete wine mapping
-curl -XDELETE 'http://localhost:9200/bb/wine/_mapping'
+echo "Delete wine mapping"
+curl $USER_PASS -XDELETE $HOST'/wine/_mapping'
+echo ""
 
-#create wine mapping
-curl -XPOST 'http://localhost:9200/bb/wine/_mapping'  -d '
+echo "Create wine mapping"
+curl $USER_PASS -XPUT $HOST'/wine/_mapping'  -d '
 {
     "wine": {
         "properties": {
@@ -161,8 +167,10 @@ curl -XPOST 'http://localhost:9200/bb/wine/_mapping'  -d '
     }
 }
 '
+echo ""
 
-curl -XPOST 'http://localhost:9200/bb/constant/data_fr'  -d '
+echo "Create constant values"
+curl $USER_PASS -XPOST $HOST'/constant/data_fr'  -d '
 {
     "beer": {
         "drink": {
@@ -170,15 +178,17 @@ curl -XPOST 'http://localhost:9200/bb/constant/data_fr'  -d '
         }
     },
     "wine": {
-        "type": ["Blanc", "Rosé", "Rouge", "Champagne"],
+        "type": ["Blanc", "Rose", "Rouge", "Champagne"],
         "drink": {
             "container" : ["Verre (Restaurant/Bar)", "Bouteille (Restaurant)", "Bouteille (Magasin)", "Bouteille (Producteur)"]
         }
     }
 }
 '
+echo ""
 
-curl -XPOST 'http://localhost:9200/bb/constant/images'  -d '
+echo "Create images"
+curl $USER_PASS -XPOST $HOST'/constant/images'  -d '
 {
     "images": {
         "empty_image": {
@@ -188,3 +198,4 @@ curl -XPOST 'http://localhost:9200/bb/constant/images'  -d '
     }
 }
 '
+echo ""
