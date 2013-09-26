@@ -108,6 +108,87 @@ POST http://localhost:9200/bb/beer/_mapping
 }
 ```
 
+Wine
+```
+POST http://localhost:9200/bb/wine/_mapping
+{
+    "wine": {
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "type": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+            "location": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "description": {
+                "type": "string"
+            },
+            "rating": {
+                "type": "float"
+            },
+            "drink": {
+                "properties": {
+                    "price": {
+                        "type": "float"
+                    },
+                    "container": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "picture": {
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "base64": {
+                        "type" : "binary",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "comments": {
+                "properties": {
+                    "username" : {
+                        "type": "string"
+                    },
+                    "date" : {
+                        "type": "date"
+                    },
+                    "rating": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "drink": {
+                        "properties": {
+                            "price": {
+                                "type": "float"
+                            },
+                            "container": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
 Constant
 ```
 POST http://localhost:9200/bb/constant/data_fr
@@ -115,6 +196,12 @@ POST http://localhost:9200/bb/constant/data_fr
     "beer": {
         "drink": {
             "container" : ["Pression (Demi)", "Pression (Pinte)", "Pression (Chevalier)", "Bouteille (25cl)", "Bouteille (33cl)"]
+        }
+    },
+    "wine": {
+        "type": ["Blanc", "Rosé", "Rouge", "Champagne"],
+        "drink": {
+            "container" : ["Verre (Restaurant/Bar)", "Bouteille (Restaurant)", "Bouteille (Magasin)", "Bouteille (Producteur)"]
         }
     }
 }
