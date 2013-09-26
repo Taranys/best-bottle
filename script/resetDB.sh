@@ -107,6 +107,9 @@ curl $USER_PASS -XPUT $HOST'/wine/_mapping'  -d '
             "description": {
                 "type": "string"
             },
+            "vineyard": {
+                "type": "string"
+            },
             "rating": {
                 "type": "float"
             },

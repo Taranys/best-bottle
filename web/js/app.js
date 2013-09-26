@@ -12,5 +12,5 @@ angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives',
             .when('/beer/new', {templateUrl: 'view/beer.html', controller: 'BeerController'})
             .when('/beer/:id', {templateUrl: 'view/beer.html', controller: 'BeerController'})
 //            .when('/search/:search', {templateUrl: 'view/search.html', controller: 'BeerController'})
-            .otherwise({redirectTo: '/beer'});
+            .otherwise({redirectTo: '/'});
     });

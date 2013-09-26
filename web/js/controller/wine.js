@@ -9,6 +9,7 @@ controllers.controller('WineController', function ($scope, $location, $routePara
         type: "",
         location: "",
         description: "",
+        vineyard: "",
         picture: {},
         rating: 0.0,
         drink: [],
