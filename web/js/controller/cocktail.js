@@ -246,8 +246,8 @@ controllers.controller('CocktailController', function ($scope, $location, $route
 
     $scope.initializeView = function () {
         //load constants
-        constant.get().success(function (data) {
-            $scope.containers = data._source.cocktail.drink.container;
+        constant.get().then(function (data) {
+            $scope.containers = data.cocktail.drink.container;
         });
 
         //load cocktail list

@@ -262,9 +262,9 @@ controllers.controller('WineController', function ($scope, $location, $routePara
             });
 
         //load constants
-        constant.get().success(function (data) {
-            $scope.containers = data._source.wine.drink.container;
-            $scope.types = data._source.wine.type;
+        constant.get().then(function (data) {
+            $scope.containers = data.wine.drink.container;
+            $scope.types = data.wine.type;
         });
 
         //load wine list
@@ -280,14 +280,6 @@ controllers.controller('WineController', function ($scope, $location, $routePara
 
         //configure delete button to have an fancy loading effect :)
         $('#deleteButton').button();
-
-//        // Setup the dnd listeners.
-//        var dropZone = document.getElementById('drop_zone');
-//        dropZone.addEventListener('dragover', $scope.handleDragOver, false);
-//        dropZone.addEventListener('drop', $scope.handleFileSelect, false);
-//        dropZone.addEventListener('click', $scope.activeFileButton, false);
-//
-//        document.getElementById('addPictureByClick').addEventListener('change', $scope.handleFileSelect, false);
     };
 
     $scope.initializeView();

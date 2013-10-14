@@ -249,9 +249,9 @@ controllers.controller('LiquorController', function ($scope, $location, $routePa
 
     $scope.initializeView = function () {
         //load constants
-        constant.get().success(function (data) {
-            $scope.containers = data._source.liquor.drink.container;
-            $scope.types = data._source.liquor.type;
+        constant.get().then(function (data) {
+            $scope.containers = data.liquor.drink.container;
+            $scope.types = data.liquor.type;
         });
 
         //load liquor list

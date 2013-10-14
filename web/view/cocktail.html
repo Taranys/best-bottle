@@ -2,7 +2,7 @@
 <div class="alert alert-danger" ng-show="errorMessage">{{ errorMessage }}</div>
 <div class="alert alert-success" ng-show="successMessage">{{ successMessage }}</div>
 <div class="row">
-<!--Liste des bières-->
+<!--Liste des cocktails-->
 <div class="col-lg-3">
     <div class="well">
         <form ng-submit="searchCocktail()" class="form-inline" role="form" style="margin-bottom: 20px"
@@ -38,14 +38,14 @@
 </div>
 <div class="col-lg-9" ng-show="(id || isLogged()) && !onLoad">
     <div class="page-header" style="margin-top: 0px" ng-show="!id">
-        <h3>Création d'une nouvelle bière</h3>
+        <h3>Création d'un nouveau cocktails</h3>
     </div>
     <form ng-submit="save()" role="form" class="row">
         <div ng-class="{'col-lg-9' : id}">
             <div class="form-group">
                 <label for="cocktailname">Nom</label>
                 <input id="cocktailname" type="text" ng-model="cocktail.name"
-                       placeholder="Entrer le nom de la bière"
+                       placeholder="Entrer le nom du cocktail"
                        class="form-control"
                        required ng-disabled="id ||!isLogged()">
             </div>

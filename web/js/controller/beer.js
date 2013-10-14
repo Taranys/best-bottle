@@ -259,8 +259,8 @@ controllers.controller('BeerController', function ($scope, $location, $routePara
             });
 
         //load constants
-        constant.get().success(function (data) {
-            $scope.containers = data._source.beer.drink.container;
+        constant.get().then(function(data) {
+            $scope.containers = data.beer.drink.container;
         });
 
         //load beer list
