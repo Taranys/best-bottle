@@ -201,15 +201,6 @@ controllers.controller('CocktailController', function ($scope, $location, $route
         return "default";
     };
 
-
-    $scope.getMapUrl = function (str) {
-        if (str) {
-            var pattern = 'https://www.google.fr/maps?q=';
-            return pattern + encodeURIComponent(str);
-        }
-        return "";
-    };
-
     $scope.getDate = function (milliseconds) {
         return new Date(milliseconds).toLocaleDateString();
     };
