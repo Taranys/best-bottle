@@ -19,4 +19,11 @@ angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives',
             .when('/cocktail/:id', {templateUrl: 'view/cocktail.html', controller: 'CocktailController'})
 //            .when('/search/:search', {templateUrl: 'view/search.html', controller: 'BeerController'})
             .otherwise({redirectTo: '/'});
+    })
+    .run( function($rootScope, Utils) {
+        // utils methods become visible to every views
+        $rootScope.getLabelColor = Utils.getLabelColor;
+        $rootScope.getPanelColor = Utils.getPanelColor;
+        $rootScope.getDate = Utils.getDate;
+        $rootScope.isEmpty = Utils.isEmpty;
     });

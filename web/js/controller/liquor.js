@@ -180,36 +180,6 @@ controllers.controller('LiquorController', function ($scope, $location, $routePa
         $scope.save();
     };
 
-    $scope.getLabelColor = function (rating) {
-        var style = {};
-        style["label-" + $scope.getRatingColor(rating)] = true;
-        return style;
-    };
-
-    $scope.getPanelColor = function (rating) {
-        var style = {};
-        style["panel-" + $scope.getRatingColor(rating)] = true;
-        return style;
-    };
-
-    $scope.getRatingColor = function (rating) {
-        if (rating < 0) return "default";
-        if (rating <= 1) return "danger";
-        if (rating <= 2) return "warning";
-        if (rating <= 3) return "info";
-        if (rating <= 4) return "primary";
-        if (rating <= 5) return "success";
-        return "default";
-    };
-
-    $scope.getDate = function (milliseconds) {
-        return new Date(milliseconds).toLocaleDateString();
-    };
-
-    $scope.isEmpty = function (values) {
-        return angular.isArray(values) && values.length == 0;
-    };
-
     $scope.refreshLiquorList = function () {
         //get all but only displayed fields : name/types/rating
         api.getAll('liquor', ['name', 'type', 'rating'])

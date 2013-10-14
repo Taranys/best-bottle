@@ -190,30 +190,8 @@
                 </button>
             </h3>
         </div>
-        <div class="panel panel-info" ng-repeat="comment in wine.comments">
-            <div class="panel-heading clearfix">
-                <div class="text-left col-lg-4" rating="true" rating-value="comment.rating" max="5"
-                     readonly="true"></div>
-
-                <p class="text-center col-lg-4">
-                    <strong>{{ comment.username }}</strong>
-                </p>
-
-                <p class="text-right col-lg-4">
-                    {{ getDate(comment.date) }}
-                </p>
-            </div>
-            <div class="panel-body">
-                <div class="col-lg-2">
-                    <div> 1 {{ comment.drink.container }}</div>
-                    <div>{{ comment.drink.price }} €</div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="well">{{ comment.description }}</div>
-                    <div ng-show="comment.place">Lieu : <a ng-href="{{ getMapUrl(comment.place) }}">{{
-                        comment.place }}</a></div>
-                </div>
-            </div>
+        <div comment-list comments="wine.comments">
+            <!--list of comments : externalize into comments directive-->
         </div>
     </div>
 </div>

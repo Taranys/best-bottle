@@ -1,10 +1,24 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<div class="panel panel-info" ng-repeat="comment in comments">
+    <div class="panel-heading clearfix">
+        <div class="text-left col-lg-4" rating="true" rating-value="comment.rating" max="5" readonly="true"></div>
 
-</body>
-</html>
+        <p class="text-center col-lg-4">
+            <strong>{{ comment.username }}</strong>
+        </p>
+
+        <p class="text-right col-lg-4">
+            {{ getDate(comment.date) }}
+        </p>
+    </div>
+    <div class="panel-body">
+        <div class="col-lg-2">
+            <div> 1 {{ comment.drink.container }}</div>
+            <div>{{ comment.drink.price }} €</div>
+        </div>
+        <div class="col-lg-10">
+            <div class="well">{{ comment.description }}</div>
+            <div ng-show="comment.place">Lieu : <a ng-href="{{ getMapUrl(comment.place) }}">{{
+                comment.place }}</a></div>
+        </div>
+    </div>
+</div>
