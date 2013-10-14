@@ -1,0 +1,208 @@
+<div class="container">
+<div class="alert alert-danger" ng-show="errorMessage">{{ errorMessage }}</div>
+<div class="alert alert-success" ng-show="successMessage">{{ successMessage }}</div>
+<div class="row">
+<!--Liste des spiritueux-->
+<div class="col-lg-3">
+    <div class="well">
+        <form ng-submit="searchLiquor()" class="form-inline" role="form" style="margin-bottom: 20px"
+              ng-show="isLogged()">
+            <div class="form-group col-lg-12" style="padding: 0px">
+                <a href="#/liquor/new" id="addLiquorButton" class="btn btn-success col-lg-12">Ajouter <span
+                        class="glyphicon glyphicon-plus"></span></a>
+            </div>
+        </form>
+        <input type="text" placeholder="Recherche" ng-model="searchValue" class="form-control"
+               style="margin-bottom: 20px">
+        <!--<div class="clearfix"></div>-->
+        <div class="panel panel-primary" ng-repeat="liquorsByType in liquorsByTypes | orderBy:'name'"
+             ng-show="sortedVisibleLiquors.length != 0">
+            <div class="panel-heading" style="padding: 7px">
+                {{ liquorByType.name }}
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item"
+                    ng-repeat="currentLiquor in sortedVisibleLiquors = (liquorsByType.liquors | filter:searchValue | orderBy:'name')"
+                    style="padding: 5px">
+                    <a ng-href="#/liquor/{{ currentLiquor.id }}">{{ currentLiquor.name }}</a>
+                                <span class="label pull-right" ng-show="currentLiquor.rating"
+                                      ng-class="getLabelColor(currentLiquor.rating)">{{ currentLiquor.rating | number:2 }}</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!--Formulaire d'un spiritueux-->
+<div ng-show="onLoad">
+    <img src="./img/loading.gif">
+</div>
+<div class="col-lg-9" ng-show="(id || isLogged()) && !onLoad">
+    <div class="page-header" style="margin-top: 0px" ng-show="!id">
+        <h3>Création d'un nouveau spiritueux</h3>
+    </div>
+    <form ng-submit="save()" role="form" class="row">
+        <div ng-class="{'col-lg-9' : id}">
+            <div class="form-group">
+                <label for="liquorname">Nom</label>
+                <input id="liquorname" type="text" ng-model="liquor.name"
+                       placeholder="Entrer le nom du spiritueux"
+                       class="form-control"
+                       required ng-disabled="id ||!isLogged()">
+            </div>
+            <div class="form-group">
+                <label for="liquor_type">Type</label>
+                <input id="liquor_type" type="text" placeholder="Entrer le type" list="type-list"
+                       class="form-control" required ng-model="liquor.type" ng-disabled="!isLogged()">
+                <datalist id="type-list">
+                    <option ng-repeat="type in types" value="{{ type }}"></option>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="liquordesc">Description</label>
+                <textarea id="liquordesc" type="text" ng-model="liquor.description"
+                          placeholder="Entrer une description"
+                          class="form-control" rows="10" required ng-disabled="!isLogged()"></textarea>
+            </div>
+        </div>
+        <div ng-class="{'col-lg-3' : id}" ng-show="id">
+            <div class="panel" ng-class="getPanelColor(liquor.rating)">
+                <div class="panel-heading">Note moyenne</div>
+                <div class="panel-body" rating readonly="true" rating-value="liquor.rating" max="5"></div>
+            </div>
+
+            <div image content-type="liquor.picture.contentType" picture-content="liquor.picture.base64"
+                 image-width="200"></div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Prix moyen</div>
+                <ul class="list-group" id="drink">
+                    <li class="list-group-item" ng-repeat="drink in liquor.drink | orderBy:'container'">
+                                    <span class="label label-info pull-right"
+                                          ng-bind-template="{{ drink.price }} €"></span>
+                        {{ drink.container }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-lg-12">
+            <div class="pull-left">
+                <button id="deleteButton" type="button" class="btn btn-danger" ng-show="id && isLogged()"
+                        ng-click="delete()"
+                        data-loading-text="Suppression...">Supprimer <span
+                        class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-success" ng-show="!id && isLogged()">
+                    Créer <span class="glyphicon glyphicon-cloud-upload"></span>
+                </button>
+
+                <button type="button" class="btn btn-info" ng-show="id && isLogged()" ng-click="load()">
+                    Annuler <span class="glyphicon glyphicon-cloud-download"></span>
+                </button>
+                <button type="submit" class="btn btn-success" ng-show="id && isLogged()">
+                    Sauvegarder <span class="glyphicon glyphicon-cloud-upload"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <!--Ajout d'un commentaire-->
+    <div class="clearfix"></div>
+    <div style="margin-top: 20px" ng-show="addCommentViewActivated">
+        <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+                Nouveau commentaire
+            </div>
+            <div class="panel-body clearfix">
+                <form ng-submit="addComment()" role="form" class="form-horizontal">
+                    <div class="form-group col-lg-12">
+                        <div class="col-lg-10" style="padding-left: 0px">
+                            <label for="commentDrink" class="control-label">Type de consommation</label>
+                            <select ng-model="newComment.drink.container"
+                                    ng-options="item for item in containers"
+                                    id="commentDrink" required class="form-control"></select>
+                        </div>
+                        <div class="col-lg-2" style="padding-right: 0px">
+                            <label for="commentRating" class="control-label">Note</label>
+                            <span class="form-control" rating rating-value="newComment.rating" max="5"
+                                  id="commentRating"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label for="commentDescription" class="control-label">Description</label>
+                        <textarea id="commentDescription" type="text" ng-model="newComment.description"
+                                  placeholder="Entrer une description"
+                                  class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <div class="col-lg-2" style="padding-left: 0px">
+                            <label for="commentPrice" class="control-label">Prix</label>
+
+                            <div class="input-group">
+                                <input type="number" id="commentPrice" ng-model="newComment.drink.price"
+                                       step="any"
+                                       class="form-control">
+                                <span class="input-group-addon">€</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-10" style="padding-right: 0px">
+                            <label for="commentPlace" class="control-label">Emplacement d'achat</label>
+                            <input type="text" id="commentPlace" ng-model="newComment.place"
+                                   class="form-control">
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-info" ng-click="activateAddComment(false)">
+                            Annuler <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            Ajouter le commentaire <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Affichage des commentaires existants-->
+    <div class="clearfix"></div>
+    <div ng-show="id">
+        <div class="page-header">
+            <h3>
+                Commentaires
+                <button class="btn btn-primary pull-right" ng-hide="addCommentViewActivated || !isLogged()"
+                        ng-click="activateAddComment()">Ajouter un commentaire <span
+                        class="glyphicon glyphicon-plus"></span>
+                </button>
+            </h3>
+        </div>
+        <div class="panel panel-info" ng-repeat="comment in liquor.comments">
+            <div class="panel-heading clearfix">
+                <div class="text-left col-lg-4" rating="true" rating-value="comment.rating" max="5"
+                     readonly="true"></div>
+
+                <p class="text-center col-lg-4">
+                    <strong>{{ comment.username }}</strong>
+                </p>
+
+                <p class="text-right col-lg-4">
+                    {{ getDate(comment.date) }}
+                </p>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-2">
+                    <div> 1 {{ comment.drink.container }}</div>
+                    <div>{{ comment.drink.price }} €</div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="well">{{ comment.description }}</div>
+                    <div ng-show="comment.place">Lieu : <a ng-href="{{ getMapUrl(comment.place) }}">{{
+                        comment.place }}</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

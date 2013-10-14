@@ -185,6 +185,17 @@ curl $USER_PASS -XPOST $HOST'/constant/data_fr'  -d '
         "drink": {
             "container" : ["Verre (Restaurant/Bar)", "Bouteille (Restaurant)", "Bouteille (Magasin)", "Bouteille (Producteur)"]
         }
+    },
+    "liquor": {
+        "type": ["Vodka", "Whisky", "Tequila", "Rhum"],
+        "drink": {
+            "container" : ["Shoot (Maison)", "Shoot (Restaurant/Bar)", "Bouteille (Restaurant)", "Bouteille (Magasin)"]
+        }
+    },
+    "cocktail": {
+        "drink": {
+            "container" : ["Shoot", "Verre", "Pichet (1L)", "Pichet (1,5L)"]
+        }
     }
 }
 '

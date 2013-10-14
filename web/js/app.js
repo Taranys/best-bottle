@@ -11,6 +11,12 @@ angular.module('bestBottle', ['bestBottle.controllers', 'bestBottle.directives',
             .when('/beer', {templateUrl: 'view/beer.html', controller: 'BeerController'})
             .when('/beer/new', {templateUrl: 'view/beer.html', controller: 'BeerController'})
             .when('/beer/:id', {templateUrl: 'view/beer.html', controller: 'BeerController'})
+            .when('/liquor', {templateUrl: 'view/liquor.html', controller: 'LiquorController'})
+            .when('/liquor/new', {templateUrl: 'view/liquor.html', controller: 'LiquorController'})
+            .when('/liquor/:id', {templateUrl: 'view/liquor.html', controller: 'LiquorController'})
+            .when('/cocktail', {templateUrl: 'view/cocktail.html', controller: 'CocktailController'})
+            .when('/cocktail/new', {templateUrl: 'view/cocktail.html', controller: 'CocktailController'})
+            .when('/cocktail/:id', {templateUrl: 'view/cocktail.html', controller: 'CocktailController'})
 //            .when('/search/:search', {templateUrl: 'view/search.html', controller: 'BeerController'})
             .otherwise({redirectTo: '/'});
     });
