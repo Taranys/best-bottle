@@ -172,6 +172,164 @@ curl $USER_PASS -XPUT $HOST'/wine/_mapping'  -d '
 '
 echo ""
 
+echo "Delete liquor mapping"
+curl $USER_PASS -XDELETE $HOST'/liquor/_mapping'
+echo ""
+
+echo "Create liquor mapping"
+curl $USER_PASS -XPUT $HOST'/liquor/_mapping'  -d '
+{
+    "liquor": {
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "type": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "description": {
+                "type": "string"
+            },
+            "rating": {
+                "type": "float"
+            },
+            "drink": {
+                "properties": {
+                    "price": {
+                        "type": "float"
+                    },
+                    "container": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "picture": {
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "base64": {
+                        "type" : "binary",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "comments": {
+                "properties": {
+                    "username" : {
+                        "type": "string"
+                    },
+                    "date" : {
+                        "type": "date"
+                    },
+                    "rating": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "drink": {
+                        "properties": {
+                            "price": {
+                                "type": "float"
+                            },
+                            "container": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+'
+echo ""
+
+echo "Delete cocktail mapping"
+curl $USER_PASS -XDELETE $HOST'/cocktail/_mapping'
+echo ""
+
+echo "Create cocktail mapping"
+curl $USER_PASS -XPUT $HOST'/cocktail/_mapping'  -d '
+{
+    "cocktail": {
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "rating": {
+                "type": "float"
+            },
+            "drink": {
+                "properties": {
+                    "price": {
+                        "type": "float"
+                    },
+                    "container": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "picture": {
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "base64": {
+                        "type" : "binary",
+                        "index": "not_analyzed"
+                    }
+                }
+            },
+            "comments": {
+                "properties": {
+                    "username" : {
+                        "type": "string"
+                    },
+                    "date" : {
+                        "type": "date"
+                    },
+                    "rating": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "drink": {
+                        "properties": {
+                            "price": {
+                                "type": "float"
+                            },
+                            "container": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+'
+echo ""
+
 echo "Create constant values"
 curl $USER_PASS -XPOST $HOST'/constant/data_fr'  -d '
 {
