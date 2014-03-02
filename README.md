@@ -1,7 +1,7 @@
 best-bottle
 ===========
 
-I DECIDE TO DESTROY EVERYTHING AGAIN xD AND RESTART WITH angular fullstack !! + A REALLY MUCH BETTER WEB UI :)
+I DECIDE TO DESTROY EVERYTHING AGAIN xD AND RESTART WITH Mean !! + A REALLY MUCH BETTER WEB UI :)
 
 
 A little soft to share with some friends all our best bottles of beers and wines (and more maybe :)

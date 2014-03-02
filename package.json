@@ -1,12 +1,12 @@
 {
-  "name": "mean",
-  "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
-  "version": "0.1.2",
+  "name": "best-bottle",
+  "description": "Best bottle",
+  "version": "0.0.0",
   "private": false,
-  "author": "Amos Haviv",
+  "author": ["Yoann Prot", "Vincent Tisseront"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/linnovate/mean.git"
+    "url": "https://github.com/Taranys/best-bottle"
   },
   "engines": {
     "node": "0.10.x",
