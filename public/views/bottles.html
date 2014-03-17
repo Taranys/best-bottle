@@ -1,0 +1,57 @@
+<div class="container">
+    <div>
+        <span style="font-size: 30px">Beers</span>
+        <button class="btn btn-primary pull-right" style="margin: auto" data-template="views/modal/createBeer.html" bs-modal>Add</button>
+    </div>
+    <table class="table table-hover">
+        <tr style="font-weight: bold">
+            <td>Nom</td>
+            <td>Pays</td>
+            <td>Description</td>
+            <td>Note</td>
+        </tr>
+        <tr ng-repeat="beer in beers">
+            <td><span ng-bind="beer.name"></span></td>
+            <td><span ng-bind="beer.country"></span></td>
+            <td><span ng-bind="beer.description"></span></td>
+            <td><span ng-bind="beer.rate"></span></td>
+            <td style="width: 50px"><button class="btn btn-danger" ng-click="delete(beer)"><span class="glyphicon glyphicon-remove"></span></button></td>
+        </tr>
+    </table>
+
+    <div>
+        <span style="font-size: 30px">Wines</span>
+        <button class="btn btn-primary pull-right" style="margin: auto" data-template="views/modal/createWine.html" bs-modal>Add</button>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <td>Nom</td>
+            <td>Type</td>
+            <td>Description</td>
+            <td>Note</td>
+        </tr>
+        <tr ng-repeat="wine in wines">
+            <td><span ng-bind="wine.name"></span></td>
+            <td><span ng-bind="wine.type"></span></td>
+            <td><span ng-bind="wine.description"></span></td>
+            <td><span ng-bind="wine.rate"></span></td>
+        </tr>
+    </table>
+
+    <div>
+        <span style="font-size: 30px">Bottles - Melange de tout</span>
+        <button class="btn btn-primary pull-right" style="margin: auto" data-template="views/modal/createBottle.html" bs-modal>Add</button>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <td>Nom</td>
+            <td>Description</td>
+            <td>Note</td>
+        </tr>
+        <tr ng-repeat="bottle in bottles">
+            <td><span ng-bind="bottle.name"></span></td>
+            <td><span ng-bind="bottle.description"></span></td>
+            <td><span ng-bind="bottle.rate"></span></td>
+        </tr>
+    </table>
+</div>

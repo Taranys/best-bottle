@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute']);
+angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngStrap']);
 
 //Setting up route
 angular.module('BestBottle').config(['$routeProvider', function($routeProvider) {
     $routeProvider
+        .when('/bottles',{ controller : 'BottlesController', templateUrl : 'views/bottles.html' })
         .when('/beers',{ controller : 'BeersController', templateUrl : 'views/beers/list.html' })
         .when('/beers/create',{ controller : 'BeersController', templateUrl : 'views/beers/create.html' })
         .when('/beers/:beerId/edit',{ controller : 'BeersController', templateUrl : 'views/beers/edit.html' })
