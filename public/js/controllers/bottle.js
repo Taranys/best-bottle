@@ -17,6 +17,12 @@ angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeP
         });
     };
 
+    $scope.save = function(bottle) {
+        bottle.$save(function() {
+            $scope.init();
+        });
+    };
+
     $scope.delete = function(bottle) {
         bottle.$delete(function() {
             $scope.init();

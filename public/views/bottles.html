@@ -9,13 +9,14 @@
             <td>Pays</td>
             <td>Description</td>
             <td>Note</td>
+            <td>Supprimer</td>
         </tr>
         <tr ng-repeat="beer in beers">
-            <td><span ng-bind="beer.name"></span></td>
-            <td><span ng-bind="beer.country"></span></td>
-            <td><span ng-bind="beer.description"></span></td>
-            <td><span ng-bind="beer.rate"></span></td>
-            <td style="width: 50px"><button class="btn btn-danger" ng-click="delete(beer)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            <td> <span editable-text="beer.name" e-form="beerName" ng-click="beerName.$show()" onaftersave="save(beer)">{{ beer.name }}</span></td>
+            <td> <span editable-text="beer.country" e-form="beerCountry" ng-click="beerCountry.$show()" onaftersave="save(beer)">{{ beer.country }}</span></td>
+            <td> <span editable-text="beer.description" e-form="beerDescription" ng-click="beerDescription.$show()" onaftersave="save(beer)">{{ beer.description }}</span></td>
+            <td> <span editable-range="beer.rate" e-min="0" e-max="5" e-step="1" e-form="beerRate" ng-click="beerRate.$show()" onaftersave="save(beer)">{{ beer.rate }}</span></td>
+            <td style="width: 50px"><button class="btn btn-danger pull-right" ng-click="delete(beer)"><span class="glyphicon glyphicon-remove"></span></button></td>
         </tr>
     </table>
 

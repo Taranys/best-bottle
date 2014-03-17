@@ -17,7 +17,7 @@ module.exports = function(app) {
     app.get('/beers', beers.all);
     app.post('/beers', authorization.requiresLogin, beers.create);
     app.get('/beers/:beerId', beers.show);
-    app.put('/beers/:beerId', authorization.requiresLogin, hasAuthorization, beers.update);
+    app.post('/beers/:beerId', authorization.requiresLogin, hasAuthorization, beers.update);
     app.del('/beers/:beerId', authorization.requiresLogin, hasAuthorization, beers.destroy);
 
     // Finish with setting up the beerId param

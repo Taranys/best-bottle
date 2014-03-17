@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngStrap']);
+angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngStrap', 'xeditable']);
 
 //Setting up route
 angular.module('BestBottle').config(['$routeProvider', function($routeProvider) {
@@ -13,6 +13,10 @@ angular.module('BestBottle').config(['$routeProvider', function($routeProvider) 
         .otherwise('/');
 }
 ]);
+
+angular.module('BestBottle').run(function(editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 
 //Setting HTML5 Location Mode
 angular.module('BestBottle').config(['$locationProvider',
