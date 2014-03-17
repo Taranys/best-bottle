@@ -1,0 +1,11 @@
+<section data-ng-controller="BeersController" data-ng-init="find()">
+	<ul class="beers unstyled">
+		<li data-ng-repeat="beer in beers">
+			<span>{{beer.created | date:'medium'}}</span> /
+			<span>{{beer.user.name}}</span>
+			<h2><a data-ng-href="#!/beers/{{beer._id}}">{{beer.name}}</a></h2>
+			<div>{{beer.description}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!beers || beers.length">No articles yet. <br> Why don't you <a href="/#!/beers/create">Create One</a>?</h1>
+</section>

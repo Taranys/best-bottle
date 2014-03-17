@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('BestBottle').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
     $scope.global = Global;
 
     $scope.menu = [{
-        'title': 'Articles',
-        'link': 'articles'
+        'title': 'Beers',
+        'link': 'beers'
     }, {
-        'title': 'Create New Article',
-        'link': 'articles/create'
+        'title': 'Create New Beer',
+        'link': 'beers/create'
     }];
     
     $scope.isCollapsed = false;

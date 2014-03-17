@@ -4,97 +4,97 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Article = mongoose.model('Article'),
+    Beer = mongoose.model('Beer'),
     _ = require('lodash');
 
 
 /**
- * Find article by id
+ * Find beer by id
  */
-exports.article = function(req, res, next, id) {
-    Article.load(id, function(err, article) {
+exports.beer = function(req, res, next, id) {
+    Beer.load(id, function(err, beer) {
         if (err) return next(err);
-        if (!article) return next(new Error('Failed to load article ' + id));
-        req.article = article;
+        if (!beer) return next(new Error('Failed to load beer ' + id));
+        req.beer = beer;
         next();
     });
 };
 
 /**
- * Create an article
+ * Create an beer
  */
 exports.create = function(req, res) {
-    var article = new Article(req.body);
-    article.user = req.user;
+    var beer = new Beer(req.body);
+    beer.user = req.user;
 
-    article.save(function(err) {
+    beer.save(function(err) {
         if (err) {
             return res.send('users/signup', {
                 errors: err.errors,
-                article: article
+                beer: beer
             });
         } else {
-            res.jsonp(article);
+            res.jsonp(beer);
         }
     });
 };
 
 /**
- * Update an article
+ * Update an beer
  */
 exports.update = function(req, res) {
-    var article = req.article;
+    var beer = req.beer;
 
-    article = _.extend(article, req.body);
+    beer = _.extend(beer, req.body);
 
-    article.save(function(err) {
+    beer.save(function(err) {
         if (err) {
             return res.send('users/signup', {
                 errors: err.errors,
-                article: article
+                beer: beer
             });
         } else {
-            res.jsonp(article);
+            res.jsonp(beer);
         }
     });
 };
 
 /**
- * Delete an article
+ * Delete an beer
  */
 exports.destroy = function(req, res) {
-    var article = req.article;
+    var beer = req.beer;
 
-    article.remove(function(err) {
+    beer.remove(function(err) {
         if (err) {
             return res.send('users/signup', {
                 errors: err.errors,
-                article: article
+                beer: beer
             });
         } else {
-            res.jsonp(article);
+            res.jsonp(beer);
         }
     });
 };
 
 /**
- * Show an article
+ * Show an beer
  */
 exports.show = function(req, res) {
-    res.jsonp(req.article);
+    res.jsonp(req.beer);
 };
 
 /**
- * List of Articles
+ * List of Beers
  */
 exports.all = function(req, res) {
-    Article.find().sort('-created').populate('user', 'name username').exec(function(err, articles) {
+    Beer.find().sort('-created').populate('user', 'name username').exec(function(err, beers) {
         if (err) {
             res.render('error', {
                 status: 500
             });
         } else {
-            res.jsonp(articles);
+            res.jsonp(beers);
         }
     });
 };

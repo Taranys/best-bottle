@@ -8,19 +8,24 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Article Schema
+ * Beer Schema
  */
-var ArticleSchema = new Schema({
+var BeerSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
     },
-    title: {
+    name: {
         type: String,
         default: '',
         trim: true
     },
-    content: {
+    description: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    country: {
         type: String,
         default: '',
         trim: true
@@ -28,23 +33,27 @@ var ArticleSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
+    },
+    rate : {
+        type : Number,
+        default : 0
     }
 });
 
 /**
  * Validations
  */
-ArticleSchema.path('title').validate(function(title) {
-    return title.length;
-}, 'Title cannot be blank');
+BeerSchema.path('name').validate(function(name) {
+    return name.length;
+}, 'Name cannot be blank');
 
 /**
  * Statics
  */
-ArticleSchema.statics.load = function(id, cb) {
+BeerSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
     }).populate('user', 'name username').exec(cb);
 };
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('Beer', BeerSchema);
