@@ -1,11 +1,14 @@
 'use strict';
 
-angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', function ($scope, $routeParams, $location, Global, Beers) {
+angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', 'Wines', function ($scope, $routeParams, $location, Global, Beers, Wines) {
     $scope.global = Global;
 
     $scope.init = function() {
         Beers.query(function(beers){
             $scope.beers = beers;
+        });
+        Wines.query(function(wines){
+            $scope.wines = wines;
         });
     };
     $scope.init();
@@ -13,6 +16,13 @@ angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeP
     $scope.createBeer = function(newBeer) {
         var newBeer = new Beers(newBeer);
         newBeer.$save(function() {
+            $scope.init();
+        });
+    };
+
+    $scope.createWine = function(newWine) {
+        var newWine = new Wines(newWine);
+        newWine.$save(function() {
             $scope.init();
         });
     };
