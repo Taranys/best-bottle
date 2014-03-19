@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
 
     // Setting up the users api
     app.post('/users', users.create);
-    app.post('/users/:userId', authorization.requiresLogin, users.update);
+    app.post('/editme', authorization.requiresLogin, users.update);
 
     // Setting up the userId param
     app.param('userId', users.user);

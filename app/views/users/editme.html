@@ -1,7 +1,7 @@
 {% extends 'auth.html' %}
 
 {% block auth %}
-    <form class="signin form-horizontal" action="/users/{{user._id.toString()}}" method="post">
+    <form class="signin form-horizontal" action="/editme" method="post">
         <input id="id" name=_id type="hidden" value="{{user._id.toString()}}" />
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Full Name</label>

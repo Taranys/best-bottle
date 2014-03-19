@@ -37,6 +37,14 @@ exports.signup = function(req, res) {
  * Edit current user
  */
 exports.edit = function(req, res) {
+    //if user doesn't exist, go to login view
+    if( ! req.user ) {
+        return res.render( 'users/signin', {
+            message: 'You have to be connected to edit your profile',
+            title: 'Signin'
+        });
+    }
+    // otherwise, show the edit view :)
     res.render('users/editme', {
         title: 'Edit current user',
         user: req.user
@@ -93,33 +101,55 @@ exports.create = function(req, res, next) {
  * Create user
  */
 exports.update = function(req, res, next) {
-    var user = new User(req.body);
-    delete req.body._id;
+    console.log(req.body);
 
-    user.provider = 'local';
-    user.update( req.body, {}, function(err) {
-        if (err) {
-            console.log(err);
-            var message = "";
-            switch (err.code) {
-                case 11000:
-                case 11001:
-                    message = 'Username already exists';
-                    break;
-                default:
-                    message = 'Please fill all the required fields';
+    //Search current user
+    User.findOne({ _id: req.body._id }).exec(function(err, user) {
+        if (err) return next(err);
+
+        user.email = req.body.email;
+        user.name = req.body.name;
+        user.password = req.body.password;
+        user.username = req.body.username;
+
+        user.save(function(err) {
+            if( err ) {
+                return res.render( 'users/editme', {
+                    message: err.message,
+                    user: req.body
+                });
             }
-
-            return res.render( 'users/editme', {
-                message: message,
-                user: user
+            req.logIn(user, function(err) {
+                if (err) return next(err);
+                return res.redirect('/');
             });
-        }
-        req.logIn(user, function(err) {
-            if (err) return next(err);
-            return res.redirect('/');
         });
     });
+//
+//    user.provider = 'local';
+//    user.update( req.body, {}, function(err) {
+//        if (err) {
+//            console.log(err);
+//            var message = "";
+//            switch (err.code) {
+//                case 11000:
+//                case 11001:
+//                    message = 'Username already exists';
+//                    break;
+//                default:
+//                    message = 'Please fill all the required fields';
+//            }
+//
+//            return res.redirect( 'editme', {
+//                message: message,
+//                user: user
+//            });
+//        }
+//        req.logIn(user, function(err) {
+//            if (err) return next(err);
+//            return res.redirect('/');
+//        });
+//    });
 };
 
 /**
