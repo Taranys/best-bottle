@@ -30,6 +30,12 @@ var WineSchema = new Schema({
         default: '',
         trim: true
     },
+    bottleType: {
+        type: String,
+        enum: ['Wine'],
+        default: 'Wine',
+        required: true
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
@@ -56,4 +62,4 @@ WineSchema.statics.load = function(id, cb) {
     }).populate('user', 'name username').exec(cb);
 };
 
-mongoose.model('Wine', WineSchema);
+mongoose.model('Wine', WineSchema, 'bottles');

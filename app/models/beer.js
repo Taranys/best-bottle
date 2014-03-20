@@ -11,10 +11,6 @@ var mongoose = require('mongoose'),
  * Beer Schema
  */
 var BeerSchema = new Schema({
-    created: {
-        type: Date,
-        default: Date.now
-    },
     name: {
         type: String,
         default: '',
@@ -25,18 +21,32 @@ var BeerSchema = new Schema({
         default: '',
         trim: true
     },
+    image: {
+        type: String,
+        default: ''
+    },
+    rate : {
+        type : Number,
+        default : 0
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     country: {
         type: String,
         default: '',
         trim: true
     },
+    bottleType: {
+        type: String,
+        enum: ['Beer'],
+        default: 'Beer',
+        required: true
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
-    },
-    rate : {
-        type : Number,
-        default : 0
     }
 });
 
@@ -51,9 +61,9 @@ BeerSchema.path('name').validate(function(name) {
  * Statics
  */
 BeerSchema.statics.load = function(id, cb) {
-    this.findOne({
-        _id: id
-    }).populate('user', 'name username').exec(cb);
+    this.findOne({ _id: id })
+        .populate('user', 'name username')
+        .exec(cb);
 };
 
-mongoose.model('Beer', BeerSchema);
+mongoose.model('Beer', BeerSchema, 'bottles');

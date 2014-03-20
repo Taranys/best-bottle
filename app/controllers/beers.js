@@ -88,7 +88,7 @@ exports.show = function(req, res) {
  * List of Beers
  */
 exports.all = function(req, res) {
-    Beer.find().sort('-created').populate('user', 'name username').exec(function(err, beers) {
+    Beer.find({ bottleType: 'Beer' }).sort('-created').populate('user', 'name username').exec(function(err, beers) {
         if (err) {
             res.render('error', {
                 status: 500

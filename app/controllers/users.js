@@ -125,31 +125,6 @@ exports.update = function(req, res, next) {
             });
         });
     });
-//
-//    user.provider = 'local';
-//    user.update( req.body, {}, function(err) {
-//        if (err) {
-//            console.log(err);
-//            var message = "";
-//            switch (err.code) {
-//                case 11000:
-//                case 11001:
-//                    message = 'Username already exists';
-//                    break;
-//                default:
-//                    message = 'Please fill all the required fields';
-//            }
-//
-//            return res.redirect( 'editme', {
-//                message: message,
-//                user: user
-//            });
-//        }
-//        req.logIn(user, function(err) {
-//            if (err) return next(err);
-//            return res.redirect('/');
-//        });
-//    });
 };
 
 /**
