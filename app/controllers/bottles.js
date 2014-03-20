@@ -31,7 +31,23 @@ exports.show = function(req, res) {
  * List of Beers
  */
 exports.all = function(req, res) {
-    Common.find().sort('name').populate('user', 'name username').exec(function(err, bottles) {
+    var params = [];
+
+    //generate WHERE condition on DB request
+    if( req.query ) {
+        if( req.query.name ) {
+            params.push({name : { $regex: req.query.name, $options: 'i' }});
+        }
+        if( req.query.description ) {
+            params.push({description : { $regex: req.query.description, $options: 'i' }});
+        }
+    }
+
+    // if not parmas requested, just perform a simple find()
+    // otherwise, generate a request : find({ $or : [COND1, COND2] })
+    var query = (params.length == 0) ? {} : { $or : params };
+
+    Common.find(query).sort('name').populate('user', 'name username').exec(function(err, bottles) {
         if (err) {
             res.render('error', {
                 status: 500
