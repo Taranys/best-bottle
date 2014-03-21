@@ -23,3 +23,14 @@ footer {
 footer p {
     padding:5px 0 12px 10px
 }
+
+span {
+    font-family: 'Onilesca';
+    font-weight: normal;
+    font-style: normal;
+    text-shadow:
+        #000000 1px 1px,
+        #000000 -1px 1px,
+        #000000 -1px -1px,
+        #000000 1px -1px;
+}

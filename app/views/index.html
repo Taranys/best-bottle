@@ -1,7 +1,12 @@
 {% extends 'layouts/default.html' %}
 {% block content %}
-    <section data-ng-view />
-    <script type="text/javascript">
-        window.user = {{user|safe}};
-    </script>
+<div class="navbar navbar-inverse navbar-fixed-top" data-ng-include="'views/header.html'" data-role="navigation"></div>
+<section class="content">
+    <section class="container">
+        <section data-ng-view />
+        <script type="text/javascript">
+            window.user = {{user|safe}};
+        </script>
+    </section>
+</section>
 {% endblock %}
