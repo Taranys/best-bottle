@@ -1,3 +1,12 @@
+body {
+    background-color: #EEEEEE;
+}
+
+input {
+    text-align: center;
+    color: #000000;
+}
+
 .navbar .nav>li>a.brand {
     padding-left:20px;
     margin-left:0
@@ -25,12 +34,111 @@ footer p {
 }
 
 span {
-    font-family: 'Onilesca';
+    font-family: 'Modern Antiqua';
     font-weight: normal;
     font-style: normal;
-    text-shadow:
-        #000000 1px 1px,
-        #000000 -1px 1px,
-        #000000 -1px -1px,
-        #000000 1px -1px;
+    /*text-shadow:*/
+        /*#000000 1px 1px,*/
+        /*#000000 -1px 1px,*/
+        /*#000000 -1px -1px,*/
+        /*#000000 1px -1px;*/
 }
+
+h3 {
+    font-family: 'Modern Antiqua';
+}
+
+.myjumb {
+    background: url('/img/jumbo_save.jpg') center center repeat-x;
+    background-size: cover;
+}
+
+.section-title {
+    width: 260px;
+    text-align: center;
+    margin: auto;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    width: 600px;
+    font-size: 22px;
+}
+
+.section-title:before {
+    content: "";
+    display: block;
+    border-top: 1px solid #333;
+    height: 1px;
+    position: absolute;
+    margin-top: 32px;
+    z-index: 1;
+    width: 200px;
+}
+
+
+.section-title:before {
+    width: 600px;
+}
+
+.section-title span {
+    font-family: 'Berenika';
+    background: none repeat scroll 0% 0% #EEEEEE;
+    padding: 0px 20px;
+    position: relative;
+    color: #444;
+    font-size: 45px;
+    z-index: 5;
+}
+
+.footer-top {
+    color: #FFFFFF;
+    height: 790px;
+    overflow: hidden;
+}
+
+.footer-top {
+    height: auto;
+}
+
+.footer-top .footer-inner {
+    background: none repeat scroll 0 0 #32393A;
+    bottom: -50px;
+    height: inherit;
+    left: -20px;
+    padding: 0 20px 70px;
+    position: relative;
+    transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+    -webkit-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+    -moz-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+    -o-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+    -ms-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+    /*width: 110%;*/
+    z-index: 0;
+}
+
+.footer-top .footer-inner {
+    height: 400px;
+    left: -30px;
+    padding: 0;
+    width: 105%;
+}
+
+.footer-top .footer-content {
+    margin-top: -700px;
+    padding-bottom: 60px;
+    padding-top: 10px;
+    position: relative;
+    z-index: 999;
+}
+
+.footer-top .footer-content {
+    margin-top: -330px;
+}
+
+
+
+
+
+
