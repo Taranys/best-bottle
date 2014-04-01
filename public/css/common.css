@@ -54,32 +54,8 @@ h3 {
 }
 
 .section-title {
-    width: 260px;
-    text-align: center;
     margin: auto;
-    font-size: 18px;
     margin-bottom: 20px;
-}
-
-.section-title {
-    width: 600px;
-    font-size: 22px;
-}
-
-.section-title:before {
-    content: "";
-    display: block;
-    border-top: 1px solid #333;
-    height: 1px;
-    position: absolute;
-    margin-top: 32px;
-    z-index: 1;
-    width: 200px;
-}
-
-
-.section-title:before {
-    width: 600px;
 }
 
 .section-title span {
@@ -90,6 +66,7 @@ h3 {
     color: #444;
     font-size: 45px;
     z-index: 5;
+    text-decoration: blink;
 }
 
 .footer-top {
