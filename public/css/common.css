@@ -53,13 +53,68 @@ h3 {
     background-size: cover;
 }
 
+#jumbo-search {
+    font-family: 'Designosaur';
+    font-weight: normal;
+    font-style: italic;
+    color: #FFF;
+}
+
+.bigjumbo {
+    margin-top: 50px;
+    /*margin-bottom: 20px;*/
+}
+
+.bigjumbo #jumbo-title {
+    font-size: 60px;
+    color: #EEE;
+    clear: both;
+    float: left;
+}
+
+.bigjumbo #jumbo-subtitle {
+    font-size: 25px;
+    color: #AAA;
+    padding-left: 20px;
+    clear: both;
+    float: left;
+}
+
+.bigjumbo #jumbo-search {
+    font-size: 40px;
+    margin-top: 40px;
+    clear: both;
+    float: left;
+}
+
+.littlejumbo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.littlejumbo #jumbo-title {
+    font-size: 30px;
+    color: #EEE;
+}
+
+.littlejumbo #jumbo-subtitle {
+    display: none;
+}
+
+.littlejumbo #jumbo-search {
+    font-size: 30px;
+    margin-top: 5px;
+}
+
 .section-title {
     margin: auto;
     margin-bottom: 20px;
 }
 
 .section-title span {
-    font-family: 'Berenika';
+    font-family: 'Designosaur';
+    font-weight: normal;
+    font-style: italic;
     background: none repeat scroll 0% 0% #EEEEEE;
     padding: 0px 20px;
     position: relative;
