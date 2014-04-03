@@ -3,6 +3,15 @@
 angular.module('BestBottle').controller('BeersController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', function ($scope, $routeParams, $location, Global, Beers) {
     $scope.global = Global;
 
+    $scope.filter = {
+        current : 0,
+        available : ['Date', 'Note']
+    };
+
+    $scope.changeFilter = function(index) {
+        $scope.filter.current = index;
+    };
+
     $scope.create = function() {
         var beer = new Beers({
             name: this.name,

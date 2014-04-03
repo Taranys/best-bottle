@@ -115,13 +115,12 @@ h3 {
     font-family: 'Designosaur';
     font-weight: normal;
     font-style: italic;
-    background: none repeat scroll 0% 0% #EEEEEE;
+    /*background: none repeat scroll 0% 0% #EEEEEE;*/
     padding: 0px 20px;
-    position: relative;
+    /*position: relative;*/
     color: #444;
     font-size: 45px;
     z-index: 5;
-    text-decoration: blink;
 }
 
 .footer-top {
@@ -169,6 +168,14 @@ h3 {
     margin-top: -330px;
 }
 
+#beers-list {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+    background-color: #CCC;
+}
 
 
 
