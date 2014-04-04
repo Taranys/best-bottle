@@ -33,17 +33,6 @@ footer p {
     padding:5px 0 12px 10px
 }
 
-span {
-    font-family: 'Modern Antiqua';
-    font-weight: normal;
-    font-style: normal;
-    /*text-shadow:*/
-        /*#000000 1px 1px,*/
-        /*#000000 -1px 1px,*/
-        /*#000000 -1px -1px,*/
-        /*#000000 1px -1px;*/
-}
-
 h3 {
     font-family: 'Modern Antiqua';
 }
@@ -53,11 +42,33 @@ h3 {
     background-size: cover;
 }
 
-#jumbo-search {
+.header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.header #jumbo-title {
+    font-family: 'Modern Antiqua';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 30px;
+    color: #EEE;
+}
+
+.header #jumbo-subtitle {
+    font-family: 'Designosaur';
+    font-weight: normal;
+    font-style: italic;
+    display: none;
+}
+
+.header #jumbo-search {
     font-family: 'Designosaur';
     font-weight: normal;
     font-style: italic;
     color: #FFF;
+    font-size: 30px;
+    margin-top: 5px;
 }
 
 .bigjumbo {
@@ -76,6 +87,7 @@ h3 {
     font-size: 25px;
     color: #AAA;
     padding-left: 20px;
+    display: block;
     clear: both;
     float: left;
 }
@@ -83,28 +95,8 @@ h3 {
 .bigjumbo #jumbo-search {
     font-size: 40px;
     margin-top: 40px;
-    clear: both;
-    float: left;
 }
 
-.littlejumbo {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.littlejumbo #jumbo-title {
-    font-size: 30px;
-    color: #EEE;
-}
-
-.littlejumbo #jumbo-subtitle {
-    display: none;
-}
-
-.littlejumbo #jumbo-search {
-    font-size: 30px;
-    margin-top: 5px;
-}
 
 .section-title {
     margin: auto;
