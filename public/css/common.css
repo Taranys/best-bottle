@@ -46,6 +46,7 @@ h3 {
 .myjumb {
     background: url('/img/jumbo_save.jpg') center center repeat-x;
     background-size: cover;
+    margin-bottom: 0px;
 }
 
 .header {
@@ -105,7 +106,7 @@ h3 {
 
 
 .section-title {
-    margin: auto;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 
