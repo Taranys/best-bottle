@@ -5,12 +5,12 @@ angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngSt
 //Setting up route
 angular.module('BestBottle').config(['$routeProvider', function($routeProvider) {
     $routeProvider
-        .when('/',{ templateUrl : 'views/main.html', jumbo : true })
+        .when('/', { controller : 'IndexController', templateUrl : 'views/main.html', jumbo : true })
         .when('/bottles',{ controller : 'BottlesController', templateUrl : 'views/bottles.html' })
-        .when('/beers',{ controller : 'BeersController', templateUrl : 'views/beers/list.html'})
-        .when('/beers/create',{ controller : 'BeersController', templateUrl : 'views/beers/create.html' })
-        .when('/beers/:beerId/edit',{ controller : 'BeersController', templateUrl : 'views/beers/edit.html' })
-        .when('/beers/:beerId',{ controller : 'BeersController', templateUrl : 'views/beers/view.html' })
+        .when('/beers',{ controller : 'BeersController', templateUrl : 'views/beers/beerlist.html'})
+        .when('/beer/create',{ controller : 'BeerController', templateUrl : 'views/beers/beeredit.html' })
+        .when('/beer/:beerId/edit',{ controller : 'BeerController', templateUrl : 'views/beers/beeredit.html' })
+        .when('/beer/:beerId',{ controller : 'BeerController', templateUrl : 'views/beers/beerview.html' })
         .otherwise('/');
 }
 ]);

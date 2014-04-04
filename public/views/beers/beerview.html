@@ -1,0 +1,22 @@
+<div id="beer-view" class="row" data-ng-init="init()">
+    <div class="col-xs-12">
+        <div class="section-title text-center">
+            <span ng-bind="beer.name"></span>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-3">
+            <div class="thumbnail">
+                <img src="img/no_photo.png" class="img-rounded img-responsive">
+                <div class="caption">
+                    <p class="text-center">1/3</p>
+                </div>
+            </div>
+            <p class="text-center">NOTE : {{beer.rate}} <= STAR REQUIRED => </p>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <h3 class="col-xs-12">Description<button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-pencil"></span></button></h3>
+            <p class="well" ng-bind="beer.description"></p>
+        </div>
+    </div>
+</div>

@@ -37,6 +37,12 @@ h3 {
     font-family: 'Modern Antiqua';
 }
 
+.list-link {
+    font-family: 'Modern Antiqua';
+    font-size: 2em;
+}
+
+
 .myjumb {
     background: url('/img/jumbo_save.jpg') center center repeat-x;
     background-size: cover;

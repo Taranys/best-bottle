@@ -1,50 +1,9 @@
-<div class="row clearfix">
-    <div class="col-sm-12 text-center section-title">
-        <span>Boissons</span>
+<div class="row" ng-repeat="section in data">
+    <div class="col-xs-12 text-center section-title">
+        <span ng-bind="section.title"></span>
     </div>
-    <div class="col-sm-3">
-        <a  href="#/beers"><img src="img/icons/beer.png" class=" img-responsive img-circle" style="margin: auto"></a>
-        <h3 class="col-sm-12 text-center">Bière</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/wine.png" class="img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Vin/Champagne</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/coctail.png" class="img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Cocktail</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/spirit.png" class=" img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Spiritueux</h3>
-        <p class="hidden-xs"></p>
-    </div>
-</div>
-<div class="row clearfix" style="margin-top: 100px">
-    <div class="col-sm-12 text-center section-title">
-        <span>Gastronomie</span>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/apetizer.png" class=" img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Apéro</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/starter.png" class="img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Entrée</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/food.png" class="img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Plat</h3>
-        <p class="hidden-xs"></p>
-    </div>
-    <div class="col-sm-3">
-        <img src="img/icons/dessert.png" class=" img-responsive img-circle" style="margin: auto">
-        <h3 class="col-sm-12 text-center">Dessert</h3>
-        <p class="hidden-xs"></p>
+    <div class="col-xs-6 col-sm-3" ng-repeat="part in section.links">
+        <a href="{{part.link}}"><img ng-src="{{part.img}}" class="img-responsive img-circle"></a>
+        <h3 class="hidden-xs col-sm-12 text-center" ng-bind="part.label"></h3>
     </div>
 </div>
