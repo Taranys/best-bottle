@@ -1,8 +1,33 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope" itemtype="http://schema.org/Product">
-	{% include '../includes/head.html' %}
-	<body>
-        {% block content %}{% endblock %}
-        {% include '../includes/foot.html' %}
-    </body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope"
+      itemtype="http://schema.org/Product">
+{% include '../includes/head.html' %}
+<body>
+<div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
+    <div class="container">
+        <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
+            <div class="col-xs-12 col-sm-6">
+                <a href="/" id="jumbo-title">Best bottle</a>
+                <span id="jumbo-subtitle">Enjoy your life</span>
+            </div>
+            <span id="jumbo-search" class="col-xs-12 col-sm-4 pull-right">
+                <input class="form-control col-xs-12 " ng-class="{ 'pull-right' : !jumbo}" type="text" placeholder="Recherche">
+            </span>
+        </div>
+    </div>
+</div>
+{% block content %}{% endblock %}
+<div class="footer-top">
+    <div class="footer-inner">
+    </div>
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <span>Copyright &copy; 2013&nbsp;Yoann Prot / Vincent Tisseront</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% include '../includes/foot.html' %}
+</body>
 </html>

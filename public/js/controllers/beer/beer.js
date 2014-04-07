@@ -4,7 +4,7 @@ angular.module('BestBottle').controller('BeerController', ['$scope', '$routePara
 
     $scope.create = function() {
         $scope.beer.$save(function(response) {
-            $location.path('#/beer/' + response._id);
+            $location.path('/beer/' + response._id);
         });
     };
 
