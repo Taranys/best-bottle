@@ -2,10 +2,10 @@
 
 angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', 'Wines', 'Bottles', function ($scope, $routeParams, $location, Global, Beers, Wines, Bottles) {
     $scope.global = Global;
-    $scope.genericSearch = "";
+    $scope.genericSearch = '';
 
     //refresh view on each search change
-    $scope.$watch("genericSearch", function() {
+    $scope.$watch('genericSearch', function() {
         Bottles.getAll({name : $scope.genericSearch, description : $scope.genericSearch}).success(function(bottles){
             $scope.bottles = bottles;
         });
@@ -25,15 +25,15 @@ angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeP
     $scope.init();
 
     $scope.createBeer = function(newBeer) {
-        var newBeer = new Beers(newBeer);
-        newBeer.$save(function() {
+        var beer = new Beers(newBeer);
+        beer.$save(function() {
             $scope.init();
         });
     };
 
     $scope.createWine = function(newWine) {
-        var newWine = new Wines(newWine);
-        newWine.$save(function() {
+        var wine = new Wines(newWine);
+        wine.$save(function() {
             $scope.init();
         });
     };

@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Common = mongoose.model('Common'),
-    _ = require('lodash');
+    Common = mongoose.model('Common');
 
 
 /**
@@ -45,7 +44,7 @@ exports.all = function(req, res) {
 
     // if not parmas requested, just perform a simple find()
     // otherwise, generate a request : find({ $or : [COND1, COND2] })
-    var query = (params.length == 0) ? {} : { $or : params };
+    var query = (params.length === 0) ? {} : { $or : params };
 
     Common.find(query).sort('name').populate('user', 'name username').exec(function(err, bottles) {
         if (err) {

@@ -5,6 +5,6 @@ angular.module('BestBottle').service('Bottles', ['$http', function($http) {
     var self = this;
 
     self.getAll = function(params) {
-        return $http.get("/bottles", {params : params});
+        return $http.get('/bottles', {params : params});
     };
 }]);

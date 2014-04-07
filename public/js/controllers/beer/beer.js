@@ -36,7 +36,7 @@ angular.module('BestBottle').controller('BeerController', ['$scope', '$routePara
 
     $scope.init = function() {
         if( ! $routeParams.beerId ) {
-            $scope.beer = new Beer();
+            $scope.beer = new Beers();
         } else {
             $scope.findOne();
         }
