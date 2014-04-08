@@ -15,7 +15,7 @@ angular.module('BestBottle').config(['$routeProvider', function($routeProvider) 
 }
 ]);
 
-angular.module('BestBottle').run(function($rootScope, editableOptions) {
+angular.module('BestBottle').run(['$rootScope', 'editableOptions', function($rootScope, editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
     $rootScope.$on('$routeChangeSuccess', function (event, previous) {
@@ -25,5 +25,5 @@ angular.module('BestBottle').run(function($rootScope, editableOptions) {
             $rootScope.jumbo = false;
         }
     });
-});
+}]);
 

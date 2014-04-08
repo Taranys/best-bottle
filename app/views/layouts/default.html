@@ -1,27 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope"
-      itemtype="http://schema.org/Product">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" itemscope="itemscope" itemtype="http://schema.org/Product" ng-app="BestBottle">
 {% include '../includes/head.html' %}
 <body>
-<div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
-    <div class="container">
-        <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
-            <div class="col-xs-12 col-sm-7">
-                <a href="/" id="jumbo-title">Best bottle</a>
-                <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
-            </div>
-            <div class="col-xs-12 col-sm-5 pull-right form-horizontal">
-                <div class="form-group row">
-                    <div class="col-xs-10">
-                        <input class="form-control" type="text" placeholder="Recherche">
-                    </div>
-                    <a type="button" ng-hide="user.isConnected()" class="btn btn-primary" href="/signin"><span class="glyphicon glyphicon-user"></span></a>
-                    <a type="button" ng-show="user.isConnected()" class="btn btn-warning" href="/signout"><span class="glyphicon glyphicon-off"></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div ng-include=" 'views/header.html' "></div>
 {% block content %}{% endblock %}
 <div class="footer-top">
     <div class="footer-inner">

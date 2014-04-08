@@ -1,28 +1,19 @@
-<div class="" data-ng-controller="HeaderController">
-    <ul class="navbar-nav nav">
-        <li>
-            <a class="navbar-brand" href="/">Best bottle</a>
-        </li>
-        <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
-            <a href="#!/{{item.link}}">{{item.title}}</a>
-        </li>
-    </ul>
-    <ul class="navbar-nav nav pull-right" data-ng-hide="global.authenticated">
-        <li><a href="signup">Signup</a>
-        </li>
-        <li class="divider-vertical"></li>
-        <li><a href="signin">Signin</a>
-        </li>
-    </ul>
-    <ul class="navbar-nav nav pull-right" data-ng-show="global.authenticated">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				{{global.user.name}} <b class="caret"></b>
-			</a>
-            <ul class="dropdown-menu">
-                <li><a href="/signout">Signout</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
+    <div class="container">
+        <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
+            <div class="col-xs-12 col-sm-7">
+                <a href="/" id="jumbo-title">Best bottle</a>
+                <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
+            </div>
+            <div class="col-xs-12 col-sm-5 pull-right form-horizontal" ng-init="currentUrl = 'test'">
+                <div class="form-group row">
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" placeholder="Recherche">
+                    </div>
+                    <a type="button" ng-hide="user.isConnected()" class="btn btn-primary" ng-href="/signin"><span class="glyphicon glyphicon-user"></span></a>
+                    <a type="button" ng-show="user.isConnected()" class="btn btn-warning" href="/signout"><span class="glyphicon glyphicon-off"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
