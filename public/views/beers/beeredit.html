@@ -26,7 +26,8 @@
         </div>
     </div>
     <div class="col-xs-12">
-        <button class="btn btn-danger pull-left">Supprimer <span class="glyphicon glyphicon-trash"></span></button>
+        <button ng-hide="creation" class="btn btn-danger pull-left" ng-click="remove(beer)">Supprimer <span class="glyphicon glyphicon-trash"></span></button>
+        <a ng-show="creation" class="btn btn-danger pull-left" href="#/beers">Annuler</a>
         <button class="btn btn-success pull-right" ng-click="create()">Sauvegarder <span class="glyphicon glyphicon-ok"></span></button>
     </div>
 </div>
