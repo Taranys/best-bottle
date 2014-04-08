@@ -6,13 +6,19 @@
 <div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
     <div class="container">
         <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-7">
                 <a href="/" id="jumbo-title">Best bottle</a>
-                <span id="jumbo-subtitle">Enjoy your life</span>
+                <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
             </div>
-            <span id="jumbo-search" class="col-xs-12 col-sm-4 pull-right">
-                <input class="form-control col-xs-12 " ng-class="{ 'pull-right' : !jumbo}" type="text" placeholder="Recherche">
-            </span>
+            <div class="col-xs-12 col-sm-5 pull-right form-horizontal">
+                <div class="form-group row">
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" placeholder="Recherche">
+                    </div>
+                    <a type="button" ng-hide="user.isConnected()" class="btn btn-primary" href="/signin"><span class="glyphicon glyphicon-user"></span></a>
+                    <a type="button" ng-show="user.isConnected()" class="btn btn-warning" href="/signout"><span class="glyphicon glyphicon-off"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@
 
 .bigjumbo-add #jumbo-title, .bigjumbo-remove #jumbo-title,
 .bigjumbo-add #jumbo-search, .bigjumbo-remove #jumbo-search,
+.bigjumbo-add #jumbo-log, .bigjumbo-remove #jumbo-log,
 .bigjumbo-add #jumbo-subtitle, .bigjumbo-remove #jumbo-subtitle {
     -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
     -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;

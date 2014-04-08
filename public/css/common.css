@@ -47,6 +47,7 @@ h3 {
     background: url('/img/jumbo_save.jpg') center center repeat-x;
     background-size: cover;
     margin-bottom: 0px;
+    padding: 10px;
 }
 
 .header {
@@ -69,15 +70,6 @@ h3 {
     display: none;
 }
 
-.header #jumbo-search {
-    font-family: 'Designosaur';
-    font-weight: normal;
-    font-style: italic;
-    color: #FFF;
-    font-size: 30px;
-    margin-top: 5px;
-}
-
 .bigjumbo {
     margin-top: 50px;
     /*margin-bottom: 20px;*/
@@ -98,12 +90,6 @@ h3 {
     clear: both;
     float: left;
 }
-
-.bigjumbo #jumbo-search {
-    font-size: 40px;
-    margin-top: 40px;
-}
-
 
 .section-title {
     margin-top: 15px;
