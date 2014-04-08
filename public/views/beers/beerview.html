@@ -16,7 +16,7 @@
         </div>
         <div class="col-xs-12 col-sm-9">
             <h3 class="col-xs-12">
-                Description<a href="#/beer/{{beer._id}}/edit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+                Description<a href="#/beer/{{beer._id}}/edit" class="btn btn-primary pull-right" ng-show="user.isConnected()"><span class="glyphicon glyphicon-pencil"></span></a>
             </h3>
             <p class="well" ng-bind="beer.description"></p>
         </div>

@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('BestBottle').controller('BeersController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', function ($scope, $routeParams, $location, Global, Beers) {
-    $scope.global = Global;
-
+angular.module('BestBottle').controller('BeersController', ['$scope', '$routeParams', '$location', 'Beers', function ($scope, $routeParams, $location, Beers) {
     $scope.filter = {
         current : 0,
         available : ['Date', 'Note']

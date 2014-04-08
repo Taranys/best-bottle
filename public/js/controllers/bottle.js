@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeParams', '$location', 'Global', 'Beers', 'Wines', 'Bottles', function ($scope, $routeParams, $location, Global, Beers, Wines, Bottles) {
-    $scope.global = Global;
+angular.module('BestBottle').controller('BottlesController', ['$scope', '$routeParams', '$location', 'Beers', 'Wines', 'Bottles', function ($scope, $routeParams, $location, Beers, Wines, Bottles) {
     $scope.genericSearch = '';
 
     //refresh view on each search change
