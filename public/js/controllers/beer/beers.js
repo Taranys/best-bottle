@@ -1,67 +1,40 @@
 'use strict';
 
-angular.module('BestBottle').controller('BeersController', ['$scope', '$routeParams', '$location', 'Beers', function ($scope, $routeParams, $location, Beers) {
+angular.module('BestBottle').controller('BeersController', ['$scope', 'Beers', function ($scope, Beers) {
+    $scope.filterText = '';
+
     $scope.filter = {
         current : 0,
-        available : ['Date', 'Note']
+        currentOrder : '-',
+        available : [{ name: 'Date', fieldName : 'created'}, {name : 'Note', fieldName : 'name'}],
+        orderFilter : '+created'
     };
 
     $scope.changeFilter = function(index) {
-        $scope.filter.current = index;
-    };
-
-    $scope.create = function() {
-        var beer = new Beers({
-            name: this.name,
-            description: this.description
-        });
-        beer.$save(function(response) {
-            $location.path('beers/' + response._id);
-        });
-
-        this.title = '';
-        this.content = '';
-    };
-
-    $scope.remove = function(beer) {
-        if (beer) {
-            beer.$remove();
-
-            for (var i in $scope.beers) {
-                if ($scope.beers[i] === beer) {
-                    $scope.beers.splice(i, 1);
-                }
+        var f = $scope.filter;
+        // if click on selected sorter, revert order
+        if(f.current === index) {
+            if( f.currentOrder === '-') {
+                f.currentOrder = '+';
+            } else {
+                f.currentOrder = '-';
             }
         }
+        // otherwise, change sorter and restore order to default
         else {
-            $scope.beer.$remove();
-            $location.path('beers');
+            f.current = index;
+            f.currentOrder = '-';
         }
+        f.orderFilter = f.currentOrder + f.available[index].fieldName;
     };
 
-    $scope.update = function() {
-        var beer = $scope.beer;
-        if (!beer.updated) {
-            beer.updated = [];
-        }
-        beer.updated.push(new Date().getTime());
-
-        beer.$update(function() {
-            $location.path('beers/' + beer._id);
-        });
+    $scope.filterBeer = function(item) {
+        return ( item.name.toUpperCase().indexOf($scope.filterText.toUpperCase()) !== -1 ||  item.description.toUpperCase().indexOf($scope.filterText.toUpperCase()) !== -1 );
     };
 
     $scope.find = function() {
         Beers.query(function(beers) {
             $scope.beers = beers;
-        });
-    };
-
-    $scope.findOne = function() {
-        Beers.get({
-            beerId: $routeParams.beerId
-        }, function(beer) {
-            $scope.beer = beer;
         });
     };
 }]);

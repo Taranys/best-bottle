@@ -10,7 +10,10 @@
             <ul class="nav nav-pills">
                 <li><span>Trie : </span></li>
                 <li ng-repeat="f in filter.available" ng-class="{active : filter.current == $index}">
-                    <a ng-bind="f" ng-click="changeFilter($index)"></a>
+                    <a ng-click="changeFilter($index)">
+                        {{f.name}} <span ng-show="filter.current === $index" class="glyphicon"
+                                        ng-class="{'glyphicon-sort-by-attributes' : filter.currentOrder === '+', 'glyphicon-sort-by-attributes-alt' : filter.currentOrder === '-'}"></span>
+                    </a>
                 </li>
             </ul>
         </div>

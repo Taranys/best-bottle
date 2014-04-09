@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngStrap', 'xeditable']);
+angular.module('BestBottle', ['ngCookies', 'ngResource', 'ngRoute', 'mgcrea.ngStrap', 'xeditable', 'Ymagik']);
 
 //Setting up route
 angular.module('BestBottle').config(['$routeProvider', function($routeProvider) {
