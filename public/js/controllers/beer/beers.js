@@ -6,7 +6,7 @@ angular.module('BestBottle').controller('BeersController', ['$scope', 'Beers', f
     $scope.filter = {
         current : 0,
         currentOrder : '-',
-        available : [{ name: 'Date', fieldName : 'created'}, {name : 'Note', fieldName : 'name'}],
+        available : [{ name: 'Date', fieldName : 'created'}, {name : 'Note', fieldName : 'rate'}],
         orderFilter : '+created'
     };
 

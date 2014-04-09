@@ -13,6 +13,7 @@
         "angular-strap": "~2.0.0",
         "angular-xeditable": "0.1.8",
 
-        "ymagik" : "Taranys/ymagik#master"
+        "ymagik" : "Taranys/ymagik#master",
+        "simplerating" : "Taranys/simplerating#master"
     }
 }
