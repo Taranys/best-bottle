@@ -5,8 +5,42 @@
  */
 var mongoose = require('mongoose'),
     Beer = mongoose.model('Beer'),
+    ImageModel = mongoose.model('Image'),
     _ = require('lodash');
 
+function convertImage(beer) {
+    // if a new iamge is detected
+    if( beer.newImage ) {
+        var newImage = beer.newImage;
+        //delete the old one
+        if( beer.image ) {
+            ImageModel.remove({_id : beer.image});
+        }
+        // convert base64 to byte array
+        var buf = new Buffer( newImage.base64, 'base64');
+        // save new object to database
+        beer.image = new ImageModel({ contentType : newImage.contentType, binary : buf });
+        beer.image.save();
+        delete beer.newImage;
+    }
+    return beer;
+}
+
+/**
+ * persist beer into db and response new object
+ */
+function saveBeer(beer, res) {
+    beer.save(function(err) {
+        if (err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                beer: beer
+            });
+        } else {
+            res.jsonp(beer);
+        }
+    });
+}
 
 /**
  * Find beer by id
@@ -24,39 +58,19 @@ exports.beer = function(req, res, next, id) {
  * Create an beer
  */
 exports.create = function(req, res) {
-    var beer = new Beer(req.body);
+    var beer = new Beer(convertImage(req.body));
     beer.user = req.user;
-
-    beer.save(function(err) {
-        if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                beer: beer
-            });
-        } else {
-            res.jsonp(beer);
-        }
-    });
+    saveBeer(beer, res);
 };
 
 /**
  * Update an beer
  */
 exports.update = function(req, res) {
-    var beer = req.beer;
-
-    beer = _.extend(beer, req.body);
-
-    beer.save(function(err) {
-        if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                beer: beer
-            });
-        } else {
-            res.jsonp(beer);
-        }
-    });
+    // extend db object with received object
+    var beer = _.extend(req.beer, convertImage(req.body));
+    // save it to db
+    saveBeer(beer, res);
 };
 
 /**

@@ -22,8 +22,8 @@ var BeerSchema = new Schema({
         trim: true
     },
     image: {
-        type: String,
-        default: ''
+        type: Schema.ObjectId,
+        ref: 'Image'
     },
     rate : {
         type : Number,
