@@ -13,9 +13,7 @@ function convertImage(beer) {
     if( beer.newImage ) {
         var newImage = beer.newImage;
         //delete the old one
-        if( beer.image ) {
-            ImageModel.remove({_id : beer.image});
-        }
+        if( beer.image ) ImageModel.remove({_id : beer.image});
         // convert base64 to byte array
         var buf = new Buffer( newImage.base64, 'base64');
         // save new object to database
@@ -78,6 +76,8 @@ exports.update = function(req, res) {
  */
 exports.destroy = function(req, res) {
     var beer = req.beer;
+
+    if( beer.image ) ImageModel.remove({ _id : beer.image });
 
     beer.remove(function(err) {
         if (err) {
