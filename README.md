@@ -1,18 +1,21 @@
 best-bottle
 ===========
 
-I DECIDE TO DESTROY EVERYTHING AGAIN xD AND RESTART WITH Mean !! + A REALLY MUCH BETTER WEB UI :)
-
+Another restart :) I hope it is the last :)
+I decided to use JHipster before it become he coolest stack to be real Hipster !!
 
 A little soft to share with some friends all our best bottles of beers and wines (and more maybe :)
 
-Installation of mongoDB
------------------------
+Requirements
+------------
+
+Installation
+------------
 TODO
 
 Run application
 ---------------
-TODO
+gradle bootRun
 
 TODO LIST
 ---------

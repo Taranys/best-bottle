@@ -1,0 +1,18 @@
+{
+  "generator-jhipster": {
+    "baseName": "bestbottle",
+    "packageName": "fr.bestbottle",
+    "packageFolder": "fr/bestbottle",
+    "authenticationType": "cookie",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "useCompass": false,
+    "buildTool": "gradle",
+    "frontendBuilder": "gulp",
+    "javaVersion": "7"
+  }
+}
