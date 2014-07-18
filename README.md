@@ -8,14 +8,17 @@ A little soft to share with some friends all our best bottles of beers and wines
 
 Requirements
 ------------
+ - NodeJS
+ - Git
+ - Gradle >= 2.0
 
 Installation
 ------------
-TODO
+ - npm install -g bower gulp grunt yo
 
 Run application
 ---------------
-gradle bootRun
+ - gradle bootRun
 
 TODO LIST
 ---------
