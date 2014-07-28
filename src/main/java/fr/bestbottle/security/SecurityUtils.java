@@ -13,46 +13,48 @@ import java.util.Collection;
  */
 public final class SecurityUtils {
 
-    private SecurityUtils() {
+  private SecurityUtils() {
+  }
+
+  /**
+   * Get the login of the current user.
+   */
+  public static String getCurrentLogin() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    Authentication authentication = securityContext.getAuthentication();
+    UserDetails springSecurityUser = null;
+    String userName = null;
+
+    if (authentication != null) {
+      if (authentication.getPrincipal() instanceof UserDetails) {
+        springSecurityUser = (UserDetails) authentication.getPrincipal();
+        userName = springSecurityUser.getUsername();
+      } else if (authentication.getPrincipal() instanceof String) {
+        userName = (String) authentication.getPrincipal();
+      }
     }
 
-    /**
-     * Get the login of the current user.
-     */
-    public static String getCurrentLogin() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        UserDetails springSecurityUser = null;
-        String userName = null;
+    return userName;
+  }
 
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            springSecurityUser = (UserDetails) authentication.getPrincipal();
-            userName = springSecurityUser.getUsername();
-        } else if (authentication.getPrincipal() instanceof String) {
-            userName = (String) authentication.getPrincipal();
+  /**
+   * Check if a user is authenticated.
+   *
+   * @return true if the user is authenticated, false otherwise
+   */
+  public static boolean isAuthenticated() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+
+    final Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
+
+    if (authorities != null) {
+      for (GrantedAuthority authority : authorities) {
+        if (authority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)) {
+          return false;
         }
-
-        return userName;
+      }
     }
 
-    /**
-     * Check if a user is authenticated.
-     *
-     * @return true if the user is authenticated, false otherwise
-     */
-    public static boolean isAuthenticated() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-
-        final Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
-
-        if (authorities != null) {
-            for (GrantedAuthority authority : authorities) {
-                if (authority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
+    return true;
+  }
 }

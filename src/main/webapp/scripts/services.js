@@ -2,6 +2,29 @@
 
 /* Services */
 
+bestbottleApp.factory('LanguageService', ['$http', '$translate',
+    function ($http, $translate) {
+        return {
+            getBy: function (language) {
+                if (language == undefined) {
+                    language = $translate.storage().get('NG_TRANSLATE_LANG_KEY');
+                }
+
+                var promise = $http.get('/i18n/' + language + '.json').then(function (response) {
+
+                    var languages = [];
+
+                    angular.forEach(response.data.global.language, function (value, key) {
+                        languages.push(key);
+                    });
+
+                    return languages;
+                });
+                return promise;
+            }
+        };
+    }]);
+
 bestbottleApp.factory('Register', ['$resource',
     function ($resource) {
         return $resource('app/rest/register', {}, {
@@ -44,8 +67,8 @@ bestbottleApp.factory('MetricsService', ['$resource',
 bestbottleApp.factory('ThreadDumpService', ['$http',
     function ($http) {
         return {
-            dump: function() {
-                var promise = $http.get('dump').then(function(response){
+            dump: function () {
+                var promise = $http.get('dump').then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -56,8 +79,8 @@ bestbottleApp.factory('ThreadDumpService', ['$http',
 bestbottleApp.factory('HealthCheckService', ['$rootScope', '$http',
     function ($rootScope, $http) {
         return {
-            check: function() {
-                var promise = $http.get('health').then(function(response){
+            check: function () {
+                var promise = $http.get('health').then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -69,20 +92,20 @@ bestbottleApp.factory('LogsService', ['$resource',
     function ($resource) {
         return $resource('app/rest/logs', {}, {
             'findAll': { method: 'GET', isArray: true},
-            'changeLevel':  { method: 'PUT'}
+            'changeLevel': { method: 'PUT'}
         });
     }]);
 
 bestbottleApp.factory('AuditsService', ['$http',
     function ($http) {
         return {
-            findAll: function() {
+            findAll: function () {
                 var promise = $http.get('app/rest/audits/all').then(function (response) {
                     return response.data;
                 });
                 return promise;
             },
-            findByDates: function(fromDate, toDate) {
+            findByDates: function (fromDate, toDate) {
                 var promise = $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
                     return response.data;
                 });
@@ -110,56 +133,50 @@ bestbottleApp.factory('Session', [
         return this;
     }]);
 
-bestbottleApp.constant('USER_ROLES', {
-        all: '*',
-        admin: 'ROLE_ADMIN',
-        user: 'ROLE_USER'
-    });
-
 bestbottleApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account',
     function ($rootScope, $http, authService, Session, Account) {
         return {
             login: function (param) {
-                var data ="j_username=" + param.username +"&j_password=" + param.password +"&_spring_security_remember_me=" + param.rememberMe +"&submit=Login";
+                var data = "j_username=" + param.username + "&j_password=" + param.password + "&_spring_security_remember_me=" + param.rememberMe + "&submit=Login";
                 $http.post('app/authentication', data, {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
-                    Account.get(function(data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
-                        $rootScope.account = Session;
-                        authService.loginConfirmed(data);
+                        Account.get(function (data) {
+                            Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                            $rootScope.account = Session;
+                            authService.loginConfirmed(data);
+                        });
+                    }).error(function (data, status, headers, config) {
+                        $rootScope.authenticationError = true;
+                        Session.invalidate();
                     });
-                }).error(function (data, status, headers, config) {
-                    $rootScope.authenticationError = true;
-                    Session.invalidate();
-                });
             },
             valid: function (authorizedRoles) {
 
                 $http.get('protected/transparent.gif', {
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
-                    if (!Session.login) {
-                        Account.get(function(data) {
-                            Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
-                            $rootScope.account = Session;
+                        if (!Session.login) {
+                            Account.get(function (data) {
+                                Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                                $rootScope.account = Session;
 
-                            if (!$rootScope.isAuthorized(authorizedRoles)) {
-                                event.preventDefault();
-                                // user is not allowed
-                                $rootScope.$broadcast("event:auth-notAuthorized");
-                            }
+                                if (!$rootScope.isAuthorized(authorizedRoles)) {
+                                    event.preventDefault();
+                                    // user is not allowed
+                                    $rootScope.$broadcast("event:auth-notAuthorized");
+                                }
 
-                            $rootScope.authenticated = true;
-                        });
-                    }
-                    $rootScope.authenticated = !!Session.login;
-                }).error(function (data, status, headers, config) {
-                    $rootScope.authenticated = false;
-                });
+                                $rootScope.authenticated = true;
+                            });
+                        }
+                        $rootScope.authenticated = !!Session.login;
+                    }).error(function (data, status, headers, config) {
+                        $rootScope.authenticated = false;
+                    });
             },
             isAuthorized: function (authorizedRoles) {
                 if (!angular.isArray(authorizedRoles)) {
@@ -171,7 +188,7 @@ bestbottleApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'au
                 }
 
                 var isAuthorized = false;
-                angular.forEach(authorizedRoles, function(authorizedRole) {
+                angular.forEach(authorizedRoles, function (authorizedRole) {
                     var authorized = (!!Session.login &&
                         Session.userRoles.indexOf(authorizedRole) !== -1);
 

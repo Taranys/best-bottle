@@ -10,11 +10,29 @@ bestbottleApp.controller('AdminController', ['$scope',
     function ($scope) {
     }]);
 
-bestbottleApp.controller('LanguageController', ['$scope', '$translate',
-    function ($scope, $translate) {
+bestbottleApp.controller('LanguageController', ['$scope', '$translate', 'LanguageService', 'FLAGS',
+    function ($scope, $translate, LanguageService, FLAGS) {
+        $scope.getFlagClass = function (language) {
+            var selectedFlag = "";
+            angular.forEach(FLAGS, function (flag, flagLanguage) {
+                if (language == flagLanguage) {
+                    selectedFlag = flag;
+                }
+            });
+            return "famfamfam-flag-" + selectedFlag;
+        };
+
         $scope.changeLanguage = function (languageKey) {
             $translate.use(languageKey);
+
+            LanguageService.getBy(languageKey).then(function (languages) {
+                $scope.languages = languages;
+            });
         };
+
+        LanguageService.getBy().then(function (languages) {
+            $scope.languages = languages;
+        });
     }]);
 
 bestbottleApp.controller('MenuController', ['$scope',
@@ -79,7 +97,7 @@ bestbottleApp.controller('RegisterController', ['$scope', '$translate', 'Registe
                     function (httpResponse) {
                         $scope.success = null;
                         if (httpResponse.status === 304 &&
-                                httpResponse.data.error && httpResponse.data.error === "Not Modified") {
+                            httpResponse.data.error && httpResponse.data.error === "Not Modified") {
                             $scope.error = null;
                             $scope.errorUserExists = "ERROR";
                         } else {
@@ -146,21 +164,21 @@ bestbottleApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'S
         };
     }]);
 
- bestbottleApp.controller('MetricsController', ['$scope', 'MetricsService', 'HealthCheckService', 'ThreadDumpService',
+bestbottleApp.controller('MetricsController', ['$scope', 'MetricsService', 'HealthCheckService', 'ThreadDumpService',
     function ($scope, MetricsService, HealthCheckService, ThreadDumpService) {
 
-        $scope.refresh = function() {
-            HealthCheckService.check().then(function(data) {
+        $scope.refresh = function () {
+            HealthCheckService.check().then(function (data) {
                 $scope.healthCheck = data;
             });
 
             $scope.metrics = MetricsService.get();
 
-            $scope.metrics.$get({}, function(items) {
+            $scope.metrics.$get({}, function (items) {
 
                 $scope.servicesStats = {};
                 $scope.cachesStats = {};
-                angular.forEach(items.timers, function(value, key) {
+                angular.forEach(items.timers, function (value, key) {
                     if (key.indexOf("web.rest") != -1 || key.indexOf("service") != -1) {
                         $scope.servicesStats[key] = value;
                     }
@@ -183,8 +201,8 @@ bestbottleApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'S
 
         $scope.refresh();
 
-        $scope.threadDump = function() {
-            ThreadDumpService.dump().then(function(data) {
+        $scope.threadDump = function () {
+            ThreadDumpService.dump().then(function (data) {
                 $scope.threadDump = data;
 
                 $scope.threadDumpRunnable = 0;
@@ -192,7 +210,7 @@ bestbottleApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'S
                 $scope.threadDumpTimedWaiting = 0;
                 $scope.threadDumpBlocked = 0;
 
-                angular.forEach(data, function(value, key) {
+                angular.forEach(data, function (value, key) {
                     if (value.threadState == 'RUNNABLE') {
                         $scope.threadDumpRunnable += 1;
                     } else if (value.threadState == 'WAITING') {
@@ -210,7 +228,7 @@ bestbottleApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'S
             });
         };
 
-        $scope.getLabelClass = function(threadState) {
+        $scope.getLabelClass = function (threadState) {
             if (threadState == 'RUNNABLE') {
                 return "label-success";
             } else if (threadState == 'WAITING') {
@@ -236,22 +254,22 @@ bestbottleApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsServi
 
 bestbottleApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
-        $scope.onChangeDate = function() {
-            AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
+        $scope.onChangeDate = function () {
+            AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function (data) {
                 $scope.audits = data;
             });
         };
 
         // Date picker configuration
-        $scope.today = function() {
+        $scope.today = function () {
             // Today + 1 day - needed if the current day must be included
             var today = new Date();
-            var tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1); // create new increased date
+            var tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1); // create new increased date
 
             $scope.toDate = $filter('date')(tomorrow, "yyyy-MM-dd");
         };
 
-        $scope.previousMonth = function() {
+        $scope.previousMonth = function () {
             var fromDate = new Date();
             if (fromDate.getMonth() == 0) {
                 fromDate = new Date(fromDate.getFullYear() - 1, 0, fromDate.getDate());
@@ -264,8 +282,8 @@ bestbottleApp.controller('AuditsController', ['$scope', '$translate', '$filter',
 
         $scope.today();
         $scope.previousMonth();
-        
-        AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
+
+        AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function (data) {
             $scope.audits = data;
         });
     }]);
