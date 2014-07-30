@@ -1,93 +1,125 @@
 package fr.bestbottle.domain.bottle;
 
+import fr.bestbottle.domain.AbstractAuditingEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
+@Table(name = "T_BOTTLE")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Bottle implements Serializable {
+public class Bottle extends AbstractAuditingEntity implements Serializable {
+	@Id
+	@GeneratedValue
+	@NotNull
+	private Long id;
 
-    @Id
-    @GeneratedValue
-    @NotNull
-    private Long id;
+	@Size(min = 0, max = 100)
+	private String name;
 
-    @Size(min = 0, max = 100)
-    @Column(name = "name")
-    private String name;
+	@Enumerated(EnumType.STRING)
+	private BottleType type;
 
-    @Column(name = "description", columnDefinition = "text")
-    private String description;
+	@Size(min = 0, max = 10)
+	private int rate;
 
-    @Column(name = "preview", columnDefinition = "mediumblob")
-    private byte[] preview;
+	@Column(columnDefinition = "text")
+	private String description;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(columnDefinition = "text")
+	private String preview;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@OneToMany
+	private Collection<Opinion> opinions;
 
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public byte[] getPreview() {
-        return preview;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPreview(byte[] preview) {
-        this.preview = preview;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public String getPreview() {
+		return preview;
+	}
 
-        Bottle bottle = (Bottle) o;
+	public void setPreview(String preview) {
+		this.preview = preview;
+	}
 
-        if (description != null ? !description.equals(bottle.description) : bottle.description != null) return false;
-        if (id != null ? !id.equals(bottle.id) : bottle.id != null) return false;
-        if (name != null ? !name.equals(bottle.name) : bottle.name != null) return false;
-        if (!Arrays.equals(preview, bottle.preview)) return false;
+	public BottleType getType() {
+		return type;
+	}
 
-        return true;
-    }
+	public void setType(BottleType type) {
+		this.type = type;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (preview != null ? Arrays.hashCode(preview) : 0);
-        return result;
-    }
+	public int getRate() {
+		return rate;
+	}
 
-    @Override
-    public String toString() {
-        return "Bottle{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", preview=" + Arrays.toString(preview) +
-                '}';
-    }
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Bottle)) return false;
+
+		Bottle bottle = (Bottle) o;
+
+		if (rate != bottle.rate) return false;
+		if (description != null ? !description.equals(bottle.description) : bottle.description != null) return false;
+		if (id != null ? !id.equals(bottle.id) : bottle.id != null) return false;
+		if (name != null ? !name.equals(bottle.name) : bottle.name != null) return false;
+		if (preview != null ? !preview.equals(bottle.preview) : bottle.preview != null) return false;
+		if (type != bottle.type) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (type != null ? type.hashCode() : 0);
+		result = 31 * result + rate;
+		result = 31 * result + (description != null ? description.hashCode() : 0);
+		result = 31 * result + (preview != null ? preview.hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Bottle{" +
+						"id=" + id +
+						", name='" + name + '\'' +
+						", type=" + type +
+						", rate=" + rate +
+						", description='" + description + '\'' +
+						", preview='" + preview + '\'' +
+						'}';
+	}
 }

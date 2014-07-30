@@ -1,6 +1,6 @@
 package fr.bestbottle.domain.bottle;
 
-public enum Type {
-    BEER,
-    WINE
+public enum BottleType {
+	BEER,
+	WINE
 }
