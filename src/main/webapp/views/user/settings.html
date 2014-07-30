@@ -1,8 +1,9 @@
-<div>
+<div class="container">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h2 translate="settings.title" translate-values="{username: '{{account.login}}'}">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
+            <h2 translate="settings.title" translate-values="{username: '{{account.login}}'}">User settings for [<b>{{settingsAccount.login}}</b>]
+            </h2>
 
             <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
                 <strong>Settings saved!</strong>
@@ -19,6 +20,7 @@
                     <label translate="settings.form.firstname">First Name</label>
                     <input type="text" class="form-control" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
                            ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required>
+
                     <div class="error"
                          ng-show="form.firstName.$dirty && form.firstName.$invalid">
                         <small class="error"
@@ -39,6 +41,7 @@
                     <label translate="settings.form.lastname">Last Name</label>
                     <input type="text" class="form-control" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
                            ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required>
+
                     <div class="error"
                          ng-show="form.lastName.$dirty && form.lastName.$invalid">
                         <small class="error"
@@ -59,6 +62,7 @@
                     <label translate="global.form.email">E-mail</label>
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required>
+
                     <div class="error"
                          ng-show="form.email.$dirty && form.email.$invalid">
                         <small class="error"

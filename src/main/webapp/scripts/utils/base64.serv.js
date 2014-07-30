@@ -1,4 +1,6 @@
-angular.module('bestbottleAppUtils', [])
+'use strict';
+
+angular.module('bestBottle.utils')
     .service('Base64Service', function () {
         var keyStr = "ABCDEFGHIJKLMNOP" +
             "QRSTUVWXYZabcdef" +
@@ -71,25 +73,4 @@ angular.module('bestbottleAppUtils', [])
                 enc1 = enc2 = enc3 = enc4 = "";
             }
         };
-    })
-    .factory('StorageService', function ($rootScope) {
-        return {
-
-            get: function (key) {
-                return JSON.parse(localStorage.getItem(key));
-            },
-
-            save: function (key, data) {
-                localStorage.setItem(key, JSON.stringify(data));
-            },
-
-            remove: function (key) {
-                localStorage.removeItem(key);
-            },
-
-            clearAll : function () {
-                localStorage.clear();
-            }
-        };
     });
-
