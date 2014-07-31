@@ -7,18 +7,16 @@ import java.util.Map;
 @Entity
 @Table(name = "T_BEER")
 public class Beer extends Bottle {
-	@Column(name = "country_code")
+    @ElementCollection
+    @CollectionTable(name = "beer_rate", joinColumns = @JoinColumn(name = "id"))
+    @MapKeyColumn(name = "type", nullable = false)
+    @MapKeyEnumerated(EnumType.STRING)
+    @Column(name = "rate")
+    private final Map<BeerType, Integer> rates = new HashMap<>();
+    @Column(name = "country_code")
 	private String countryCode;
-
 	@Enumerated(EnumType.STRING)
 	private BeerColor color;
-
-	@ElementCollection
-	@CollectionTable(name = "beer_rate", joinColumns = @JoinColumn(name = "id"))
-	@MapKeyColumn(name = "type", nullable = false)
-	@MapKeyEnumerated(EnumType.STRING)
-	@Column(name = "rate")
-	private final Map<BeerType, Integer> rates = new HashMap<>();
 
 	public String getCountryCode() {
 		return countryCode;
@@ -36,9 +34,10 @@ public class Beer extends Bottle {
 		this.color = color;
 	}
 
-	public Map<BeerType, Integer> getRates() {
-		return rates;
-	}
+    public Integer getRate(BeerType type) {
+        Integer rate = rates.get(type);
+        return (rate == null) ? -1 : rate;
+    }
 
 	public void setRate(BeerType type, int rate) {
 		this.rates.put(type, rate);

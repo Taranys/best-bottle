@@ -7,13 +7,9 @@ angular.module('bestBottle.beer')
         Beers.new = function () {
             return new Beers({
                 name: '',
-                type: 'BEER',
                 description: '',
-                preview: '',
-                opinions: [],
                 countryCode: 'FR',
-                color: 'WHITE',
-                rate: 0
+                color: 'WHITE'
             });
         };
         return Beers;
