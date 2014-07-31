@@ -11,6 +11,7 @@ angular.module('bestBottleApp', [
     'bestBottle.user',
     'bestBottle.i18n',
     'bestBottle.utils',
+    'bestBottle.beer',
     'http-auth-interceptor',
     'truncate'
 ]);
@@ -19,6 +20,14 @@ angular.module('bestBottleApp')
     .config(['$routeProvider', '$httpProvider', '$translateProvider', 'tmhDynamicLocaleProvider', 'USER_ROLES',
         function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, USER_ROLES) {
             $routeProvider
+                .when('/', {
+                    templateUrl: 'views/main.html',
+                    controller: 'MainController',
+                    jumbo: true,
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
                 .when('/error', {
                     templateUrl: 'views/error.html',
                     access: {
@@ -26,15 +35,21 @@ angular.module('bestBottleApp')
                     }
                 })
                 .otherwise({
-                    templateUrl: 'views/main.html',
-                    controller: 'MainController',
-                    access: {
-                        authorizedRoles: [USER_ROLES.all]
-                    }
+                    redirectTo: '/'
                 });
         }])
     .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
         function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+//            editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+
+            $rootScope.$on('$routeChangeSuccess', function (event, previous) {
+                if (previous && previous.$$route && previous.$$route.jumbo) {
+                    $rootScope.jumbo = previous.$$route.jumbo;
+                } else {
+                    $rootScope.jumbo = false;
+                }
+            });
+
             $rootScope.$on('$routeChangeStart', function (event, next) {
                 $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                 $rootScope.userRoles = USER_ROLES;

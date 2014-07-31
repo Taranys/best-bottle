@@ -9,31 +9,40 @@
 <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="text/html; charset=utf-8" content="IE=edge">
     <title>bestbottle</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/anim.css">
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/famfamfam-flags.css">
     <!-- endbuild -->
 </head>
 <body ng-app="bestBottleApp" ng-controller="MainController">
 <!--[if lt IE 10]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to
     improve your experience.</p>
 <![endif]-->
 <div class="development"></div>
 
 <div ng-include=" 'views/navbar.html' "></div>
 
-<div class="container">
-    <div class="well" ng-view=""></div>
+<div class="container" ng-view="">
+</div>
 
-    <div class="footer">
-        <p translate="footer">This is your footer</p>
+<div class="footer-top">
+    <div class="footer-inner">
+    </div>
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <span>Copyright &copy; 2013&nbsp;Yoann Prot / Vincent Tisseront</span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -106,6 +115,11 @@
 <script src="scripts/utils/utils.app.js"></script>
 <script src="scripts/utils/base64.serv.js"></script>
 <script src="scripts/utils/storage.serv.js"></script>
+
+<script src="scripts/bottle/beer/beer.app.js"></script>
+<script src="scripts/bottle/beer/beer.serv.js"></script>
+<script src="scripts/bottle/beer/list.beer.ctrl.js"></script>
+<script src="scripts/bottle/beer/edit.beer.ctrl.js"></script>
 <!-- endbuild -->
 </body>
 </html>

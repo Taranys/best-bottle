@@ -1,82 +1,111 @@
-<nav class="navbar navbar-default" role="navigation">
+<div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                <span class="glyphicon glyphicon-home"></span>
-                <span translate="global.title">bestbottle</span>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
-            <ul class="nav navbar-nav nav-pills navbar-right">
-                <li class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="hidden-tablet" translate="global.menu.account.main">
-                                        Account
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
+        <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
+            <div class="col-xs-12 col-sm-6">
+                <a href="/" id="jumbo-title">Best bottle</a>
+                <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
+            </div>
+            <div class="col-xs-2 pull-right">
+                <div class="dropdown pull-right visible-md visible-lg" style="margin-left: 5px">
+                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="">
+                        <span class="glyphicon glyphicon-tower"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
-                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
-                            &#xA0;<span translate="global.menu.account.password">Password</span></a></li>
-                        <li ng-switch-when="true"><a href="#/sessions"><span class="glyphicon glyphicon-cloud"></span>
-                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>
-                        <li ng-switch-when="true"><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span>
-                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
-                        <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
-                            &#xA0;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
-                        <li ng-switch-when="false"><a href="#/register"><span class="glyphicon glyphicon-plus-sign"></span>
-                            &#xA0;<span translate="global.menu.account.register">Register</span></a></li>
+                        <li>
+                            <a href="#/tracker">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span translate="global.menu.account.tracker">User tracking</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/metrics">
+                                <span class="glyphicon glyphicon-dashboard"></span>
+                                <span translate="global.menu.account.metrics">Metrics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/audits">
+                                <span class="glyphicon glyphicon-bell"></span>
+                                <span translate="global.menu.account.audits">Audits</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/logs">
+                                <span class="glyphicon glyphicon-tasks"></span>
+                                <span translate="global.menu.account.logs">Logs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/docs">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span translate="global.menu.account.apidocs">API Docs</span>
+                            </a>
+                        </li>
                     </ul>
-                </li>
-                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="glyphicon glyphicon-tower"></span>
-                                    <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
-                                    <b class="caret"></b>
-                                </span>
+                </div>
+                <div class="dropdown pull-right" style="margin-left: 5px">
+                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="">
+                        <span class="glyphicon glyphicon-user"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/tracker"><span class="glyphicon glyphicon-eye-open"></span>
-                            &#xA0;<span translate="global.menu.account.tracker">User tracking</span></a></li>
-                        <li><a href="#/metrics"><span class="glyphicon glyphicon-dashboard"></span>
-                            &#xA0;<span translate="global.menu.account.metrics">Metrics</span></a></li>
-                        <li><a href="#/audits"><span class="glyphicon glyphicon-bell"></span>
-                            &#xA0;<span translate="global.menu.account.audits">Audits</span></a></li>
-                        <li><a href="#/logs"><span class="glyphicon glyphicon-tasks"></span>
-                            &#xA0;<span translate="global.menu.account.logs">Logs</span></a></li>
-                        <li><a href="#/docs"><span class="glyphicon glyphicon-book"></span>
-                            &#xA0;<span translate="global.menu.account.apidocs">API Docs</span></a></li>
+                    <ul ng-switch="authenticated" class="dropdown-menu">
+                        <li ng-switch-when="true">
+                            <a href="#/settings">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                <span translate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/password"><span class="glyphicon glyphicon-lock"></span>
+                                <span translate="global.menu.account.password">Password</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/sessions">
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                <span translate="global.menu.account.sessions">Sessions</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/logout">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                <span translate="global.menu.account.logout">Log out</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="false">
+                            <a href="#/login">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                <span translate="global.menu.account.login">Authenticate</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="false">
+                            <a href="#/register">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                <span translate="global.menu.account.register">Register</span>
+                            </a>
+                        </li>
                     </ul>
-                </li>
-                <li class="dropdown pointer" ng-controller="LanguageController">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="glyphicon glyphicon-flag"></span>
-                                    <span class="hidden-tablet" translate="global.menu.language">Language</span>
-                                    <b class="caret"></b>
-                                </span>
+                </div>
+                <div class="dropdown pull-right visible-md visible-lg">
+                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="">
+                        <span class="glyphicon glyphicon-flag"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li active-menu="{{language}}" ng-repeat="language in languages">
-                            <a href="#" ng-click="changeLanguage(language)"><span ng-class="getFlagClass(language)"></span>
-                                &#xA0;<span translate="global.language.{{language}}">WILL CHANGE</span></a>
+                            <a href="#" ng-click="changeLanguage(language)">
+                                <span ng-class="getFlagClass(language)"></span>
+                                <span translate="global.language.{{language}}">WILL CHANGE</span>
+                            </a>
                         </li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-4 pull-right form-horizontal" ng-init="currentUrl = 'test'">
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" placeholder="Recherche">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+</div>
