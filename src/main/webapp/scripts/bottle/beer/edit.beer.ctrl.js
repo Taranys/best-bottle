@@ -5,7 +5,7 @@ angular.module('bestBottle.beer')
         function ($scope, $routeParams, $location, Beers) {
             $scope.create = function () {
                 $scope.beer.$save(function (response) {
-                    $location.path('/beer/' + response._id);
+                    $location.path('/beer/' + response.id);
                 });
             };
 
@@ -19,18 +19,13 @@ angular.module('bestBottle.beer')
 
             $scope.update = function () {
                 var beer = $scope.beer;
-                if (!beer.updated) {
-                    beer.updated = [];
-                }
-                beer.updated.push(new Date().getTime());
-
                 beer.$update(function () {
-                    $location.path('beers/' + beer._id);
+                    $location.path('beers/' + beer.id);
                 });
             };
 
             $scope.findOne = function () {
-                Beers.get({ beerId: $routeParams.beerId }, function (beer) {
+                Beers.get({ id: $routeParams.beerId }, function (beer) {
                     $scope.beer = beer;
                 });
             };
@@ -38,7 +33,7 @@ angular.module('bestBottle.beer')
             $scope.init = function () {
                 if (!$routeParams.beerId) {
                     $scope.creation = true;
-                    $scope.beer = new Beers();
+                    $scope.beer = Beers.new();
                 } else {
                     $scope.findOne();
                 }

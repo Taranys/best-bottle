@@ -13,7 +13,7 @@ import java.util.Collection;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Bottle extends AbstractAuditingEntity implements Serializable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@NotNull
 	private Long id;
 
@@ -23,7 +23,6 @@ public class Bottle extends AbstractAuditingEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private BottleType type;
 
-	@Size(min = 0, max = 10)
 	private int rate;
 
 	@Column(columnDefinition = "text")
