@@ -30,81 +30,82 @@ public class BeerResource {
 	@Inject
 	private BeerRepository beerRepository;
 
+	@Timed
+	@Transactional
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-    public List<BeerDTO> getAll() {
-        List<Beer> beerList = beerRepository.findAll();
-        ArrayList<BeerDTO> beers = new ArrayList<>();
-        for (Beer beer : beerList) {
-            beers.add(beerToDTO(beer));
-        }
-        return beers;
-    }
+	public List<BeerDTO> getAll() {
+		List<Beer> beerList = beerRepository.findAll();
+		ArrayList<BeerDTO> beers = new ArrayList<>();
+		for (Beer beer : beerList) {
+			beers.add(beerToDTO(beer));
+		}
+		return beers;
+	}
 
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
+	@Timed
+	@Transactional
+	@RequestMapping(value = "/{id}",
+					method = RequestMethod.GET,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-    @Transactional
-    public BeerDTO get(@PathVariable Long id) {
-        return beerToDTO(beerRepository.getOne(id));
-    }
+	public BeerDTO get(@PathVariable Long id) {
+		return beerToDTO(beerRepository.getOne(id));
+	}
 
+	@Timed
+	@Transactional
+	@RolesAllowed(AuthoritiesConstants.USER)
 	@RequestMapping(method = RequestMethod.POST,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					produces = MediaType.APPLICATION_JSON_VALUE)
+	public BeerDTO create(@RequestBody BeerDTO beerDTO) {
+		Beer beer = new Beer();
+		return saveBeer(beer, beerDTO);
+	}
+
 	@Timed
-    @Transactional
-    @RolesAllowed(AuthoritiesConstants.USER)
-    public BeerDTO create(@RequestBody BeerDTO beerDTO) {
-        Beer beer = new Beer();
-        return saveBeer(beer, beerDTO);
-    }
+	@Transactional
+	@RolesAllowed(AuthoritiesConstants.USER)
+	@RequestMapping(value = "/{id}",
+					method = RequestMethod.POST,
+					consumes = MediaType.APPLICATION_JSON_VALUE,
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public BeerDTO update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
+		Beer beer = beerRepository.getOne(id);
+		beerDTO.setId(id);
+		return saveBeer(beer, beerDTO);
+	}
 
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @Transactional
-    @RolesAllowed(AuthoritiesConstants.USER)
-    public BeerDTO update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
-        Beer beer = beerRepository.getOne(id);
-        beerDTO.setId(id);
-        return saveBeer(beer, beerDTO);
-    }
+	@Timed
+	@Transactional
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RequestMapping(value = "/{id}",
+					method = RequestMethod.DELETE,
+					consumes = MediaType.APPLICATION_JSON_VALUE,
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public void delete(@PathVariable Long id) {
+		beerRepository.delete(id);
+	}
 
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @Transactional
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public void delete(@PathVariable Long id) {
-        beerRepository.delete(id);
-    }
+	private BeerDTO saveBeer(Beer beer, BeerDTO beerDTO) {
+		beer.setName(beerDTO.getName());
+		beer.setDescription(beerDTO.getDescription());
+		beer.setColor(BeerColor.valueOf(beerDTO.getColor()));
+		beer.setCountryCode(beerDTO.getCountryCode());
 
-    private BeerDTO saveBeer(Beer beer, BeerDTO beerDTO) {
-        beer.setName(beerDTO.getName());
-        beer.setDescription(beerDTO.getDescription());
-        beer.setColor(BeerColor.valueOf(beerDTO.getColor()));
-        beer.setCountryCode(beerDTO.getCountryCode());
+		Beer saved = beerRepository.save(beer);
+		return beerToDTO(saved);
+	}
 
-        Beer saved = beerRepository.save(beer);
-        return beerToDTO(saved);
-    }
-
-    private BeerDTO beerToDTO(Beer beer) {
-        return new BeerDTO(
-                beer.getId(),
-                beer.getName(),
-                beer.getDescription(),
-                beer.getPreview(),
-                beer.getRate(BeerType.DRAFT),
-                beer.getRate(BeerType.BOTTLE),
-                beer.getColor().name(),
-                beer.getCountryCode()
-        );
-    }
+	private BeerDTO beerToDTO(Beer beer) {
+		return new BeerDTO(
+						beer.getId(),
+						beer.getName(),
+						beer.getDescription(),
+						beer.getPreview(),
+						beer.getRate(BeerType.DRAFT),
+						beer.getRate(BeerType.BOTTLE),
+						beer.getColor().name(),
+						beer.getCountryCode()
+		);
+	}
 }

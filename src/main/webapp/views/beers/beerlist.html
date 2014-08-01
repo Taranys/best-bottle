@@ -32,7 +32,7 @@
         </div>
         <div class="col-xs-12 col-sm-2" ng-repeat="beer in beers | filter:filterBeer | orderBy:filter.orderFilter">
             <img class="img-responsive" src="images/no_photo.png" class="img-rounded">
-            <a class="text-center col-xs-12 list-link" href="#/beer/{{beer._id}}" ng-bind="beer.name"></a>
+            <a class="text-center col-xs-12 list-link" href="#/beer/{{beer.id}}" ng-bind="beer.name"></a>
 
             <div class="text-center col-xs-12" style="font-size: 25px" simple-rating rating="beer.rate" rating-max="5"
                  read-only="true"></div>

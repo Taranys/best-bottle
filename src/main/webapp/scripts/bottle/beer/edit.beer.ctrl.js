@@ -1,8 +1,16 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers',
-        function ($scope, $routeParams, $location, Beers) {
+    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http',
+        function ($scope, $routeParams, $location, Beers, $http) {
+            $http.get('i18n/countries/fr.json')
+                .success(function (countries) {
+                    $scope.countries = countries;
+                })
+                .error(function (error) {
+                    console.error(error);
+                });
+
             $scope.create = function () {
                 $scope.beer.$save(function (response) {
                     $location.path('/beer/' + response.id);

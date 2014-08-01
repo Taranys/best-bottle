@@ -8,7 +8,7 @@ angular.module('bestBottle.beer')
             return new Beers({
                 name: '',
                 description: '',
-                countryCode: 'FR',
+                countryCode: 'BE',
                 color: 'WHITE'
             });
         };
