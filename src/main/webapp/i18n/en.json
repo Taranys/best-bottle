@@ -22,15 +22,8 @@
             "language": "Language"
         },
         "language": {
-            "da": "Danish",
             "en": "English",
-            "fr": "French",
-            "de": "German",
-            "kr": "Korean",
-            "pl": "Polish",
-            "ru": "Russian",
-            "es": "Spanish",
-            "tr": "Turkish"
+            "fr": "French"
         },
         "form": {
             "username": "Login",
@@ -72,20 +65,18 @@
         }
     },
     "main": {
-        "title": "Welcome, Java Hipster!",
-        "subtitle": "This is your homepage",
-        "logged": {
-            "message": "You are logged in as user \"{{username}}\"."
+        "bottle": {
+            "beers": "Beers",
+            "wines": "Wines & Champagnes",
+            "cocktails": "Cocktails",
+            "spirits": "Spirits"
         },
-        "question": "If you have any question on JHipster:",
-        "link": {
-            "homepage": "JHipster homepage",
-            "stackoverflow": "JHipster on Stack Overflow",
-            "bugtracker": "JHipster bug tracker",
-            "contact": "contact @java_hipster on Twitter"
-        },
-        "like": "If you like JHipster, don't forget to give us a star on",
-        "github": "Github"
+        "food": {
+            "appetizers": "Appetizers",
+            "starters": "Starters",
+            "foods": "Foods",
+            "desserts": "Desserts"
+        }
     },
     "activate": {
         "title": "Activation",

@@ -10,22 +10,22 @@ angular.module('bestBottleApp')
                         {
                             link: '#/beers',
                             img: 'images/icons/beer.png',
-                            label: 'Bière'
+                            label: 'main.bottle.beers'
                         },
                         {
                             link: '#/wines',
                             img: 'images/icons/wine.png',
-                            label: 'Vin & Champagne'
+                            label: 'main.bottle.wines'
                         },
                         {
-                            link: '#/coctails',
-                            img: 'images/icons/coctail.png',
-                            label: 'Cocktail'
+                            link: '#/cocktails',
+                            img: 'images/icons/cocktails.png',
+                            label: 'main.bottle.cocktails'
                         },
                         {
                             link: '#/spirits',
                             img: 'images/icons/spirit.png',
-                            label: 'Spiritueux'
+                            label: 'main.bottle.spirits'
                         }
                     ]
                 },
@@ -33,24 +33,24 @@ angular.module('bestBottleApp')
                     title: 'Gastronomie',
                     links: [
                         {
-                            link: '#/apetizers',
-                            img: 'images/icons/apetizer.png',
-                            label: 'Apéro'
+                            link: '#/appetizers',
+                            img: 'images/icons/appetizers.png',
+                            label: 'main.food.appetizers'
                         },
                         {
                             link: '#/starters',
                             img: 'images/icons/starter.png',
-                            label: 'Entrée'
+                            label: 'main.food.starters'
                         },
                         {
                             link: '#/foods',
                             img: 'images/icons/food.png',
-                            label: 'Plat'
+                            label: 'main.food.foods'
                         },
                         {
                             link: '#/desserts',
                             img: 'images/icons/dessert.png',
-                            label: 'Dessert'
+                            label: 'main.food.desserts'
                         }
                     ]
                 }
