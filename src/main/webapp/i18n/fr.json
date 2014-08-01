@@ -62,6 +62,15 @@
                     "invalid": "Votre email n'est pas valide."
                 }
             }
+        },
+        "beer": {
+            "color": {
+                "white": "Blanche",
+                "yellow": "Blonde",
+                "amber": "Ambrée",
+                "brown": "Brune",
+                "black": "Noire"
+            }
         }
     },
     "main": {

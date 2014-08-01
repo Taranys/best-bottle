@@ -62,6 +62,15 @@
                     "maxlength": "Your e-mail cannot be longer than 50 characters"
                 }
             }
+        },
+        "beer": {
+            "color": {
+                "white": "White",
+                "yellow": "Yellow",
+                "amber": "Amber",
+                "brown": "Brown",
+                "black": "Black"
+            }
         }
     },
     "main": {

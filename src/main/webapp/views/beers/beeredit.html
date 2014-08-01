@@ -10,13 +10,19 @@
                     ng-model="beer.countryCode"></select>
         </div>
         <div class="form-group">
-            <label for="beerColor">Couleur</label>
-            <input type="text" id="beerColor" class="form-control" ng-model="beer.color" placeholder="Couleur"></span>
+            <label for="beerColor">Couleur</label> {{beer.color}}
+
+            <div id="beerColor" class="btn-group" ng-model="beer.color" bs-radio-group>
+                <label class="btn btn-default" ng-repeat="color in colors">
+                    <input type="radio" class="btn btn-default" value="{{color.id}}">
+                    <span data-translate="{{color.name}}"></span>
+                </label>
+            </div>
         </div>
         <div class="form-group">
             <label for="beerDescription">Description</label>
-            <input type="text" id="beerDescription" class="form-control" ng-model="beer.description"
-                   placeholder="Couleur"></span>
+            <textarea rows="5" id="beerDescription" class="form-control" ng-model="beer.description"
+                      placeholder="Description"></textarea>
         </div>
         <button ng-hide="creation" class="btn btn-danger pull-left" ng-click="remove(beer)">
             Supprimer <span class="glyphicon glyphicon-trash"></span>
@@ -26,44 +32,4 @@
             Sauvegarder <span class="glyphicon glyphicon-ok"></span>
         </button>
     </form>
-    <!--<div class="col-xs-12">-->
-    <!--<div class="col-xs-12 section-title form-group">-->
-    <!--&lt;!&ndash;<label for="beer_title">Nom</label>&ndash;&gt;-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-xs-12">-->
-    <!--<div class="col-xs-12 section-title form-group">-->
-    <!--<label for="beer_title">Pays</label>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;<div class="col-xs-12 col-sm-9 form-group well well-sm">&ndash;&gt;-->
-    <!--&lt;!&ndash;<h3 class="col-xs-12">&ndash;&gt;-->
-    <!--&lt;!&ndash;Pays&ndash;&gt;-->
-    <!--&lt;!&ndash;</h3>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;<div class="col-xs-12">&ndash;&gt;-->
-    <!--&lt;!&ndash;<select rows="10" class="form-control col-xs-12" ng-options="isoCode as name for (isoCode , name) in countries" ng-model="beer.country"></select>&ndash;&gt;
-    -->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--<div class="col-xs-12 col-sm-9 form-group well well-sm">-->
-    <!--<h3 class="col-xs-12">-->
-    <!--Description-->
-    <!--</h3>-->
-
-    <!--<div class="col-xs-12">-->
-    <!--<textarea rows="10" class="form-control col-xs-12" ng-model="beer.description"></textarea>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-xs-12">-->
-    <!--<button ng-hide="creation" class="btn btn-danger pull-left" ng-click="remove(beer)">-->
-    <!--Supprimer <span class="glyphicon glyphicon-trash"></span>-->
-    <!--</button>-->
-    <!--<a ng-show="creation" class="btn btn-danger pull-left" href="#/beers">Annuler</a>-->
-    <!--<button class="btn btn-success pull-right" ng-click="create()">-->
-    <!--Sauvegarder <span class="glyphicon glyphicon-ok"></span>-->
-    <!--</button>-->
-    <!--</div>-->
 </div>

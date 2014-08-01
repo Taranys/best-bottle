@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http',
-        function ($scope, $routeParams, $location, Beers, $http) {
+    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', 'FLAGS',
+        function ($scope, $routeParams, $location, Beers, $http, FLAGS) {
             $http.get('i18n/countries/fr.json')
                 .success(function (countries) {
                     $scope.countries = countries;
@@ -10,6 +10,24 @@ angular.module('bestBottle.beer')
                 .error(function (error) {
                     console.error(error);
                 });
+
+            $scope.getFlagClass = function (language) {
+                var selectedFlag = "";
+                angular.forEach(FLAGS, function (flag, flagLanguage) {
+                    if (language == flagLanguage) {
+                        selectedFlag = flag;
+                    }
+                });
+                return "famfamfam-flag-" + selectedFlag;
+            };
+
+            $scope.colors = [
+                { id: "WHITE", name: "global.beer.color.white" },
+                { id: "YELLOW", name: "global.beer.color.yellow" },
+                { id: "AMBER", name: "global.beer.color.amber" },
+                { id: "BROWN", name: "global.beer.color.brown" },
+                { id: "BLACK", name: "global.beer.color.black" }
+            ];
 
             $scope.create = function () {
                 $scope.beer.$save(function (response) {

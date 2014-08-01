@@ -13,5 +13,7 @@ angular.module('bestBottle.cst', [])
 // to display the flag
     .constant('FLAGS', {
         fr: 'fr',
-        en: 'us'
+        en: 'us',
+
+        BE: 'be'
     });
