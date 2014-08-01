@@ -10,7 +10,7 @@ Requirements
 ------------
  - NodeJS
  - Git
- - Gradle >= 2.0
+ - Maven >= 2.0
 
 Installation
 ------------
@@ -18,7 +18,7 @@ Installation
 
 Run application
 ---------------
- - gradle bootRun
+ - mvn spring-boot:run
 
 TODO LIST
 ---------
