@@ -15,5 +15,6 @@ angular.module('bestBottle.cst', [])
         fr: 'fr',
         en: 'us',
 
-        BE: 'be'
+        BE: 'be',
+        FR: 'fr'
     });
