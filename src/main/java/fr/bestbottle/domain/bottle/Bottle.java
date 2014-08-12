@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class Bottle extends AbstractAuditingEntity implements Serializable {
     private String preview;
 
     @OneToMany
-    private List<Opinion> opinions;
+    private List<Opinion> opinions = new ArrayList<>();
 
     public Long getId() {
         return id;

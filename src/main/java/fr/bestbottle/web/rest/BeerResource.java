@@ -1,16 +1,14 @@
-return Optional.ofNullable(beerRepository.getOne(id))
-        .map(beer->new ResponseEntity<>(new BeerDTO(beer),HttpStatus.OK))
-        package fr.bestbottle.web.rest;
+package fr.bestbottle.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.bestbottle.domain.bottle.Beer;
 import fr.bestbottle.domain.bottle.BeerColor;
-        import fr.bestbottle.domain.bottle.Opinion;
-        import fr.bestbottle.repository.BeerRepository;
+import fr.bestbottle.domain.bottle.Opinion;
+import fr.bestbottle.repository.BeerRepository;
 import fr.bestbottle.security.AuthoritiesConstants;
 import fr.bestbottle.web.rest.dto.BeerDTO;
-        import fr.bestbottle.web.rest.dto.BeerOpinionDTO;
-        import org.slf4j.Logger;
+import fr.bestbottle.web.rest.dto.BeerOpinionDTO;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,6 +47,7 @@ public class BeerResource {
 					method = RequestMethod.GET,
 					produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> get(@PathVariable Long id) {
+        return new ResponseEntity<BeerDTO>(new BeerDTO(beerRepository.getOne(id)), HttpStatus.OK);
     }
 
     @Timed
@@ -56,17 +55,19 @@ public class BeerResource {
     @RequestMapping(value = "/{id}/opinions",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<OpinionDTO>> getOpinion(@PathVariable Long id) {
+    public ResponseEntity<List<BeerOpinionDTO>> getOpinion(@PathVariable Long id) {
 
         return Optional.ofNullable(beerRepository.getOne(id))
-                .map(beer -> new ResponseEntity<>(
-                                //convert each opinion to opinionDTO and return a new Array
-                                beer.getOpinions().stream()
-                                        .map(OpinionDTO::new)
-                                        .collect(Collectors.<OpinionDTO>toList()),
-                                HttpStatus.OK)
+                .map(beer -> {
+                            return new ResponseEntity<List<BeerOpinionDTO>>(
+                                    //convert each opinion to opinionDTO and return a new Array
+                                    beer.getOpinions().stream()
+                                            .map(BeerOpinionDTO::new)
+                                            .collect(Collectors.<BeerOpinionDTO>toList()),
+                                    HttpStatus.OK);
+                        }
                 )
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<List<BeerOpinionDTO>>(HttpStatus.NOT_FOUND));
     }
 
 	@Timed

@@ -17,7 +17,8 @@ var gulp = require('gulp'),
     es = require('event-stream'),
     flatten = require('gulp-flatten'),
     clean = require('gulp-clean'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    bower = require('gulp-bower');
 
 var karma = require('gulp-karma')({configFile: 'src/test/javascript/karma.conf.js'});
 
@@ -38,13 +39,18 @@ gulp.task('clean:tmp', function () {
         pipe(clean());
 });
 
+gulp.task('bower', function () {
+    return bower()
+        .pipe(gulp.dest('src/main/webapp/bower_components/'))
+});
+
 gulp.task('test', function () {
     karma.once();
 });
 
 gulp.task('copy', ['clean'], function () {
     return es.merge(gulp.src(yeoman.app + 'i18n/**').
-        pipe(gulp.dest(yeoman.dist + 'i18n/')),
+            pipe(gulp.dest(yeoman.dist + 'i18n/')),
         gulp.src(yeoman.app + '**/*.{woff,svg,ttf,eot}').
             pipe(flatten()).
             pipe(gulp.dest(yeoman.dist + 'fonts/')));
@@ -167,7 +173,10 @@ gulp.task('server:dist', ['build'], function () {
     );
 });
 
-gulp.task('build', ['clean', 'copy', 'usemin']);
+gulp.task('build', ['clean', 'bower'], function () {
+    gulp.start('copy');
+    gulp.start('usemin');
+});
 
 gulp.task('usemin', ['images', 'styles'], function () {
     return gulp.src(yeoman.app + '{,*/}*.html').
@@ -192,4 +201,6 @@ gulp.task('usemin', ['images', 'styles'], function () {
         pipe(gulp.dest(yeoman.dist));
 });
 
-gulp.task('default', ['test', 'build']);
+gulp.task('default', [
+//    'test',
+    'build']);
