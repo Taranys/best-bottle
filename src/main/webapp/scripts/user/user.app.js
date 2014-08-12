@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('bestBottle.user', [
-        'ngRoute',
-        'bestBottle.cst',
-        'truncate'
-    ])
+    'ngRoute',
+    'bestBottle.cst',
+    'truncate'
+])
     .config(['$routeProvider', 'USER_ROLES',
         function ($routeProvider, USER_ROLES) {
             $routeProvider
@@ -62,4 +62,10 @@ angular.module('bestBottle.user', [
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+        }])
+    .run([ '$rootScope', 'AuthenticationSharedService', 'USER_ROLES',
+        function ($rootScope, AuthenticationSharedService, USER_ROLES) {
+            $rootScope.isAdmin = function () {
+                return AuthenticationSharedService.isAuthorized(USER_ROLES.admin)
+            };
         }]);

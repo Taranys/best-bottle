@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.bestbottle</groupId>
@@ -68,6 +68,12 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
+                            <requiresUnpack>
+                                <dependency>
+                                    <groupId>org.atmosphere</groupId>
+                                    <artifactId>atmosphere-runtime</artifactId>
+                                </dependency>
+                            </requiresUnpack>
                             <arguments>
                                 <argument>--spring.profiles.active=prod</argument>
                             </arguments>
@@ -112,6 +118,7 @@
         <sonar-maven-plugin.version>2.2</sonar-maven-plugin.version>
         <!-- Librairies versions -->
         <assertj-core.version>1.6.0</assertj-core.version>
+        <atmosphere-spring.version>2.1.0</atmosphere-spring.version>
         <awaitility.version>1.4.0</awaitility.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-io.version>2.4</commons-io.version>
@@ -303,6 +310,11 @@
             <groupId>org.apache.geronimo.javamail</groupId>
             <artifactId>geronimo-javamail_1.4_mail</artifactId>
             <version>${geronimo-javamail_1.4_mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-spring</artifactId>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
