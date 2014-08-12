@@ -1,5 +1,12 @@
 package fr.bestbottle.web.rest.dto;
 
+import fr.bestbottle.domain.bottle.Beer;
+import fr.bestbottle.domain.bottle.BeerType;
+import fr.bestbottle.domain.bottle.Opinion;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BeerDTO {
     private Long id;
 
@@ -17,18 +24,23 @@ public class BeerDTO {
 
     private String countryCode;
 
+    private List<BeerOpinionDTO> opinions = new ArrayList<>();
+
     public BeerDTO() {
     }
 
-    public BeerDTO(Long id, String name, String description, String preview, int draftRate, int bottleRate, String color, String countryCode) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.preview = preview;
-        this.draftRate = draftRate;
-        this.bottleRate = bottleRate;
-        this.color = color;
-        this.countryCode = countryCode;
+    public BeerDTO(Beer beer) {
+        this.id = beer.getId();
+        this.name = beer.getName();
+        this.description = beer.getDescription();
+        this.preview = beer.getPreview();
+        this.draftRate = beer.getRate(BeerType.DRAFT);
+        this.bottleRate = beer.getRate(BeerType.BOTTLE);
+        this.color = beer.getColor().name();
+        this.countryCode = beer.getCountryCode();
+        for (Opinion opinion : beer.getOpinions()) {
+            this.opinions.add(new BeerOpinionDTO(opinion));
+        }
     }
 
     public Long getId() {
@@ -95,6 +107,14 @@ public class BeerDTO {
         this.countryCode = countryCode;
     }
 
+    public List<BeerOpinionDTO> getOpinions() {
+        return opinions;
+    }
+
+    public void setOpinions(List<BeerOpinionDTO> opinions) {
+        this.opinions = opinions;
+    }
+
     @Override
     public String toString() {
         return "BeerDTO{" +
@@ -106,6 +126,7 @@ public class BeerDTO {
                 ", bottleRate=" + bottleRate +
                 ", color='" + color + '\'' +
                 ", countryCode='" + countryCode + '\'' +
+                ", opinions=" + opinions +
                 '}';
     }
 }

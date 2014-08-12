@@ -1,14 +1,16 @@
-package fr.bestbottle.web.rest;
+return Optional.ofNullable(beerRepository.getOne(id))
+        .map(beer->new ResponseEntity<>(new BeerDTO(beer),HttpStatus.OK))
+        package fr.bestbottle.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.bestbottle.domain.bottle.Beer;
 import fr.bestbottle.domain.bottle.BeerColor;
-import fr.bestbottle.domain.bottle.BeerType;
-import fr.bestbottle.repository.BeerRepository;
+        import fr.bestbottle.domain.bottle.Opinion;
+        import fr.bestbottle.repository.BeerRepository;
 import fr.bestbottle.security.AuthoritiesConstants;
 import fr.bestbottle.web.rest.dto.BeerDTO;
-import fr.bestbottle.web.rest.dto.OpinionDTO;
-import org.slf4j.Logger;
+        import fr.bestbottle.web.rest.dto.BeerOpinionDTO;
+        import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,21 +40,15 @@ public class BeerResource {
 	@Transactional
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BeerDTO> getAll() {
-		List<Beer> beerList = beerRepository.findAll();
-		ArrayList<BeerDTO> beers = new ArrayList<>();
-		for (Beer beer : beerList) {
-			beers.add(beerToDTO(beer));
-		}
-		return beers;
-	}
+        return beerRepository.findAll().stream().map(BeerDTO::new).collect(Collectors.toList());
+    }
 
 	@Timed
 	@Transactional
 	@RequestMapping(value = "/{id}",
 					method = RequestMethod.GET,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public BeerDTO get(@PathVariable Long id) {
-		return beerToDTO(beerRepository.getOne(id));
+    public ResponseEntity<BeerDTO> get(@PathVariable Long id) {
     }
 
     @Timed
@@ -80,10 +75,12 @@ public class BeerResource {
 	@RequestMapping(method = RequestMethod.POST,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public BeerDTO create(@RequestBody BeerDTO beerDTO) {
-		Beer beer = new Beer();
-		return saveBeer(beer, beerDTO);
-	}
+    public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beerDTO) {
+        Beer beer = new Beer();
+        return Optional.ofNullable(saveBeer(beer, beerDTO))
+                .map(savedBeer -> new ResponseEntity<>(new BeerDTO(savedBeer), HttpStatus.CREATED))
+                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
 
 	@Timed
 	@Transactional
@@ -92,11 +89,13 @@ public class BeerResource {
 					method = RequestMethod.POST,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public BeerDTO update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
-		Beer beer = beerRepository.getOne(id);
+    public ResponseEntity<BeerDTO> update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
+        Beer beer = beerRepository.getOne(id);
 		beerDTO.setId(id);
-		return saveBeer(beer, beerDTO);
-	}
+        return Optional.ofNullable(saveBeer(beer, beerDTO))
+                .map(savedBeer -> new ResponseEntity<>(new BeerDTO(savedBeer), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
 
 	@Timed
 	@Transactional
@@ -109,26 +108,56 @@ public class BeerResource {
 		beerRepository.delete(id);
 	}
 
-	private BeerDTO saveBeer(Beer beer, BeerDTO beerDTO) {
-		beer.setName(beerDTO.getName());
+
+//	@Timed
+//	@Transactional
+//	@RequestMapping(value = "/{id}/opinions",
+//					method = RequestMethod.GET,
+//					produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<BeerOpinionDTO>> getOpinion(@PathVariable Long id) {
+//		return Optional.ofNullable(beerRepository.getOne(id))
+//						.map(beer -> new ResponseEntity<>(
+//										//convert each opinion to opinionDTO and return a new Array
+//										beer.getOpinions().stream()
+//														.map(BeerOpinionDTO::new)
+//														.collect(Collectors.<BeerOpinionDTO>toList()),
+//										HttpStatus.OK)
+//						)
+//						.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
+
+    @Timed
+    @Transactional
+    @RequestMapping(value = "/{id}/opinions",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BeerDTO> getOpinion(@PathVariable Long id, @RequestBody BeerOpinionDTO opinionDTO) {
+        if (opinionDTO.getType() == null) {
+            throw new IllegalArgumentException("You have to specify a beer type");
+        }
+        return Optional.ofNullable(beerRepository.getOne(id))
+                .map(beer -> {
+                    Opinion opinion = new Opinion();
+                    opinion.setComment(opinionDTO.getComment());
+                    opinion.setLocation(opinionDTO.getLocation());
+                    opinion.setPrice(opinionDTO.getPrice());
+                    opinion.setQuantity(opinionDTO.getQuantity());
+                    opinion.setRate(opinionDTO.getRate());
+                    opinion.setType(opinionDTO.getType().name());
+
+                    beer.getOpinions().add(opinion);
+                    Beer savedBeer = beerRepository.save(beer);
+                    return new ResponseEntity<>(new BeerDTO(savedBeer), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    private Beer saveBeer(Beer beer, BeerDTO beerDTO) {
+        beer.setName(beerDTO.getName());
 		beer.setDescription(beerDTO.getDescription());
 		beer.setColor(BeerColor.valueOf(beerDTO.getColor()));
 		beer.setCountryCode(beerDTO.getCountryCode());
 
-		Beer saved = beerRepository.save(beer);
-		return beerToDTO(saved);
-	}
-
-	private BeerDTO beerToDTO(Beer beer) {
-		return new BeerDTO(
-						beer.getId(),
-						beer.getName(),
-						beer.getDescription(),
-						beer.getPreview(),
-						beer.getRate(BeerType.DRAFT),
-						beer.getRate(BeerType.BOTTLE),
-						beer.getColor().name(),
-						beer.getCountryCode()
-		);
-	}
+        return beerRepository.save(beer);
+    }
 }
