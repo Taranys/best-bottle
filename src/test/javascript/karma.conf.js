@@ -25,6 +25,8 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js',
             'src/main/webapp/scripts/*.js',
             'src/main/webapp/scripts/**/*.js',
+            'src/main/webapp/scripts/**/**/*.js',
+            'src/main/webapp/scripts/**/**/**/*.js',
             'src/test/javascript/**/!(karma.conf).js'
         ],
 

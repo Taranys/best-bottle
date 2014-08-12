@@ -7,9 +7,12 @@ import fr.bestbottle.domain.bottle.BeerType;
 import fr.bestbottle.repository.BeerRepository;
 import fr.bestbottle.security.AuthoritiesConstants;
 import fr.bestbottle.web.rest.dto.BeerDTO;
+import fr.bestbottle.web.rest.dto.OpinionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing users.
@@ -49,7 +54,25 @@ public class BeerResource {
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public BeerDTO get(@PathVariable Long id) {
 		return beerToDTO(beerRepository.getOne(id));
-	}
+    }
+
+    @Timed
+    @Transactional
+    @RequestMapping(value = "/{id}/opinions",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OpinionDTO>> getOpinion(@PathVariable Long id) {
+
+        return Optional.ofNullable(beerRepository.getOne(id))
+                .map(beer -> new ResponseEntity<>(
+                                //convert each opinion to opinionDTO and return a new Array
+                                beer.getOpinions().stream()
+                                        .map(OpinionDTO::new)
+                                        .collect(Collectors.<OpinionDTO>toList()),
+                                HttpStatus.OK)
+                )
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
 	@Timed
 	@Transactional

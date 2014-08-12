@@ -13,6 +13,6 @@
         "useCompass": false,
         "buildTool": "maven",
         "frontendBuilder": "gulp",
-        "javaVersion": "7"
+        "javaVersion": "8"
     }
 }
