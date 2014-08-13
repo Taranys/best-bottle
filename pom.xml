@@ -511,9 +511,10 @@
                         </goals>
                         <configuration>
                             <nodeVersion>v0.10.30</nodeVersion>
-                            <npmVersion>1.4.21</npmVersion>
+                            <npmVersion>1.4.12</npmVersion>
                         </configuration>
                     </execution>
+
                     <execution>
                         <id>npm install</id>
                         <goals>
@@ -526,6 +527,7 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
+
                     <execution>
                         <id>gulp build</id>
                         <goals>
