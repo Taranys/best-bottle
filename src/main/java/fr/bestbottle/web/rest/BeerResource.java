@@ -29,53 +29,35 @@ import java.util.stream.Collectors;
 @RequestMapping("/app/rest/beers")
 public class BeerResource {
 
-	private final Logger log = LoggerFactory.getLogger(BeerResource.class);
+    private final Logger log = LoggerFactory.getLogger(BeerResource.class);
 
-	@Inject
-	private BeerRepository beerRepository;
+    @Inject
+    private BeerRepository beerRepository;
 
-	@Timed
-	@Transactional
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BeerDTO> getAll() {
+    @Timed
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<BeerDTO> getAll() {
         return beerRepository.findAll().stream().map(BeerDTO::new).collect(Collectors.toList());
-    }
-
-	@Timed
-	@Transactional
-	@RequestMapping(value = "/{id}",
-					method = RequestMethod.GET,
-					produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BeerDTO> get(@PathVariable Long id) {
-        return new ResponseEntity<BeerDTO>(new BeerDTO(beerRepository.getOne(id)), HttpStatus.OK);
     }
 
     @Timed
     @Transactional
-    @RequestMapping(value = "/{id}/opinions",
+    @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<BeerOpinionDTO>> getOpinion(@PathVariable Long id) {
-
+    public ResponseEntity<BeerDTO> get(@PathVariable Long id) {
         return Optional.ofNullable(beerRepository.getOne(id))
-                .map(beer -> {
-                            return new ResponseEntity<List<BeerOpinionDTO>>(
-                                    //convert each opinion to opinionDTO and return a new Array
-                                    beer.getOpinions().stream()
-                                            .map(BeerOpinionDTO::new)
-                                            .collect(Collectors.<BeerOpinionDTO>toList()),
-                                    HttpStatus.OK);
-                        }
-                )
-                .orElse(new ResponseEntity<List<BeerOpinionDTO>>(HttpStatus.NOT_FOUND));
+                .map(beer -> new ResponseEntity<>(new BeerDTO(beer), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-	@Timed
-	@Transactional
-	@RolesAllowed(AuthoritiesConstants.USER)
-	@RequestMapping(method = RequestMethod.POST,
-					consumes = MediaType.APPLICATION_JSON_VALUE,
-					produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    @RolesAllowed(AuthoritiesConstants.USER)
+    @RequestMapping(method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beerDTO) {
         Beer beer = new Beer();
         return Optional.ofNullable(saveBeer(beer, beerDTO))
@@ -83,31 +65,31 @@ public class BeerResource {
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-	@Timed
-	@Transactional
-	@RolesAllowed(AuthoritiesConstants.USER)
-	@RequestMapping(value = "/{id}",
-					method = RequestMethod.POST,
-					consumes = MediaType.APPLICATION_JSON_VALUE,
-					produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    @RolesAllowed(AuthoritiesConstants.USER)
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
         Beer beer = beerRepository.getOne(id);
-		beerDTO.setId(id);
+        beerDTO.setId(id);
         return Optional.ofNullable(saveBeer(beer, beerDTO))
                 .map(savedBeer -> new ResponseEntity<>(new BeerDTO(savedBeer), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-	@Timed
-	@Transactional
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	@RequestMapping(value = "/{id}",
-					method = RequestMethod.DELETE,
-					consumes = MediaType.APPLICATION_JSON_VALUE,
-					produces = MediaType.APPLICATION_JSON_VALUE)
-	public void delete(@PathVariable Long id) {
-		beerRepository.delete(id);
-	}
+    @Timed
+    @Transactional
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void delete(@PathVariable Long id) {
+        beerRepository.delete(id);
+    }
 
 
 //	@Timed
@@ -155,9 +137,9 @@ public class BeerResource {
 
     private Beer saveBeer(Beer beer, BeerDTO beerDTO) {
         beer.setName(beerDTO.getName());
-		beer.setDescription(beerDTO.getDescription());
-		beer.setColor(BeerColor.valueOf(beerDTO.getColor()));
-		beer.setCountryCode(beerDTO.getCountryCode());
+        beer.setDescription(beerDTO.getDescription());
+        beer.setColor(BeerColor.valueOf(beerDTO.getColor()));
+        beer.setCountryCode(beerDTO.getCountryCode());
 
         return beerRepository.save(beer);
     }

@@ -41,7 +41,7 @@ gulp.task('clean:tmp', function () {
 
 gulp.task('bower', function () {
     return bower()
-        .pipe(gulp.dest('src/main/webapp/bower_components/'))
+        .pipe(gulp.dest(yeoman.app + 'bower_components/'))
 });
 
 gulp.task('test', function () {
