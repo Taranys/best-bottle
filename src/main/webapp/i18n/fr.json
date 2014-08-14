@@ -70,6 +70,10 @@
                 "amber": "Ambrée",
                 "brown": "Brune",
                 "black": "Noire"
+            },
+            "type": {
+                "draft": "Pression",
+                "bottle": "Bouteille"
             }
         }
     },

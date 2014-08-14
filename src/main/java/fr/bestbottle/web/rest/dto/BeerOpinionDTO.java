@@ -20,6 +20,10 @@ public class BeerOpinionDTO {
 
     private String comment;
 
+    public BeerOpinionDTO() {
+
+    }
+
     public BeerOpinionDTO(Opinion opinion) {
         this.id = opinion.getId();
         this.location = opinion.getLocation();

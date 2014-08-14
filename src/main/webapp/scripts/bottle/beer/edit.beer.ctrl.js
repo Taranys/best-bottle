@@ -11,6 +11,8 @@ angular.module('bestBottle.beer')
                     console.error(error);
                 });
 
+            $scope.newOpinion = Beers.newOpinion();
+
             $scope.getFlagClass = function (language) {
                 var selectedFlag = "";
                 angular.forEach(FLAGS, function (flag, flagLanguage) {
@@ -27,6 +29,11 @@ angular.module('bestBottle.beer')
                 { id: "AMBER", name: "global.beer.color.amber" },
                 { id: "BROWN", name: "global.beer.color.brown" },
                 { id: "BLACK", name: "global.beer.color.black" }
+            ];
+
+            $scope.types = [
+                { id: "DRAFT", name: "global.beer.type.draft" },
+                { id: "BOTTLE", name: "global.beer.type.bottle" }
             ];
 
             $scope.create = function () {
@@ -46,12 +53,18 @@ angular.module('bestBottle.beer')
             $scope.update = function () {
                 var beer = $scope.beer;
                 beer.$update(function () {
-                    $location.path('beers/' + beer.id);
+                    $location.path('beer/' + beer.id);
                 });
             };
 
             $scope.findOne = function () {
                 Beers.get({ id: $routeParams.beerId }, function (beer) {
+                    $scope.beer = beer;
+                });
+            };
+
+            $scope.addOpinion = function (opinion) {
+                Beers.addOpinion({id: $scope.beer.id }, opinion, function (beer) {
                     $scope.beer = beer;
                 });
             };

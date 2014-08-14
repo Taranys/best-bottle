@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Table(name = "T_OPINION")
 public class Opinion extends AbstractAuditingEntity implements Serializable {
 	@Id
-	@GeneratedValue
-	@NotNull
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @NotNull
 	private Long id;
 
 	@Size(min = 0, max = 500)
@@ -21,7 +21,6 @@ public class Opinion extends AbstractAuditingEntity implements Serializable {
 	@Size(min = 0, max = 50)
 	private String type;
 
-	@Size(min = 0, max = 10)
 	private int rate;
 
 	private double price;

@@ -70,6 +70,10 @@
                 "amber": "Amber",
                 "brown": "Brown",
                 "black": "Black"
+            },
+            "type": {
+                "draft": "Draft",
+                "bottle": "Bottle"
             }
         }
     },
