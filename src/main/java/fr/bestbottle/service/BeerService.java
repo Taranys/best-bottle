@@ -87,7 +87,7 @@ public class BeerService {
                     opinion.setType(opinionDTO.getType().name());
 
                     Opinion savedOpinion = opinionRepository.save(opinion);
-                    beer.getOpinions().add(savedOpinion);
+                    beer.addOpinion(savedOpinion);
 
                     return beer;
                 })

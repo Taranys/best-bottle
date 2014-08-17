@@ -74,4 +74,22 @@ public class Beer extends Bottle {
                 ", color=" + color +
                 '}';
     }
+
+    public void addOpinion(Opinion opinion) {
+        getOpinions().add(opinion);
+
+        for (BeerType beerType : BeerType.values()) {
+            computeRate(beerType);
+        }
+    }
+
+    private void computeRate(BeerType type) {
+        double rate = getOpinions().stream()
+                .filter(op -> type.name().equals(op.getType()))
+                .mapToDouble(op -> op.getRate())
+                .average()
+                .orElse(-1);
+
+        setRate(type, (int) Math.round(rate));
+    }
 }
