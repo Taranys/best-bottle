@@ -2,6 +2,7 @@ package fr.bestbottle.web.rest.dto;
 
 import fr.bestbottle.domain.bottle.BeerType;
 import fr.bestbottle.domain.bottle.Opinion;
+import org.joda.time.DateTime;
 
 public class BeerOpinionDTO {
 
@@ -20,6 +21,10 @@ public class BeerOpinionDTO {
 
     private String comment;
 
+    private String creator;
+
+    private DateTime created;
+
     public BeerOpinionDTO() {
 
     }
@@ -32,6 +37,8 @@ public class BeerOpinionDTO {
         this.price = opinion.getPrice();
         this.quantity = opinion.getQuantity();
         this.comment = opinion.getComment();
+        this.creator = opinion.getCreatedBy();
+        this.created = opinion.getCreatedDate();
     }
 
     public Long getId() {
@@ -88,6 +95,22 @@ public class BeerOpinionDTO {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public DateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(DateTime created) {
+        this.created = created;
     }
 
     @Override

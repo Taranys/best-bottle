@@ -3,6 +3,7 @@ package fr.bestbottle.web.rest.dto;
 import fr.bestbottle.domain.bottle.Beer;
 import fr.bestbottle.domain.bottle.BeerType;
 import fr.bestbottle.domain.bottle.Opinion;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,10 @@ public class BeerDTO {
 
     private List<BeerOpinionDTO> opinions = new ArrayList<>();
 
+    private String creator;
+
+    private DateTime lastModified;
+
     public BeerDTO() {
     }
 
@@ -41,6 +46,8 @@ public class BeerDTO {
         for (Opinion opinion : beer.getOpinions()) {
             this.opinions.add(new BeerOpinionDTO(opinion));
         }
+        this.creator = beer.getCreatedBy();
+        this.lastModified = beer.getLastModifiedDate();
     }
 
     public Long getId() {
@@ -115,6 +122,22 @@ public class BeerDTO {
         this.opinions = opinions;
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public DateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(DateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
     @Override
     public String toString() {
         return "BeerDTO{" +
@@ -127,6 +150,8 @@ public class BeerDTO {
                 ", color='" + color + '\'' +
                 ", countryCode='" + countryCode + '\'' +
                 ", opinions=" + opinions +
+                ", creator='" + creator + '\'' +
+                ", lastModified=" + lastModified +
                 '}';
     }
 }
