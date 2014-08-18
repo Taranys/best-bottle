@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('bestBottle.beer', ['bestBottle.cst', 'mgcrea.ngStrap'])
+angular.module('bestBottle.beer', [
+    'bestBottle.cst',
+    'ui.bootstrap'
+])
     .config(['$routeProvider', 'USER_ROLES',
         function ($routeProvider, USER_ROLES) {
             $routeProvider

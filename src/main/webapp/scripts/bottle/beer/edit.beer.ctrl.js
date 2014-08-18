@@ -14,7 +14,7 @@ angular.module('bestBottle.beer')
             $scope.newOpinion = Beers.newOpinion();
 
             $scope.getFlagClass = function (language) {
-                return "famfamfam-flag-" + language.toLowerCase();
+                return "famfamfam-flag-" + language.toLowercase();
             };
 
             $scope.colors = [
