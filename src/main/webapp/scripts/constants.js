@@ -12,9 +12,5 @@ angular.module('bestBottle.cst', [])
 // It will be used by the library "http://www.famfamfam.com/lab/icons/flags/"
 // to display the flag
     .constant('FLAGS', {
-        fr: 'fr',
-        en: 'us',
-
-        BE: 'be',
-        FR: 'fr'
+        en: 'us'
     });

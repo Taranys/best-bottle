@@ -6,10 +6,15 @@ angular.module('bestBottle.i18n')
             $scope.getFlagClass = function (language) {
                 var selectedFlag = "";
                 angular.forEach(FLAGS, function (flag, flagLanguage) {
-                    if (language == flagLanguage) {
+                    if (language.toLowerCase() == flagLanguage.toLowerCase()) {
                         selectedFlag = flag;
                     }
                 });
+
+                if (selectedFlag === "") {
+                    selectedFlag = language.toLowerCase();
+                }
+
                 return "famfamfam-flag-" + selectedFlag;
             };
 

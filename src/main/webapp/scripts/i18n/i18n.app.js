@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('bestBottle.i18n', [
-        'bestBottle.cst',
-        'ngLocale',
-        'tmh.dynamicLocale',
-        'pascalprecht.translate',
-    ])
+    'bestBottle.cst',
+    'ngLocale',
+    'tmh.dynamicLocale',
+    'pascalprecht.translate',
+])
     .config(['$translateProvider', 'tmhDynamicLocaleProvider',
         function ($translateProvider, tmhDynamicLocaleProvider) {
             // Initialize angular-translate
@@ -14,7 +14,7 @@ angular.module('bestBottle.i18n', [
                 suffix: '.json'
             });
 
-            $translateProvider.preferredLanguage('en');
+            $translateProvider.preferredLanguage('fr');
 
             $translateProvider.useCookieStorage();
 
