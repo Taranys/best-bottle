@@ -14,13 +14,7 @@ angular.module('bestBottle.beer')
             $scope.newOpinion = Beers.newOpinion();
 
             $scope.getFlagClass = function (language) {
-                var selectedFlag = "";
-                angular.forEach(FLAGS, function (flag, flagLanguage) {
-                    if (language == flagLanguage) {
-                        selectedFlag = flag;
-                    }
-                });
-                return "famfamfam-flag-" + selectedFlag;
+                return "famfamfam-flag-" + language.toLowerCase();
             };
 
             $scope.colors = [
@@ -66,6 +60,7 @@ angular.module('bestBottle.beer')
             $scope.addOpinion = function (opinion) {
                 Beers.addOpinion({id: $scope.beer.id }, opinion, function (beer) {
                     $scope.beer = beer;
+                    $scope.displayOpinion = false;
                 });
             };
 
