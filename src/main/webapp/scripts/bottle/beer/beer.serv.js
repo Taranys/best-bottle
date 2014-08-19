@@ -21,8 +21,7 @@ angular.module('bestBottle.beer')
                 location: '',
                 type: 'DRAFT',
                 rate: -1,
-                price: -1,
-                quantity: 0,
+                quantity: 25,
                 comment: ''
             };
         };

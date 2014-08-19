@@ -14,7 +14,10 @@ angular.module('bestBottle.beer')
             $scope.newOpinion = Beers.newOpinion();
 
             $scope.getFlagClass = function (language) {
-                return "famfamfam-flag-" + language.toLowercase();
+                if (language) {
+                    return "famfamfam-flag-" + language.toLowerCase();
+                }
+                return '';
             };
 
             $scope.colors = [
@@ -26,9 +29,27 @@ angular.module('bestBottle.beer')
             ];
 
             $scope.types = [
-                { id: "DRAFT", name: "global.beer.type.draft" },
-                { id: "BOTTLE", name: "global.beer.type.bottle" }
+                { id: "DRAFT", name: "global.beer.type.draft", img: 'images/beers/draft.png' },
+                { id: "BOTTLE", name: "global.beer.type.bottle", img: 'images/beers/bottle.png' }
             ];
+
+            $scope.quantities = [
+                { quantity: 25, label: '25cl' },
+                { quantity: 50, label: '50cl' },
+                { quantity: 33, label: '33cl' },
+                { quantity: 37, label: '37.5cl' },
+                { quantity: 100, label: '1L' }
+            ];
+
+            $scope.getColor = function () {
+                for (var i = 0; i < $scope.colors.length; i++) {
+                    var color = $scope.colors[i];
+                    if (color.id === $scope.beer.color) {
+                        return color.name;
+                    }
+                }
+                return '';
+            };
 
             $scope.create = function () {
                 $scope.beer.$save(function (response) {
