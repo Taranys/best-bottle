@@ -5,7 +5,7 @@ angular.module('bestBottleApp')
         function ($scope) {
             $scope.data = [
                 {
-                    title: 'Boissons',
+                    title: 'main.bottle.title',
                     links: [
                         {
                             link: '#/beers',
@@ -30,7 +30,7 @@ angular.module('bestBottleApp')
                     ]
                 },
                 {
-                    title: 'Gastronomie',
+                    title: 'main.food.title',
                     links: [
                         {
                             link: '#/appetizers',

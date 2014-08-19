@@ -1,6 +1,7 @@
 {
     "global": {
         "title": "bestbottle",
+        "search": "Recherche",
         "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
@@ -33,7 +34,8 @@
             "confirmpassword": "Confirmation du nouveau mot de passe",
             "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
             "email": "Email",
-            "email.placeholder": "Votre email"
+            "email.placeholder": "Votre email",
+            "name": "Nom"
         },
         "messages": {
             "info": {
@@ -79,12 +81,14 @@
     },
     "main": {
         "bottle": {
+            "title": "Boissons",
             "beers": "Bières",
             "wines": "Vins & Champagnes",
             "cocktails": "Cocktails",
             "spirits": "Spiritueux"
         },
         "food": {
+            "title": "Gastronomie",
             "appetizers": "Apéro",
             "starters": "Entrée",
             "foods": "Plat",

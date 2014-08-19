@@ -1,6 +1,6 @@
 <div class="row" ng-repeat="section in data">
     <div class="col-xs-12 text-center section-title">
-        <span ng-bind="section.title"></span>
+        <span translate="{{section.title}}"></span>
     </div>
     <div class="col-xs-6 col-sm-3" ng-repeat="part in section.links">
         <a href="{{part.link}}"><img ng-src="{{part.img}}" class="img-responsive img-circle" style="margin: auto"></a>
