@@ -42,6 +42,9 @@ angular.module('bestBottle.beer')
             ];
 
             $scope.getColor = function () {
+                if (!$scope.beer) {
+                    return '';
+                }
                 for (var i = 0; i < $scope.colors.length; i++) {
                     var color = $scope.colors[i];
                     if (color.id === $scope.beer.color) {
@@ -49,6 +52,15 @@ angular.module('bestBottle.beer')
                     }
                 }
                 return '';
+            };
+
+            $scope.geolocAllowed = !!navigator.geolocation;
+            $scope.getLocation = function () {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.$apply(function () {
+                        $scope.newOpinion.location = position.coords.latitude + "," + position.coords.longitude;
+                    });
+                });
             };
 
             $scope.create = function () {

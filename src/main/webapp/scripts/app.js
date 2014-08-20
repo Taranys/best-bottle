@@ -53,7 +53,9 @@ angular.module('bestBottleApp')
             $rootScope.$on('$routeChangeStart', function (event, next) {
                 $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                 $rootScope.userRoles = USER_ROLES;
-                AuthenticationSharedService.valid(next.access.authorizedRoles);
+                if (next.access) {
+                    AuthenticationSharedService.valid(next.access.authorizedRoles);
+                }
             });
 
             // Call when the the client is confirmed
