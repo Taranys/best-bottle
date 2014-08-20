@@ -18,14 +18,14 @@ angular.module('bestBottle.beer', [
                     controller: 'BeerController',
                     templateUrl: 'views/beers/beeredit.html',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                        authorizedRoles: [USER_ROLES.user]
                     }
                 })
                 .when('/beer/:beerId/edit', {
                     controller: 'BeerController',
                     templateUrl: 'views/beers/beeredit.html',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                        authorizedRoles: [USER_ROLES.user]
                     }
                 })
                 .when('/beer/:beerId', {

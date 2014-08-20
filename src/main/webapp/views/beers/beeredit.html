@@ -1,5 +1,5 @@
 <div id="beer-view" class="row" data-ng-init="init()">
-    <form class="form-horizontal" role="form" name="beerForm" style="margin-top: 10px">
+    <form class="form-horizontal" role="form" name="beerForm" ng-submit="create()" style="margin-top: 10px">
         <div class="form-group" ng-class="{'has-error' : beerForm.title.$invalid}">
             <label for="beerTitle" class="col-sm-2 control-label" translate="global.form.name"></label>
 
@@ -38,7 +38,7 @@
             Supprimer <span class="glyphicon glyphicon-trash"></span>
         </button>
         <a ng-show="creation" class="btn btn-danger pull-left" href="#/beers">Annuler</a>
-        <button class="btn btn-success pull-right" ng-click="create()" ng-disabled="beerForm.$invalid || saveOnGoing">
+        <button class="btn btn-success pull-right" ng-disabled="beerForm.$invalid || saveOnGoing">
         Sauvegarder <span class="glyphicon glyphicon-ok"></span>
         </button>
     </form>

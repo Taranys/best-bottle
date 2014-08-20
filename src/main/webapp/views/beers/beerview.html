@@ -44,7 +44,8 @@
                             <img ng-src="{{types[0].img}}" class="glyphicon"
                                  style="width: 50px; height: 50px; margin-right: 10px">
                             <span ng-bind="opinion.creator"></span>
-                            <a class="btn-lg glyphicon glyphicon-globe" target="_blank"
+                            <a class="btn-lg glyphicon glyphicon-globe" ng-hide="opinion.location === ''"
+                               target="_blank"
                                ng-href="http://www.google.com/maps/search/{{opinion.location}}"></a>
 
                             <h3 class="pull-right">
@@ -58,7 +59,8 @@
                         </div>
                     </li>
                     <li class="list-group-item" ng-show="displayOpinion">
-                        <form role="form" class="form-horizontal clearfix" ng-submit="addOpinion(newOpinion)">
+                        <form role="form" name="opinionForm" class="form-horizontal clearfix"
+                              ng-submit="addOpinion(newOpinion)">
                             <div class="form-group">
                                 <label for="opinionType" class="col-sm-2 control-label">Type</label>
 
@@ -78,10 +80,10 @@
                                 <label for="opinionRate" class="col-sm-2 control-label">Rate</label>
 
                                 <div class="col-sm-10">
-                                    <div rating id="opinionRate" ng-model="newOpinion.rate" max="10"
+                                    <div rating id="opinionRate" name="rate" ng-model="newOpinion.rate" max="10"
                                          style="font-size: 24px"></div>
                         <span class="label"
-                              ng-class="{'label-error': newOpinion.rate<3, 'label-warning': newOpinion.rate<5, 'label-info': newOpinion.rate>=5 && newOpinion.rate<7, 'label-success': newOpinion.rate>=7}"
+                              ng-class="{'label-danger': newOpinion.rate<3, 'label-warning': newOpinion.rate>=3 && newOpinion.rate<5, 'label-info': newOpinion.rate>=5 && newOpinion.rate<7, 'label-success': newOpinion.rate>=7}"
                               ng-show="newOpinion.rate !== -1">{{newOpinion.rate}}/10</span>
                                 </div>
                             </div>
@@ -94,12 +96,12 @@
                                             ng-options="q.quantity as q.label for q in quantities"></select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error' : opinionForm.price.$invalid }">
                                 <label for="opinionPrice" class="col-sm-2 control-label">Price</label>
 
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <input type="number" id="opinionPrice" name="opinionPrice" class="form-control"
+                                        <input type="number" id="opinionPrice" name="price" class="form-control" min="0"
                                                ng-model="newOpinion.price"/>
                                         <span class="input-group-addon">€</span>
                                     </div>
@@ -129,7 +131,9 @@
                                     </textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Add</button>
+                            <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid">
+                                Add
+                            </button>
                         </form>
                     </li>
                 </ul>

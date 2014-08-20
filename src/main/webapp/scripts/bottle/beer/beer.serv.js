@@ -20,7 +20,7 @@ angular.module('bestBottle.beer')
             return {
                 location: '',
                 type: 'DRAFT',
-                rate: -1,
+                rate: 1,
                 quantity: 25,
                 comment: ''
             };

@@ -82,8 +82,11 @@ angular.module('bestBottle.beer')
 
             $scope.update = function () {
                 var beer = $scope.beer;
+                $scope.saveOnGoing = true;
                 beer.$update(function () {
                     $location.path('beer/' + beer.id);
+                }).finally(function () {
+                    $scope.saveOnGoing = false;
                 });
             };
 
@@ -96,6 +99,7 @@ angular.module('bestBottle.beer')
             $scope.addOpinion = function (opinion) {
                 Beers.addOpinion({id: $scope.beer.id }, opinion, function (beer) {
                     $scope.beer = beer;
+                    $scope.newOpinion = Beers.newOpinion();
                     $scope.displayOpinion = false;
                 });
             };

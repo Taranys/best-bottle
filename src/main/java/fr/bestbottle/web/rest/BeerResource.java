@@ -51,7 +51,7 @@ public class BeerResource {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beerDTO) {
-        validBeer(beerDTO);
+        valid(beerDTO);
         return beerService.create(beerDTO)
                 .map(savedBeer -> new ResponseEntity<>(savedBeer, HttpStatus.CREATED))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -63,7 +63,7 @@ public class BeerResource {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
-        validBeer(beerDTO);
+        valid(beerDTO);
         return beerService.update(id, beerDTO)
                 .map(beer -> new ResponseEntity<>(beer, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -83,6 +83,7 @@ public class BeerResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> getOpinion(@PathVariable Long id, @RequestBody BeerOpinionDTO opinionDTO) {
+        valid(opinionDTO);
         if (opinionDTO.getType() == null) {
             throw new IllegalArgumentException("You have to specify a beer type");
         }
@@ -92,7 +93,7 @@ public class BeerResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    private void validBeer(BeerDTO beerDTO) {
+    private void valid(BeerDTO beerDTO) {
         beerDTO.setName(StringUtils.trimToEmpty(beerDTO.getName()));
         beerDTO.setColor(StringUtils.trimToEmpty(beerDTO.getColor()));
         beerDTO.setCountryCode(StringUtils.trimToEmpty(beerDTO.getCountryCode()));
@@ -107,6 +108,21 @@ public class BeerResource {
 
         if (StringUtils.isEmpty(beerDTO.getCountryCode())) {
             throw new IllegalArgumentException("beer country should not be null or empty");
+        }
+    }
+
+    private void valid(BeerOpinionDTO opinionDTO) {
+        int rate = opinionDTO.getRate();
+        if (rate < 1 || rate > 10) {
+            throw new IllegalArgumentException("opinion rate should be between 1 and 10");
+        }
+
+        if (opinionDTO.getType() == null) {
+            throw new IllegalArgumentException("opinion type cannot be empty");
+        }
+
+        if (opinionDTO.getPrice() < 0) {
+            throw new IllegalArgumentException("opinion price cannot be negative");
         }
     }
 }
