@@ -64,8 +64,11 @@ angular.module('bestBottle.beer')
             };
 
             $scope.create = function () {
-                $scope.beer.$save(function (response) {
+                $scope.saveOnGoing = true;
+                var test = $scope.beer.$save(function (response) {
                     $location.path('/beer/' + response.id);
+                }).finally(function () {
+                    $scope.saveOnGoing = false;
                 });
             };
 

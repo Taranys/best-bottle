@@ -4,6 +4,7 @@ import fr.bestbottle.security.AuthoritiesConstants;
 import fr.bestbottle.service.BeerService;
 import fr.bestbottle.web.rest.dto.BeerDTO;
 import fr.bestbottle.web.rest.dto.BeerOpinionDTO;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,7 @@ public class BeerResource {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beerDTO) {
+        validBeer(beerDTO);
         return beerService.create(beerDTO)
                 .map(savedBeer -> new ResponseEntity<>(savedBeer, HttpStatus.CREATED))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -61,6 +63,7 @@ public class BeerResource {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BeerDTO> update(@PathVariable Long id, @RequestBody BeerDTO beerDTO) {
+        validBeer(beerDTO);
         return beerService.update(id, beerDTO)
                 .map(beer -> new ResponseEntity<>(beer, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -87,5 +90,23 @@ public class BeerResource {
         return beerService.addOpinion(id, opinionDTO)
                 .map(beer -> new ResponseEntity<>(beer, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    private void validBeer(BeerDTO beerDTO) {
+        beerDTO.setName(StringUtils.trimToEmpty(beerDTO.getName()));
+        beerDTO.setColor(StringUtils.trimToEmpty(beerDTO.getColor()));
+        beerDTO.setCountryCode(StringUtils.trimToEmpty(beerDTO.getCountryCode()));
+
+        if (StringUtils.isEmpty(beerDTO.getName())) {
+            throw new IllegalArgumentException("beer name should not be null or empty");
+        }
+
+        if (StringUtils.isEmpty(beerDTO.getColor())) {
+            throw new IllegalArgumentException("beer color should not be null or empty");
+        }
+
+        if (StringUtils.isEmpty(beerDTO.getCountryCode())) {
+            throw new IllegalArgumentException("beer country should not be null or empty");
+        }
     }
 }
