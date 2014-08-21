@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,9 @@ public class AccountResource {
 
     @Inject
     private MailService mailService;
+
+    @Inject
+    private Environment env;
 
     /**
      * POST  /rest/register -> register the user.
@@ -205,9 +209,10 @@ public class AccountResource {
                                                  final HttpServletResponse response) {
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("user", user);
-        variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
-                request.getServerName() +       // "myhost"
-                ":" + request.getServerPort());
+//        variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
+//                request.getServerName() +       // "myhost"
+//                ":" + request.getServerPort());
+        variables.put("baseUrl", env.getProperty("spring.mail.baseUrl"));
         IWebContext context = new SpringWebContext(request, response, servletContext,
                 locale, variables, applicationContext);
         return templateEngine.process("activationEmail", context);
