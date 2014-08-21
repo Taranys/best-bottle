@@ -169,10 +169,12 @@ gulp.task('server:dist', ['build'], function () {
     );
 });
 
-gulp.task('build', ['clean', 'bower'], function () {
+gulp.task('build-prod', ['build'], function () {
     gulp.start('copy');
     gulp.start('usemin');
 });
+
+gulp.task('build', ['clean', 'bower']);
 
 gulp.task('usemin', ['images', 'styles'], function () {
     return gulp.src(yeoman.app + '**/*.html').
