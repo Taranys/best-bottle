@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog" logicalFilePath="none"
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" logicalFilePath="none"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-    <changeSet author="jhipster" id="1406734930085-6" logicalFilePath="none">
+    <changeSet author="jhipster" id="1408626296285-5" logicalFilePath="none">
         <createTable tableName="T_BEER">
             <column name="color" type="VARCHAR(255)"/>
             <column name="country_code" type="VARCHAR(255)"/>
@@ -11,10 +11,10 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="jhipster" id="1406734930085-7" logicalFilePath="none">
+    <changeSet author="jhipster" id="1408626296285-6" logicalFilePath="none">
         <createTable tableName="T_BOTTLE">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="T_BOTTLEPK"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="created_by" type="VARCHAR(255)"/>
             <column name="created_date" type="timestamp"/>
@@ -29,20 +29,10 @@
             <column name="type" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="jhipster" id="1406734930085-8" logicalFilePath="none">
-        <createTable tableName="T_BOTTLE_T_OPINION">
-            <column name="T_BOTTLE_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="opinions_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="jhipster" id="1406734930085-9" logicalFilePath="none">
+    <changeSet author="jhipster" id="1408626296285-7" logicalFilePath="none">
         <createTable tableName="T_OPINION">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="T_OPINIONPK"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="created_by" type="VARCHAR(255)"/>
             <column name="created_date" type="timestamp"/>
@@ -60,9 +50,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="type" type="VARCHAR(255)"/>
+            <column name="bottle_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="jhipster" id="1406734930085-10" logicalFilePath="none">
+    <changeSet author="jhipster" id="1408626296285-8" logicalFilePath="none">
         <createTable tableName="beer_rate">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>

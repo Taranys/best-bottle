@@ -30,18 +30,15 @@ var yeoman = {
 }
 
 gulp.task('clean', function () {
-    return gulp.src(yeoman.dist, {read: false}).
-        pipe(clean());
+    return gulp.src(yeoman.dist, {read: false}).pipe(clean());
 });
 
 gulp.task('clean:tmp', function () {
-    return gulp.src(yeoman.tmp, {read: false}).
-        pipe(clean());
+    return gulp.src(yeoman.tmp, {read: false}).pipe(clean());
 });
 
 gulp.task('bower', function () {
-    return bower()
-        .pipe(gulp.dest(yeoman.app + 'bower_components/'))
+    return bower().pipe(gulp.dest(yeoman.app + 'bower_components/'));
 });
 
 gulp.task('test', function () {
@@ -49,23 +46,22 @@ gulp.task('test', function () {
 });
 
 gulp.task('copy', ['clean'], function () {
-    return es.merge(gulp.src(yeoman.app + 'i18n/**').
-            pipe(gulp.dest(yeoman.dist + 'i18n/')),
-        gulp.src(yeoman.app + '**/*.{woff,svg,ttf,eot}').
-            pipe(flatten()).
-            pipe(gulp.dest(yeoman.dist + 'fonts/')));
+    return es.merge(
+        gulp.src(yeoman.app + 'i18n/**').pipe(gulp.dest(yeoman.dist + 'i18n/')),
+        gulp.src(yeoman.app + '**/*.{woff,svg,ttf,eot}').pipe(flatten()).pipe(gulp.dest(yeoman.dist + 'fonts/'))
+    );
 });
 
 gulp.task('images', function () {
-    return gulp.src(yeoman.app + 'images/**').
-        pipe(imagemin({optimizationLevel: 5})).
-        pipe(gulp.dest(yeoman.dist + 'images'));
+    return gulp.src(yeoman.app + 'images/**')
+        .pipe(imagemin({optimizationLevel: 5}))
+        .pipe(gulp.dest(yeoman.dist + 'images'));
 });
 
 
 gulp.task('styles', [], function () {
-    return gulp.src(yeoman.app + '{,*/}*.css').
-        pipe(gulp.dest(yeoman.tmp));
+    return gulp.src(yeoman.app + '{,*/}*.css')
+        .pipe(gulp.dest(yeoman.tmp));
 });
 
 gulp.task('server', ['watch'], function () {
@@ -179,7 +175,7 @@ gulp.task('build', ['clean', 'bower'], function () {
 });
 
 gulp.task('usemin', ['images', 'styles'], function () {
-    return gulp.src(yeoman.app + '{,*/}*.html').
+    return gulp.src(yeoman.app + '**/*.html').
         pipe(usemin({
             css: [
                 prefix.apply(),

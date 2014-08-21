@@ -32,7 +32,8 @@ public class Bottle extends AbstractAuditingEntity implements Serializable {
     @Column(columnDefinition = "text")
     private String preview;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "bottle_id")
     private List<Opinion> opinions = new ArrayList<>();
 
     public Long getId() {

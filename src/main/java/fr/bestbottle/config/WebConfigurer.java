@@ -6,20 +6,15 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import fr.bestbottle.web.filter.CachingHttpHeadersFilter;
 import fr.bestbottle.web.filter.StaticResourcesProductionFilter;
 import fr.bestbottle.web.filter.gzip.GZipServletFilter;
-import org.atmosphere.cache.UUIDBroadcasterCache;
-import org.atmosphere.cpr.AtmosphereFramework;
-import org.atmosphere.cpr.AtmosphereServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.util.ReflectionUtils;
 
 import javax.inject.Inject;
 import javax.servlet.*;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -46,7 +41,6 @@ public class WebConfigurer implements ServletContextInitializer {
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
         initMetrics(servletContext, disps);
-        initAtmosphereServlet(servletContext);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);
@@ -145,30 +139,6 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     /**
-     * Initializes Atmosphere.
-     */
-    private void initAtmosphereServlet(ServletContext servletContext) {
-        log.debug("Registering Atmosphere Servlet");
-        AtmosphereServlet servlet = new AtmosphereServlet();
-        Field frameworkField = ReflectionUtils.findField(AtmosphereServlet.class, "framework");
-        ReflectionUtils.makeAccessible(frameworkField);
-        ReflectionUtils.setField(frameworkField, servlet, new NoAnalyticsAtmosphereFramework());
-        ServletRegistration.Dynamic atmosphereServlet =
-                servletContext.addServlet("atmosphereServlet", servlet);
-
-        atmosphereServlet.setInitParameter("org.atmosphere.cpr.packages", "com.mycompany.myapp.web.websocket");
-        atmosphereServlet.setInitParameter("org.atmosphere.cpr.broadcasterCacheClass", UUIDBroadcasterCache.class.getName());
-        atmosphereServlet.setInitParameter("org.atmosphere.cpr.broadcaster.shareableThreadPool", "true");
-        atmosphereServlet.setInitParameter("org.atmosphere.cpr.broadcaster.maxProcessingThreads", "10");
-        atmosphereServlet.setInitParameter("org.atmosphere.cpr.broadcaster.maxAsyncWriteThreads", "10");
-        servletContext.addListener(new org.atmosphere.cpr.SessionSupport());
-
-        atmosphereServlet.addMapping("/websocket/*");
-        atmosphereServlet.setLoadOnStartup(3);
-        atmosphereServlet.setAsyncSupported(true);
-    }
-
-    /**
      * Initializes H2 console
      */
     private void initH2Console(ServletContext servletContext) {
@@ -177,24 +147,5 @@ public class WebConfigurer implements ServletContextInitializer {
         h2ConsoleServlet.addMapping("/console/*");
         h2ConsoleServlet.setLoadOnStartup(1);
     }
-
-    /**
-     * Atmosphere sends tracking data to Google Analytics, which is a potential security issue.
-     * <p>
-     * If you want to send this data, please use directly the AtmosphereFramework class.
-     * </p>
-     */
-    public class NoAnalyticsAtmosphereFramework extends AtmosphereFramework {
-
-        public NoAnalyticsAtmosphereFramework() {
-            super();
-        }
-
-        @Override
-        protected void analytics() {
-            // noop
-        }
-    }
-
 
 }
