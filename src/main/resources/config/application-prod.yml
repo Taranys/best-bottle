@@ -7,10 +7,10 @@ spring:
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
         url: 
-        databaseName: bb
+        databaseName: bestbottle
         serverName: localhost
-        username: bb
-        password: bb
+        username: bestbottle
+        password:
 
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
