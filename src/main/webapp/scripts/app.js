@@ -7,6 +7,7 @@ angular.module('bestBottleApp', [
     'ngRoute',
     'ngCookies',
     'bestBottle.cst',
+    'bestBottle.filters',
     'bestBottle.admin',
     'bestBottle.user',
     'bestBottle.i18n',

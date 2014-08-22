@@ -77,9 +77,11 @@
                            ng-href="http://www.google.com/maps/search/{{opinion.location}}"></a>
 
                         <h3 class="pull-right">
-                                <span ng-hide="opinion.rate === -1" class="label label-info"
+                                <span ng-hide="opinion.rate === -1" class="label"
+                                      ng-class="opinion.rate | btcss:10:'label-'"
                                       ng-bind-template="{{opinion.rate}}/10"></span>
-                                <span ng-hide="opinion.price === 0" class="label label-info"
+                                <span ng-hide="opinion.price === 0" class="label"
+                                      ng-class="opinion.price | btcss:15:'label-':true"
                                       ng-bind-template="{{opinion.price}}€"></span>
                                 <span ng-hide="opinion.quantity === -1" class="label label-info"
                                       ng-bind-template="{{opinion.quantity}}cl"></span>
@@ -111,7 +113,7 @@
                                 <div rating id="opinionRate" name="rate" ng-model="newOpinion.rate" max="10"
                                      style="font-size: 24px"></div>
                         <span class="label"
-                              ng-class="{'label-danger': newOpinion.rate<3, 'label-warning': newOpinion.rate>=3 && newOpinion.rate<5, 'label-info': newOpinion.rate>=5 && newOpinion.rate<7, 'label-success': newOpinion.rate>=7}"
+                              ng-class="newOpinion.rate | btcss:10:'label-'"
                               ng-show="newOpinion.rate !== -1">{{newOpinion.rate}}/10</span>
                             </div>
                         </div>
