@@ -28,10 +28,10 @@ angular.module('bestBottle.beer')
                 { id: "BLACK", name: "global.beer.color.black" }
             ];
 
-            $scope.types = [
-                { id: "DRAFT", name: "global.beer.type.draft", img: 'images/beers/draft.png' },
-                { id: "BOTTLE", name: "global.beer.type.bottle", img: 'images/beers/bottle.png' }
-            ];
+            $scope.types = {
+                DRAFT: { name: "global.beer.type.draft", img: 'images/beers/draft.png' },
+                BOTTLE: { name: "global.beer.type.bottle", img: 'images/beers/bottle.png' }
+            };
 
             $scope.quantities = [
                 { quantity: 25, label: '25cl' },
@@ -54,6 +54,13 @@ angular.module('bestBottle.beer')
                 return '';
             };
 
+            $scope.hasRate = function () {
+                if (!$scope.beer) {
+                    return false;
+                }
+                return $scope.beer.draftRate != -1 || $scope.beer.bottleRate != -1;
+            };
+
             $scope.geolocAllowed = !!navigator.geolocation;
             $scope.getLocation = function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -68,8 +75,8 @@ angular.module('bestBottle.beer')
                 var test = $scope.beer.$save(function (response) {
                     $location.path('/beer/' + response.id);
                 }).finally(function () {
-                    $scope.saveOnGoing = false;
-                });
+                        $scope.saveOnGoing = false;
+                    });
             };
 
             $scope.remove = function (beer) {
@@ -86,8 +93,8 @@ angular.module('bestBottle.beer')
                 beer.$update(function () {
                     $location.path('beer/' + beer.id);
                 }).finally(function () {
-                    $scope.saveOnGoing = false;
-                });
+                        $scope.saveOnGoing = false;
+                    });
             };
 
             $scope.findOne = function () {

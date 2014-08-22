@@ -293,5 +293,49 @@ ul#strength {
     border-bottom: 1px solid #eee;
 }
 
+.ratingblock {
+    position: relative;
+    height: 100px;
+    background: url('../images/rating_bg.png') no-repeat;
+}
 
+.ratingblock .rating {
+    font-size: 4em;
+    padding: 0 5px;
+}
 
+.ratingblock .max {
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2em;
+    width: 50px;
+    height: 60px;
+    padding: 40px 0 0 50px;
+}
+
+.date {
+    position: absolute;
+    top: -23px;
+    width: 100%;
+}
+
+.date span {
+    color: #000;
+    text-decoration: none;
+    font-style: italic;
+    font-size: 13px;
+    text-align: center;
+    padding: 2px 5px;
+    background: #eee;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    width: 120px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    font-family: "Droid serif", serif;
+}

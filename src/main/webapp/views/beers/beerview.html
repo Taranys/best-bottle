@@ -9,140 +9,167 @@
             </a>
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
-        <div ng-show="beer.draftRate != -1">
-            <img ng-src="{{types[0].img}}" class="glyphicon" style="width: 50px; height: 50px">
-            <span ng-bind="beer.draftRate"></span>/10
-        </div>
-        <div ng-show="beer.bottleRate != -1" style="margin-top: 20px">
-            <img ng-src="{{types[1].img}}" class="glyphicon" style="width: 50px; height: 50px">
-            <span ng-bind="beer.bottleRate"></span>/10
-        </div>
+    <div class="col-xs-12 col-md-3" ng-hide="! hasRate()">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Type</th>
+                <th class="text-center">Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-show="beer.draftRate != -1">
+                <td class="text-center">
+                    <img ng-src="{{types.DRAFT.img}}" class="glyphicon" style="width: 50px; height: 50px">
+                </td>
+                <td>
+                    <div class="ratingblock">
+                        <span class="rating" ng-bind="beer.draftRate"></span>
+                        <span class="max">10</span>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="beer.bottleRate != -1">
+                <td class="text-center">
+                    <img ng-src="{{types.BOTTLE.img}}" class="glyphicon" style="width: 50px; height: 50px">
+                </td>
+                <td>
+                    <div class="ratingblock">
+                        <span class="rating" ng-bind="beer.bottleRate"></span>
+                        <span class="max">10</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="col-xs-12 col-md-9">
+    <div class="col-xs-12" ng-class="{ 'col-md-9' : hasRate(),  }">
         <h4>Description <span ng-class="getFlagClass(beer.countryCode)"></span></h4>
 
         <pre class="well" ng-bind="beer.description || 'No description'"></pre>
     </div>
+    <!--<div class="col-xs-12">-->
     <div class="col-xs-12">
-        <div class="row col-xs-12">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">
-                    <h3>
-                        Opinions
-                        <button class="btn btn-primary" ng-click="displayOpinion = true" ng-hide="displayOpinion">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </h3>
-                </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <h3 style="margin: 0px">
+                    Opinions
+                    <button class="btn btn-primary" ng-click="displayOpinion = true" ng-hide="displayOpinion">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </h3>
+            </div>
 
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item clearfix" ng-repeat="opinion in beer.opinions" ng-hide="displayOpinion">
-                        <div class="col-xs-12">
-                            <img ng-src="{{types[0].img}}" class="glyphicon"
-                                 style="width: 50px; height: 50px; margin-right: 10px">
-                            <span ng-bind="opinion.creator"></span>
-                            <a class="btn-lg glyphicon glyphicon-globe" ng-hide="opinion.location === ''"
-                               target="_blank"
-                               ng-href="http://www.google.com/maps/search/{{opinion.location}}"></a>
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item clearfix" ng-repeat="opinion in beer.opinions" ng-hide="displayOpinion">
+                    <div class="col-xs-12">
+                        <div class="date">
+                            <span ng-bind="opinion.created | date"></span>
+                        </div>
 
-                            <h3 class="pull-right">
+                        <img ng-src="{{types[opinion.type].img}}" class="glyphicon"
+                             style="width: 50px; height: 50px; margin-right: 10px">
+                        <span ng-bind="opinion.creator"></span>
+                        <a class="btn-lg glyphicon glyphicon-globe" ng-hide="opinion.location === ''"
+                           target="_blank"
+                           ng-href="http://www.google.com/maps/search/{{opinion.location}}"></a>
+
+                        <h3 class="pull-right">
                                 <span ng-hide="opinion.rate === -1" class="label label-info"
                                       ng-bind-template="{{opinion.rate}}/10"></span>
                                 <span ng-hide="opinion.price === 0" class="label label-info"
                                       ng-bind-template="{{opinion.price}}€"></span>
                                 <span ng-hide="opinion.quantity === -1" class="label label-info"
                                       ng-bind-template="{{opinion.quantity}}cl"></span>
-                            </h3>
-                        </div>
-                    </li>
-                    <li class="list-group-item" ng-show="displayOpinion">
-                        <form role="form" name="opinionForm" class="form-horizontal clearfix"
-                              ng-submit="addOpinion(newOpinion)">
-                            <div class="form-group">
-                                <label for="opinionType" class="col-sm-2 control-label">Type</label>
+                        </h3>
+                    </div>
+                </li>
+                <li class="list-group-item" ng-show="displayOpinion">
+                    <form role="form" name="opinionForm" class="form-horizontal clearfix"
+                          ng-submit="addOpinion(newOpinion)">
+                        <div class="form-group">
+                            <label for="opinionType" class="col-sm-2 control-label">Type</label>
 
-                                <div class="col-sm-10">
-                                    <div class="btn-group" id="opinionType">
-                                        <label class="btn btn-primary" ng-repeat="type in types"
-                                               ng-model="newOpinion.type"
-                                               btn-radio="type.id">
-                                            <img ng-src="{{type.img}}" class="glyphicon"
-                                                 style="width: 32px; height: 32px; -webkit-filter: invert(100%)">
-                                            <span translate="{{type.name}}"></span>
-                                        </label>
-                                    </div>
+                            <div class="col-sm-10">
+                                <div class="btn-group" id="opinionType">
+                                    <label class="btn btn-primary" ng-repeat="(key, type) in types"
+                                           ng-model="newOpinion.type"
+                                           btn-radio="key">
+                                        <img ng-src="{{type.img}}" class="glyphicon"
+                                             style="width: 32px; height: 32px; -webkit-filter: invert(100%)">
+                                        <span translate="{{type.name}}"></span>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="opinionRate" class="col-sm-2 control-label">Rate</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="opinionRate" class="col-sm-2 control-label">Rate</label>
 
-                                <div class="col-sm-10">
-                                    <div rating id="opinionRate" name="rate" ng-model="newOpinion.rate" max="10"
-                                         style="font-size: 24px"></div>
+                            <div class="col-sm-10">
+                                <div rating id="opinionRate" name="rate" ng-model="newOpinion.rate" max="10"
+                                     style="font-size: 24px"></div>
                         <span class="label"
                               ng-class="{'label-danger': newOpinion.rate<3, 'label-warning': newOpinion.rate>=3 && newOpinion.rate<5, 'label-info': newOpinion.rate>=5 && newOpinion.rate<7, 'label-success': newOpinion.rate>=7}"
                               ng-show="newOpinion.rate !== -1">{{newOpinion.rate}}/10</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="opinionQuantity" class="col-sm-2 control-label">Quantity</label>
+
+                            <div class="col-sm-10">
+                                <select id="opinionQuantity" name="opinionQuantity" class="form-control"
+                                        ng-model="newOpinion.quantity"
+                                        ng-options="q.quantity as q.label for q in quantities"></select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : opinionForm.price.$invalid }">
+                            <label for="opinionPrice" class="col-sm-2 control-label">Price</label>
+
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="number" id="opinionPrice" name="price" class="form-control" min="0"
+                                           ng-model="newOpinion.price"/>
+                                    <span class="input-group-addon">€</span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="opinionQuantity" class="col-sm-2 control-label">Quantity</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="opinionLocation" class="col-sm-2 control-label">Location</label>
 
-                                <div class="col-sm-10">
-                                    <select id="opinionQuantity" name="opinionQuantity" class="form-control"
-                                            ng-model="newOpinion.quantity"
-                                            ng-options="q.quantity as q.label for q in quantities"></select>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-class="{'has-error' : opinionForm.price.$invalid }">
-                                <label for="opinionPrice" class="col-sm-2 control-label">Price</label>
-
-                                <div class="col-sm-10">
-                                    <div class="input-group">
-                                        <input type="number" id="opinionPrice" name="price" class="form-control" min="0"
-                                               ng-model="newOpinion.price"/>
-                                        <span class="input-group-addon">€</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="opinionLocation" class="col-sm-2 control-label">Location</label>
-
-                                <div class="col-sm-10">
-                                    <div class="input-group">
-                                        <input type="text" id="opinionLocation" name="opinionLocation"
-                                               class="form-control"
-                                               ng-model="newOpinion.location"/>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="text" id="opinionLocation" name="opinionLocation"
+                                           class="form-control"
+                                           ng-model="newOpinion.location"/>
                             <span class="input-group-addon" ng-click="getLocation()" ng-disabled="geolocAllowed">
                                 <span class="glyphicon glyphicon-arrow-left"></span>
                                 <span class="glyphicon glyphicon-globe"></span>
                             </span>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="opinionComment" class="col-sm-2 control-label">Comment</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="opinionComment" class="col-sm-2 control-label">Comment</label>
 
-                                <div class="col-sm-10">
-                                    <textarea rows="3" id="opinionComment" name="opinionComment" class="form-control"
-                                              ng-model="newOpinion.comment">
-                                    </textarea>
-                                </div>
+                            <div class="col-sm-10">
+                                <textarea rows="3" id="opinionComment" name="opinionComment" class="form-control"
+                                          ng-model="newOpinion.comment">
+                                </textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid">
-                                Add
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid">
+                            Add
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
-
     </div>
     <div class="col-xs-12" style="margin-top: 10px">
         <a class="btn btn-success" href="#/beers"><span
-                class="glyphicon glyphicon-circle-arrow-left"> Retour</span></a>
+                class="glyphicon glyphicon-circle-arrow-left"> Retour</span>
+        </a>
     </div>
 </div>
