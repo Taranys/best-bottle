@@ -20,22 +20,26 @@
             <tbody>
             <tr ng-show="beer.draftRate != -1">
                 <td class="text-center">
-                    <img ng-src="{{types.DRAFT.img}}" class="glyphicon" style="width: 50px; height: 50px">
+                    <img ng-src="{{types.DRAFT.img}}" class="glyphicon"
+                         style="width: 50px; height: 50px; margin-top: 20px">
                 </td>
                 <td>
                     <div class="ratingblock">
-                        <span class="rating" ng-bind="beer.draftRate"></span>
+                        <span class="rating"
+                              ng-bind="beer.draftRate < 10 ? '0' + beer.draftRate : beer.draftRate"></span>
                         <span class="max">10</span>
                     </div>
                 </td>
             </tr>
             <tr ng-show="beer.bottleRate != -1">
                 <td class="text-center">
-                    <img ng-src="{{types.BOTTLE.img}}" class="glyphicon" style="width: 50px; height: 50px">
+                    <img ng-src="{{types.BOTTLE.img}}" class="glyphicon"
+                         style="width: 50px; height: 50px; margin-top: 20px">
                 </td>
                 <td>
                     <div class="ratingblock">
-                        <span class="rating" ng-bind="beer.bottleRate"></span>
+                        <span class="rating"
+                              ng-bind="beer.bottleRate < 10 ? '0' + beer.bottleRate : beer.bottleRate"></span>
                         <span class="max">10</span>
                     </div>
                 </td>

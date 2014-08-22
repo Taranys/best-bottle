@@ -306,10 +306,9 @@ ul#strength {
 
 .ratingblock .max {
     display: block;
-
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 23px;
     font-size: 2em;
     width: 50px;
     height: 60px;
