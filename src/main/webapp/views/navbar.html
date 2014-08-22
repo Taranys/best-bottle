@@ -7,12 +7,11 @@
             </div>
             <div class="col-xs-2 pull-right">
                 <!--ADMIN-->
-                <div class="dropdown pull-right visible-md visible-lg" style="margin-left: 5px">
-                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" ng-show="isAdmin()"
-                       href="">
+                <div class="btn-group pull-right visible-md visible-lg" dropdown style="margin-left: 5px">
+                    <button class="btn btn-primary dropdown-toggle" ng-show="isAdmin()">
                         <span class="glyphicon glyphicon-tower"></span>
-                    </a>
-                    <ul class="dropdown-menu">
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="#/tracker">
                                 <span class="glyphicon glyphicon-eye-open"></span>
@@ -46,11 +45,11 @@
                     </ul>
                 </div>
                 <!--USER-->
-                <div class="dropdown pull-right" style="margin-left: 5px">
-                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="">
+                <div class="btn-group pull-right" dropdown style="margin-left: 5px">
+                    <button class="btn btn-primary dropdown-toggle">
                         <span class="glyphicon glyphicon-user"></span>
-                    </a>
-                    <ul ng-switch="authenticated" class="dropdown-menu">
+                    </button>
+                    <ul ng-switch="authenticated" class="dropdown-menu" role="menu">
                         <li ng-switch-when="true">
                             <a href="#/settings">
                                 <span class="glyphicon glyphicon-wrench"></span>
@@ -89,11 +88,11 @@
                     </ul>
                 </div>
                 <!--LANGUAGES-->
-                <div class="dropdown pull-right visible-md visible-lg" ng-controller="LanguageController">
-                    <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="">
+                <div class="btn-group pull-right visible-md visible-lg" dropdown ng-controller="LanguageController">
+                    <button type="button" class="btn btn-primary dropdown-toggle">
                         <span class="glyphicon glyphicon-flag"></span>
-                    </a>
-                    <ul class="dropdown-menu">
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
                         <li active-menu="{{language}}" ng-repeat="language in languages">
                             <a href="#" ng-click="changeLanguage(language)">
                                 <span ng-class="getFlagClass(language)"></span>
@@ -103,6 +102,7 @@
                     </ul>
                 </div>
             </div>
+            <!--SEARCH-->
             <div class="col-xs-10 col-sm-4 pull-right form-horizontal" ng-init="currentUrl = 'test'">
                 <div class="form-group row">
                     <div class="col-xs-12">
