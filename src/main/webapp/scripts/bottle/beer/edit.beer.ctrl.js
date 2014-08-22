@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', 'FLAGS',
-        function ($scope, $routeParams, $location, Beers, $http, FLAGS) {
+    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', '$sce', 'FLAGS',
+        function ($scope, $routeParams, $location, Beers, $http, $sce, FLAGS) {
             $http.get('i18n/countries/fr.json')
                 .success(function (countries) {
                     $scope.countries = countries;
@@ -75,8 +75,8 @@ angular.module('bestBottle.beer')
                 var test = $scope.beer.$save(function (response) {
                     $location.path('/beer/' + response.id);
                 }).finally(function () {
-                        $scope.saveOnGoing = false;
-                    });
+                    $scope.saveOnGoing = false;
+                });
             };
 
             $scope.remove = function (beer) {
@@ -93,9 +93,14 @@ angular.module('bestBottle.beer')
                 beer.$update(function () {
                     $location.path('beer/' + beer.id);
                 }).finally(function () {
-                        $scope.saveOnGoing = false;
-                    });
+                    $scope.saveOnGoing = false;
+                });
             };
+
+            $scope.getDescription = function () {
+                return $sce.trustAsHtml($scope.beer.description.split('\n').join('<br>')) || 'No description';
+            };
+
 
             $scope.findOne = function () {
                 Beers.get({ id: $routeParams.beerId }, function (beer) {
