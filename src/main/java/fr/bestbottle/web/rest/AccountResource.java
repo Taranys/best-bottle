@@ -113,8 +113,8 @@ public class AccountResource {
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<String> removeNotActivatedAccount() {
-        int removedUsers = userService.removeNotActivatedUsers();
-        return new ResponseEntity<>(removedUsers + " users has been removed", HttpStatus.OK);
+        userService.removeNotActivatedUsers();
+        return new ResponseEntity<>("users not activated has been removed", HttpStatus.OK);
     }
 
     /**

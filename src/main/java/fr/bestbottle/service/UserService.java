@@ -133,13 +133,15 @@ public class UserService {
      * </p>
      */
     @Scheduled(cron = "0 0 1 * * ?")
-    public int removeNotActivatedUsers() {
+    public void removeNotActivatedUsers() {
         LocalDate now = new LocalDate();
         List<User> users = userRepository.findNotActivatedUsersByCreationDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
         }
-        return users.size();
+        if (!users.isEmpty()) {
+            log.info("{} not activated user has been removed", users.size());
+        }
     }
 }
