@@ -6,6 +6,7 @@ import fr.bestbottle.domain.PersistentToken;
 import fr.bestbottle.domain.User;
 import fr.bestbottle.repository.PersistentTokenRepository;
 import fr.bestbottle.repository.UserRepository;
+import fr.bestbottle.security.AuthoritiesConstants;
 import fr.bestbottle.security.SecurityUtils;
 import fr.bestbottle.service.MailService;
 import fr.bestbottle.service.UserService;
@@ -24,6 +25,7 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +103,18 @@ public class AccountResource {
                         user.getLogin(),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * DELETE  /rest/not_activate -> delete not activated user.
+     */
+    @RequestMapping(value = "/rest/not_activate",
+            method = RequestMethod.DELETE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<String> removeNotActivatedAccount() {
+        int removedUsers = userService.removeNotActivatedUsers();
+        return new ResponseEntity<>(removedUsers + " users has been removed", HttpStatus.OK);
     }
 
     /**
