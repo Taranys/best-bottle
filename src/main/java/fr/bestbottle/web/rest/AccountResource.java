@@ -80,7 +80,7 @@ public class AccountResource {
         return Optional.ofNullable(userRepository.findOne(userDTO.getLogin()))
                 .map(user -> new ResponseEntity<>(HttpStatus.NOT_MODIFIED))
                 .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
+                    User user = userService.createUserInformation(userDTO.getLogin().trim(), userDTO.getPassword(),
                             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                             userDTO.getLangKey());
                     final Locale locale = Locale.forLanguageTag(user.getLangKey());
