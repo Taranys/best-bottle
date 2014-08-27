@@ -1,19 +1,23 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeersController', ['$scope', 'Beers',
-        function ($scope, Beers) {
+    .controller('BeersController', ['$scope', 'Beers', 'BEER',
+        function ($scope, Beers, BEER) {
             $scope.filterText = '';
 
             $scope.filter = {
                 current: 0,
                 currentOrder: '-',
                 available: [
-                    { name: 'Date', fieldName: 'created'},
-                    {name: 'Note', fieldName: 'rate'}
+                    { name: 'Name', fieldName: 'name'},
+                    { name: 'Date', fieldName: 'lastModified'},
+                    { name: 'Note Pression', fieldName: 'draftRate'},
+                    { name: 'Note Bouteille', fieldName: 'bottleRate'}
                 ],
-                orderFilter: '+created'
+                orderFilter: '+name'
             };
+
+            $scope.type = BEER.types;
 
             $scope.changeFilter = function (index) {
                 var f = $scope.filter;

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', '$sce', 'FLAGS',
-        function ($scope, $routeParams, $location, Beers, $http, $sce, FLAGS) {
+    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', '$sce', 'FLAGS', 'BEER',
+        function ($scope, $routeParams, $location, Beers, $http, $sce, FLAGS, BEER) {
             $http.get('i18n/countries/fr.json')
                 .success(function (countries) {
                     $scope.countries = countries;
@@ -20,26 +20,11 @@ angular.module('bestBottle.beer')
                 return '';
             };
 
-            $scope.colors = [
-                { id: "WHITE", name: "global.beer.color.white" },
-                { id: "YELLOW", name: "global.beer.color.yellow" },
-                { id: "AMBER", name: "global.beer.color.amber" },
-                { id: "BROWN", name: "global.beer.color.brown" },
-                { id: "BLACK", name: "global.beer.color.black" }
-            ];
+            $scope.colors = angular.copy(BEER.colors);
 
-            $scope.types = {
-                DRAFT: { name: "global.beer.type.draft", img: 'images/beers/draft.png' },
-                BOTTLE: { name: "global.beer.type.bottle", img: 'images/beers/bottle.png' }
-            };
+            $scope.types = angular.copy(BEER.types);
 
-            $scope.quantities = [
-                { quantity: 25, label: '25cl' },
-                { quantity: 50, label: '50cl' },
-                { quantity: 33, label: '33cl' },
-                { quantity: 37, label: '37.5cl' },
-                { quantity: 100, label: '1L' }
-            ];
+            $scope.quantities = angular.copy(BEER.quantities);
 
             $scope.getColor = function () {
                 if (!$scope.beer) {
