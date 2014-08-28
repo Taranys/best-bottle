@@ -35,7 +35,13 @@
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
             "email.placeholder": "Your e-mail",
-            "name": "Name"
+            "name": "Name",
+            "country": "Country",
+            "color": "Color",
+            "description": "Description",
+            "delete": "Delete",
+            "cancel": "Cancel",
+            "save": "Save"
         },
         "messages": {
             "info": {

@@ -1,15 +1,15 @@
 <div id="beer-view" class="row" data-ng-init="init()">
     <form class="form-horizontal" role="form" name="beerForm" ng-submit="create()" style="margin-top: 10px">
         <div class="form-group" ng-class="{'has-error' : beerForm.title.$invalid}">
-            <label for="beerTitle" class="col-sm-2 control-label" translate="global.form.name"></label>
+            <label for="beerTitle" class="col-sm-2 control-label" translate="global.form.name">Nom</label>
 
             <div class="col-sm-10">
                 <input type="text" id="beerTitle" name="title" class="form-control" ng-model="beer.name"
-                       placeholder="Nom" required></span>
+                       placeholder="{{ 'global.form.name' | translate }}" required></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="beerCountry" class="col-sm-2 control-label">Pays</label>
+            <label for="beerCountry" class="col-sm-2 control-label" translate="global.form.country">Pays</label>
 
             <div class="col-sm-10">
                 <select id="beerCountry" class="form-control"
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="beerColor" class="col-sm-2 control-label">Couleur</label>
+            <label for="beerColor" class="col-sm-2 control-label" translate="global.form.color">Couleur</label>
 
             <div class="col-sm-10">
                 <select id="beerColor" class="form-control" ng-model="beer.color"
@@ -27,19 +27,22 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="beerDescription" class="col-sm-2 control-label">Description</label>
+            <label for="beerDescription" class="col-sm-2 control-label"
+                   translate="global.form.description">Description</label>
 
             <div class="col-sm-10">
                 <textarea rows="5" id="beerDescription" class="form-control" ng-model="beer.description"
-                          placeholder="Description"></textarea>
+                          placeholder="{{ 'global.form.description' | translate }}"></textarea>
             </div>
         </div>
         <button ng-hide="creation" class="btn btn-danger pull-left" ng-click="remove(beer)">
-            Supprimer <span class="glyphicon glyphicon-trash"></span>
+            <span translate="global.form.delete">Supprimer</span> <span class="glyphicon glyphicon-trash"></span>
         </button>
-        <a ng-show="creation" class="btn btn-danger pull-left" href="#/beers">Annuler</a>
+        <a ng-show="creation" class="btn btn-danger pull-left" href="#/beers" data-translate="global.form.cancel">
+            Annuler
+        </a>
         <button class="btn btn-success pull-right" ng-disabled="beerForm.$invalid || saveOnGoing">
-        Sauvegarder <span class="glyphicon glyphicon-ok"></span>
+            <span translate="global.form.save">Sauvegarder</span> <span class="glyphicon glyphicon-ok"></span>
         </button>
     </form>
 </div>

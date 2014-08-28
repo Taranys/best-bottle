@@ -75,8 +75,8 @@ angular.module('bestBottle.beer')
                 var test = $scope.beer.$save(function (response) {
                     $location.path('/beer/' + response.id);
                 }).finally(function () {
-                    $scope.saveOnGoing = false;
-                });
+                        $scope.saveOnGoing = false;
+                    });
             };
 
             $scope.remove = function (beer) {
@@ -93,12 +93,15 @@ angular.module('bestBottle.beer')
                 beer.$update(function () {
                     $location.path('beer/' + beer.id);
                 }).finally(function () {
-                    $scope.saveOnGoing = false;
-                });
+                        $scope.saveOnGoing = false;
+                    });
             };
 
             $scope.getDescription = function () {
-                return $sce.trustAsHtml($scope.beer.description.split('\n').join('<br>')) || 'No description';
+                if ($scope.beer && $scope.beer.description) {
+                    return $sce.trustAsHtml($scope.beer.description.split('\n').join('<br>')) || 'No description';
+                }
+                return "";
             };
 
 
