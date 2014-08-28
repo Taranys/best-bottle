@@ -13,4 +13,24 @@ angular.module('bestBottle.cst', [])
 // to display the flag
     .constant('FLAGS', {
         en: 'us'
+    })
+    .constant('BEER', {
+        colors: [
+            { id: "WHITE", name: "global.beer.color.white" },
+            { id: "YELLOW", name: "global.beer.color.yellow" },
+            { id: "AMBER", name: "global.beer.color.amber" },
+            { id: "BROWN", name: "global.beer.color.brown" },
+            { id: "BLACK", name: "global.beer.color.black" }
+        ],
+        types: {
+            DRAFT: { name: "global.beer.type.draft", img: 'images/beers/draft.png' },
+            BOTTLE: { name: "global.beer.type.bottle", img: 'images/beers/bottle.png' }
+        },
+        quantities: [
+            { quantity: 25, label: '25cl' },
+            { quantity: 50, label: '50cl' },
+            { quantity: 33, label: '33cl' },
+            { quantity: 37, label: '37.5cl' },
+            { quantity: 100, label: '1L' }
+        ]
     });
