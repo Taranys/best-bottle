@@ -82,7 +82,7 @@ public class BeerResource {
     @RequestMapping(value = "/{id}/opinions",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BeerDTO> getOpinion(@PathVariable Long id, @RequestBody BeerOpinionDTO opinionDTO) {
+    public ResponseEntity<BeerDTO> addOpinion(@PathVariable Long id, @RequestBody BeerOpinionDTO opinionDTO) {
         valid(opinionDTO);
         if (opinionDTO.getType() == null) {
             throw new IllegalArgumentException("You have to specify a beer type");

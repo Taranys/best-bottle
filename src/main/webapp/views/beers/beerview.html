@@ -183,7 +183,8 @@
                         <button type="button" class="btn btn-success pull-left" ng-disabled="opinionForm.$invalid"
                                 data-translate="global.form.cancel" ng-click="cancelOpinion()">Cancel
                         </button>
-                        <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid"
+                        <button type="submit" class="btn btn-primary pull-right"
+                                ng-disabled="opinionForm.$invalid || saveOnGoing"
                                 data-translate="global.form.add">Add
                         </button>
                     </form>

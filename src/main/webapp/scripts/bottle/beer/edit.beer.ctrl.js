@@ -97,10 +97,15 @@ angular.module('bestBottle.beer')
             };
 
             $scope.addOpinion = function (opinion) {
-                Beers.addOpinion({id: $scope.beer.id }, opinion, function (beer) {
-                    $scope.beer = beer;
-                    $scope.cancelOpinion();
-                });
+                $scope.saveOnGoing = true;
+                Beers.addOpinion({id: $scope.beer.id }, opinion,
+                    function (beer) {
+                        $scope.beer = beer;
+                        $scope.cancelOpinion();
+                    })
+                    .finally(function () {
+                        $scope.saveOnGoing = false;
+                    });
             };
 
             $scope.cancelOpinion = function () {
