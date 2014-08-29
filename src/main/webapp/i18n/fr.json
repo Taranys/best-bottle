@@ -85,6 +85,11 @@
             }
         }
     },
+    "beer": {
+        "list": {
+            "new": "Nouvelle bière"
+        }
+    },
     "main": {
         "bottle": {
             "title": "Boissons",

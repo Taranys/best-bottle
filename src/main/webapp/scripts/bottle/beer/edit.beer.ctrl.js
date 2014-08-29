@@ -21,9 +21,7 @@ angular.module('bestBottle.beer')
             };
 
             $scope.colors = angular.copy(BEER.colors);
-
             $scope.types = angular.copy(BEER.types);
-
             $scope.quantities = angular.copy(BEER.quantities);
 
             $scope.getColor = function () {
@@ -57,9 +55,11 @@ angular.module('bestBottle.beer')
 
             $scope.create = function () {
                 $scope.saveOnGoing = true;
-                var test = $scope.beer.$save(function (response) {
-                    $location.path('/beer/' + response.id);
-                }).finally(function () {
+                $scope.beer
+                    .$save(function (response) {
+                        $location.path('/beer/' + response.id);
+                    })
+                    .finally(function () {
                         $scope.saveOnGoing = false;
                     });
             };

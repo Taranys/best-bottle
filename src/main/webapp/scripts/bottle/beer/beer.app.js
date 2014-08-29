@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('bestBottle.beer', [
-    'bestBottle.cst',
-    'ui.bootstrap'
-])
+        'bestBottle.cst',
+        'ui.bootstrap',
+        'truncate'
+    ])
     .config(['$routeProvider', 'USER_ROLES',
         function ($routeProvider, USER_ROLES) {
             $routeProvider

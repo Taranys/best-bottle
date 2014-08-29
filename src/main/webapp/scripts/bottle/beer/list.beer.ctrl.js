@@ -6,39 +6,36 @@ angular.module('bestBottle.beer')
             $scope.filterText = '';
 
             $scope.filter = {
-                current: 0,
-                currentOrder: '-',
-                available: [
-                    { name: 'Name', fieldName: 'name'},
-                    { name: 'Date', fieldName: 'lastModified'},
-                    { name: 'Note Pression', fieldName: 'draftRate'},
-                    { name: 'Note Bouteille', fieldName: 'bottleRate'}
-                ],
+                name: 'name',
+                currentOrder: '+',
                 orderFilter: '+name'
             };
 
             $scope.type = BEER.types;
 
-            $scope.changeFilter = function (index) {
+            $scope.changeFilter = function (name) {
                 var f = $scope.filter;
                 // if click on selected sorter, revert order
-                if (f.current === index) {
-                    if (f.currentOrder === '-') {
-                        f.currentOrder = '+';
-                    } else {
-                        f.currentOrder = '-';
-                    }
+                if (f.name === name) {
+                    f.currentOrder = (f.currentOrder === '-') ? '+' : '-';
                 }
                 // otherwise, change sorter and restore order to default
                 else {
-                    f.current = index;
+                    f.name = name;
                     f.currentOrder = '-';
                 }
-                f.orderFilter = f.currentOrder + f.available[index].fieldName;
+                f.orderFilter = f.currentOrder + f.name;
             };
 
             $scope.filterBeer = function (item) {
                 return ( item.name.toUpperCase().indexOf($scope.filterText.toUpperCase()) !== -1 || item.description.toUpperCase().indexOf($scope.filterText.toUpperCase()) !== -1 );
+            };
+
+            $scope.cssFilter = function () {
+                return {
+                    'glyphicon-sort-by-attributes': $scope.filter.currentOrder === '+',
+                    'glyphicon-sort-by-attributes-alt': $scope.filter.currentOrder === '-'
+                }
             };
 
             $scope.find = function () {

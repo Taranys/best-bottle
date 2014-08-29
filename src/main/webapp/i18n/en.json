@@ -85,6 +85,11 @@
             }
         }
     },
+    "beer": {
+        "list": {
+            "new": "New beer"
+        }
+    },
     "main": {
         "bottle": {
             "title": "Bottles",
