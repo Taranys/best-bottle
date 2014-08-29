@@ -53,7 +53,6 @@
         },
         "messages": {
             "info": {
-                "authenticated": "Si vous voulez vous <a href=\"#/login\">connecter</a>, vous pouvez utiliser les comptes par défaut : <br/> - Administrateur (nom d'utilisateur=\"admin\" et mot de passe =\"admin\") <br/> - Utilisateur (nom d'utilisateur=\"user\" et mot de passe =\"user\").",
                 "register": "Vous n'avez pas encore de compte ? <a href=\"#/register\">Créer un compte</a>"
             },
             "error": {
@@ -345,6 +344,5 @@
     "errors": {
         "title": "Page d'erreur!",
         "403": "Vous n'avez pas les droits pour accéder à cette page."
-    },
-    "footer": "Ceci est votre pied de page"
+    }
 }
