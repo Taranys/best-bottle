@@ -99,9 +99,13 @@ angular.module('bestBottle.beer')
             $scope.addOpinion = function (opinion) {
                 Beers.addOpinion({id: $scope.beer.id }, opinion, function (beer) {
                     $scope.beer = beer;
-                    $scope.newOpinion = Beers.newOpinion();
-                    $scope.displayOpinion = false;
+                    $scope.cancelOpinion();
                 });
+            };
+
+            $scope.cancelOpinion = function () {
+                $scope.newOpinion = Beers.newOpinion();
+                $scope.displayOpinion = false;
             };
 
             $scope.init = function () {

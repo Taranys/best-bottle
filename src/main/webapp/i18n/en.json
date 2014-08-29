@@ -39,9 +39,17 @@
             "country": "Country",
             "color": "Color",
             "description": "Description",
+            "type": "Type",
+            "rate": "Rate",
+            "quantity": "Quantity",
+            "price": "Price",
+            "location": "Location",
+            "comment": "Comment",
+            "add": "Add",
             "delete": "Delete",
             "cancel": "Cancel",
-            "save": "Save"
+            "save": "Save",
+            "return": "Return"
         },
         "messages": {
             "info": {
@@ -88,6 +96,13 @@
     "beer": {
         "list": {
             "new": "New beer"
+        },
+        "view": {
+            "type": "Type",
+            "rate": "Rate",
+            "opinion": {
+                "title": "Opinions"
+            }
         }
     },
     "main": {

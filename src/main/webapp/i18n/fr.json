@@ -39,9 +39,17 @@
             "country": "Pays",
             "color": "Couleur",
             "description": "Description",
+            "type": "Type",
+            "rate": "Note",
+            "quantity": "Quantité",
+            "price": "Prix",
+            "location": "Emplacement",
+            "comment": "Commentaire",
+            "add": "Ajouter",
             "delete": "Supprimer",
             "cancel": "Annuler",
-            "save": "Sauvegarder"
+            "save": "Sauvegarder",
+            "return": "Retour"
         },
         "messages": {
             "info": {
@@ -88,6 +96,13 @@
     "beer": {
         "list": {
             "new": "Nouvelle bière"
+        },
+        "view": {
+            "type": "Type",
+            "rate": "Note",
+            "opinion": {
+                "title": "Opinions"
+            }
         }
     },
     "main": {

@@ -15,8 +15,8 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="text-center">Type</th>
-                <th class="text-center">Note</th>
+                <th class="text-center" data-translate="beer.view.type">Type</th>
+                <th class="text-center" data-translate="beer.view.rate">Note</th>
             </tr>
             </thead>
             <tbody>
@@ -51,10 +51,12 @@
     </div>
     <!--DESCRIPTION-->
     <div class="col-xs-12" ng-class="{ 'col-md-9' : hasRate(),  }">
-        <h4>Description <span ng-class="getFlagClass(beer.countryCode)"></span></h4>
+        <h4>
+            <span data-translate="global.form.description">Description</span>
+            <span ng-class="getFlagClass(beer.countryCode)"></span>
+        </h4>
 
         <p class="well" ng-bind-html="getDescription()">
-
         </p>
     </div>
     <!--OPINION-->
@@ -62,8 +64,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 style="margin: 0px">
-                    Opinions&nbsp;
-                    <button class="btn btn-primary" ng-click="displayOpinion = true" ng-hide="displayOpinion">
+                    <span data-translate="beer.view.opinion.title">Opinions</span>
+                    <button class="btn btn-primary" ng-click="displayOpinion = true"
+                            ng-hide="displayOpinion || ! authenticated">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </h3>
@@ -99,7 +102,9 @@
                     <form role="form" name="opinionForm" class="form-horizontal clearfix"
                           ng-submit="addOpinion(newOpinion)">
                         <div class="form-group">
-                            <label for="opinionType" class="col-sm-2 control-label">Type</label>
+                            <label for="opinionType" class="col-sm-2 control-label" data-translate="global.form.type">
+                                Type
+                            </label>
 
                             <div class="col-sm-10">
                                 <div class="btn-group" id="opinionType">
@@ -114,7 +119,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="opinionRate" class="col-sm-2 control-label">Rate</label>
+                            <label for="opinionRate" class="col-sm-2 control-label" data-translate="global.form.rate">
+                                Rate
+                            </label>
 
                             <div class="col-sm-10">
                                 <div rating id="opinionRate" name="rate" ng-model="newOpinion.rate" max="10"
@@ -125,7 +132,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="opinionQuantity" class="col-sm-2 control-label">Quantity</label>
+                            <label for="opinionQuantity" class="col-sm-2 control-label"
+                                   data-translate="global.form.quantity">Quantity</label>
 
                             <div class="col-sm-10">
                                 <select id="opinionQuantity" name="opinionQuantity" class="form-control"
@@ -134,7 +142,9 @@
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : opinionForm.price.$invalid }">
-                            <label for="opinionPrice" class="col-sm-2 control-label">Price</label>
+                            <label for="opinionPrice" class="col-sm-2 control-label" data-translate="global.form.price">
+                                Price
+                            </label>
 
                             <div class="col-sm-10">
                                 <div class="input-group">
@@ -145,7 +155,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="opinionLocation" class="col-sm-2 control-label">Location</label>
+                            <label for="opinionLocation" class="col-sm-2 control-label"
+                                   data-translate="global.form.location">Location</label>
 
                             <div class="col-sm-10">
                                 <div class="input-group">
@@ -160,7 +171,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="opinionComment" class="col-sm-2 control-label">Comment</label>
+                            <label for="opinionComment" class="col-sm-2 control-label"
+                                   data-translate="global.form.comment">Comment</label>
 
                             <div class="col-sm-10">
                                 <textarea rows="3" id="opinionComment" name="opinionComment" class="form-control"
@@ -168,8 +180,11 @@
                                 </textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid">
-                            Add
+                        <button type="button" class="btn btn-success pull-left" ng-disabled="opinionForm.$invalid"
+                                data-translate="global.form.cancel" ng-click="cancelOpinion()">Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary pull-right" ng-disabled="opinionForm.$invalid"
+                                data-translate="global.form.add">Add
                         </button>
                     </form>
                 </li>
@@ -177,8 +192,9 @@
         </div>
     </div>
     <div class="col-xs-12" style="margin-top: 10px">
-        <a class="btn btn-success" href="#/beers"><span
-                class="glyphicon glyphicon-circle-arrow-left"> Retour</span>
+        <a class="btn btn-success" href="#/beers">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            <span data-translate="global.form.return"></span>
         </a>
     </div>
 </div>
