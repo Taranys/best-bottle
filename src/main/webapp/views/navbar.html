@@ -44,10 +44,13 @@
                         </li>
                     </ul>
                 </div>
+
                 <!--USER-->
                 <div class="btn-group pull-right" dropdown style="margin-left: 5px">
-                    <button class="btn btn-primary dropdown-toggle">
-                        <span class="glyphicon glyphicon-user"></span>
+                    <button class="btn dropdown-toggle"
+                            ng-class="{ 'btn-success' : authenticated, 'btn-warning': ! authenticated }">
+                        <i class="fa fa-user"></i>
+                        <i class="fa fa-question" ng-hide="authenticated"></i>
                     </button>
                     <ul ng-switch="authenticated" class="dropdown-menu" role="menu">
                         <li ng-switch-when="true">
@@ -87,6 +90,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <!--LANGUAGES-->
                 <div class="btn-group pull-right visible-md visible-lg" dropdown ng-controller="LanguageController">
                     <button type="button" class="btn btn-primary dropdown-toggle">
