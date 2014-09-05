@@ -1,6 +1,7 @@
 package fr.bestbottle.domain.bottle;
 
 import fr.bestbottle.domain.AbstractAuditingEntity;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public class Bottle extends AbstractAuditingEntity implements Serializable {
     @Column(columnDefinition = "text")
     private String preview;
 
+    @Lazy
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "bottle_id")
     private List<Opinion> opinions = new ArrayList<>();

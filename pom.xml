@@ -635,6 +635,35 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.cameroncan</groupId>
+                <artifactId>cachemanifest-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <manifestVersion>1</manifestVersion>
+                    <inputDirectory>src/main/webapp/dist</inputDirectory>
+                    <outputManifestFile>src/main/webapp/dist/cache.manifest</outputManifestFile>
+                    <excludes>
+                        <exclude>*.manifest</exclude>
+                    </excludes>
+                    <additionals>
+                        <!--<additional>foo.com?isBar=true</additional>-->
+                    </additionals>
+                    <networkResources>
+                        <!-- whitelist all non-cached references to allow Web services access -->
+                        <networkResource>*</networkResource>
+                    </networkResources>
+                    <fallback>/index.html /index.html</fallback>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>generate-manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>

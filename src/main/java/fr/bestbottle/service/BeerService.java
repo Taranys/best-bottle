@@ -37,7 +37,7 @@ public class BeerService {
 
     @Timed
     public List<BeerDTO> getAll() {
-        return beerRepository.findAll().stream().map(BeerDTO::new).collect(Collectors.toList());
+        return beerRepository.findAll().stream().map(beer -> new BeerDTO(beer, false)).collect(Collectors.toList());
     }
 
     @Timed

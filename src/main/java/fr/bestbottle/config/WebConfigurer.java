@@ -87,6 +87,7 @@ public class WebConfigurer implements ServletContextInitializer {
 
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/cache.manifest");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/images/*");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");

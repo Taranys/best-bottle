@@ -3,7 +3,8 @@
 angular.module('bestBottle.beer', [
         'bestBottle.cst',
         'ui.bootstrap',
-        'truncate'
+        'truncate',
+        'ngStorage'
     ])
     .config(['$routeProvider', 'USER_ROLES',
         function ($routeProvider, USER_ROLES) {

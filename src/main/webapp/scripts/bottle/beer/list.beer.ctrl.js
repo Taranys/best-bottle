@@ -1,8 +1,16 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeersController', ['$scope', 'Beers', 'BEER',
-        function ($scope, Beers, BEER) {
+    .controller('BeersController', ['$scope', '$localStorage', 'Beers', 'BEER',
+        function ($scope, $localStorage, Beers, BEER) {
+
+            $scope.beers = $localStorage.beers || [];
+
+            Beers.query(function (beers) {
+                $scope.beers = beers;
+                $localStorage.beers = beers;
+            });
+
             $scope.filterText = '';
 
             $scope.filter = {
@@ -36,11 +44,5 @@ angular.module('bestBottle.beer')
                     'glyphicon-sort-by-attributes': $scope.filter.currentOrder === '+',
                     'glyphicon-sort-by-attributes-alt': $scope.filter.currentOrder === '-'
                 }
-            };
-
-            $scope.find = function () {
-                Beers.query(function (beers) {
-                    $scope.beers = beers;
-                });
             };
         }]);

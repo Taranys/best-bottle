@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', 'Beers', '$http', '$sce', 'FLAGS', 'BEER',
-        function ($scope, $routeParams, $location, Beers, $http, $sce, FLAGS, BEER) {
+    .controller('BeerController', ['$scope', '$routeParams', '$location', '$http', '$sce', '$localStorage', 'Beers', 'FLAGS', 'BEER',
+        function ($scope, $routeParams, $location, $http, $sce, $localStorage, Beers, FLAGS, BEER) {
             $http.get('i18n/countries/fr.json')
                 .success(function (countries) {
                     $scope.countries = countries;
@@ -90,8 +90,15 @@ angular.module('bestBottle.beer')
             };
 
 
-            $scope.findOne = function () {
-                Beers.get({ id: $routeParams.beerId }, function (beer) {
+            $scope.findOne = function (id) {
+                var beers = $localStorage.beers || [];
+                angular.forEach(beers, function (beer) {
+                    if (beer.id == id) {
+                        $scope.beer = beer;
+                    }
+                });
+
+                Beers.get({ id: id }, function (beer) {
                     $scope.beer = beer;
                 });
             };
@@ -102,8 +109,8 @@ angular.module('bestBottle.beer')
                     function (beer) {
                         $scope.beer = beer;
                         $scope.cancelOpinion();
-                    })
-                    .finally(function () {
+                        $scope.saveOnGoing = false;
+                    }, function () {
                         $scope.saveOnGoing = false;
                     });
             };
@@ -118,7 +125,7 @@ angular.module('bestBottle.beer')
                     $scope.creation = true;
                     $scope.beer = Beers.new();
                 } else {
-                    $scope.findOne();
+                    $scope.findOne($routeParams.beerId);
                 }
             };
         }]);

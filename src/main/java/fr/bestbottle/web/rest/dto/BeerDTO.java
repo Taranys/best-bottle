@@ -35,6 +35,10 @@ public class BeerDTO {
     }
 
     public BeerDTO(Beer beer) {
+        this(beer, true);
+    }
+
+    public BeerDTO(Beer beer, boolean loadOpinions) {
         this.id = beer.getId();
         this.name = beer.getName();
         this.description = beer.getDescription();
@@ -43,8 +47,10 @@ public class BeerDTO {
         this.bottleRate = beer.getRate(BeerType.BOTTLE);
         this.color = beer.getColor().name();
         this.countryCode = beer.getCountryCode();
-        for (Opinion opinion : beer.getOpinions()) {
-            this.opinions.add(new BeerOpinionDTO(opinion));
+        if (loadOpinions) {
+            for (Opinion opinion : beer.getOpinions()) {
+                this.opinions.add(new BeerOpinionDTO(opinion));
+            }
         }
         this.creator = beer.getCreatedBy();
         this.lastModified = beer.getLastModifiedDate();
