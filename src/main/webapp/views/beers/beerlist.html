@@ -5,9 +5,20 @@
         </div>
     </div>
 
-    <div id="beers-list" class="col-sm-12">
-        <a href="#/beer/create" class="btn btn-primary" data-translate="beer.list.new" ng-show="authenticated">Nouvelle
-            bière</a>
+    <div id="beers-list" class="row col-sm-12">
+
+        <div class="col-xs-12">
+            <a href="#/beer/create" class="btn btn-primary" data-translate="beer.list.new"
+               ng-show="authenticated || isOffline()">
+                Nouvelle bière
+            </a>
+
+            <button class="btn btn-warning pull-right" data-translate="global.form.sendLocal"
+                    ng-show="hasLocalBeer() && ! isOffline() && authenticated" ng-click="sendLocalToServer()">
+                Send local beer on server
+            </button>
+        </div>
+
         <table class="table table-striped table-responsive">
             <thead>
             <tr>
@@ -31,9 +42,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="beer in beers | filter:filterBeer | orderBy:filter.orderFilter">
+            <tr ng-repeat="beer in beers | filter:filterBeer | orderBy:filter.orderFilter"
+                ng-class="{ 'warning' : beer.local}">
                 <td>
-                    <a href="#/beer/{{beer.id}}" ng-bind="beer.name"></a>
+                    <i class="fa fa-home" ng-show="beer.local"></i>
+                    <a href="#/beer/{{beer.local ? 'local/':''}}{{beer.id}}" ng-bind="beer.name"></a>
                 </td>
                 <td class="hidden-xs">
                     <span ng-bind="beer.description | characters:200"></span>

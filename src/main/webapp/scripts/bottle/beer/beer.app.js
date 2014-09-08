@@ -37,4 +37,11 @@ angular.module('bestBottle.beer', [
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/beer/local/:localBeerId', {
+                    controller: 'BeerController',
+                    templateUrl: 'views/beers/beerview.html',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
         }]);

@@ -66,7 +66,7 @@
                 <h3 style="margin: 0px">
                     <span data-translate="beer.view.opinion.title">Opinions</span>
                     <button class="btn btn-primary" ng-click="displayOpinion = true"
-                            ng-hide="displayOpinion || ! authenticated">
+                            ng-show="!displayOpinion && (isOffline() || authenticated)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </h3>

@@ -1,15 +1,21 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeersController', ['$scope', '$localStorage', 'Beers', 'BEER',
-        function ($scope, $localStorage, Beers, BEER) {
+    .controller('BeersController', ['$scope', '$localStorage', 'BeerService', 'BEER',
+        function ($scope, $localStorage, BeerService, BEER) {
 
-            $scope.beers = $localStorage.beers || [];
+            $scope.hasLocalBeer = BeerService.hasLocalBeer;
+            $scope.sendLocalToServer = function () {
+                BeerService.saveOfflineBeers();
+                $scope.loadBeers();
+            };
 
-            Beers.query(function (beers) {
-                $scope.beers = beers;
-                $localStorage.beers = beers;
-            });
+            $scope.loadBeers = function () {
+                BeerService.get().then(function (beers) {
+                    $scope.beers = beers;
+                });
+            };
+            $scope.loadBeers();
 
             $scope.filterText = '';
 

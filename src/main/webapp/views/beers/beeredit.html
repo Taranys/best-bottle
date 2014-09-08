@@ -41,8 +41,12 @@
         <a ng-show="creation" class="btn btn-danger pull-left" href="#/beers" data-translate="global.form.cancel">
             Annuler
         </a>
-        <button class="btn btn-success pull-right" ng-disabled="beerForm.$invalid || saveOnGoing">
+        <button class="btn btn-success pull-right" ng-disabled="beerForm.$invalid || saveOnGoing" ng-hide="isOffline()">
             <span translate="global.form.save">Sauvegarder</span> <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-success pull-right" ng-disabled="beerForm.$invalid" ng-show="isOffline()">
+            <span translate="global.form.localSave">Sauvegarder en local</span> <span
+                class="glyphicon glyphicon-ok"></span>
         </button>
     </form>
 </div>

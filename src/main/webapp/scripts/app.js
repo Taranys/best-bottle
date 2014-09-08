@@ -14,7 +14,8 @@ angular.module('bestBottleApp', [
     'bestBottle.utils',
     'bestBottle.beer',
     'http-auth-interceptor',
-    'truncate'
+    'truncate',
+    'offline'
 ]);
 
 angular.module('bestBottleApp')

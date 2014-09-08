@@ -49,6 +49,8 @@
             "delete": "Supprimer",
             "cancel": "Annuler",
             "save": "Sauvegarder",
+            "localSave": "Sauvegarder en local",
+            "sendLocal": "Envoyer les données locales sur le serveur",
             "return": "Retour"
         },
         "messages": {

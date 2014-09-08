@@ -654,6 +654,11 @@
                         <networkResource>*</networkResource>
                     </networkResources>
                     <fallback>/index.html /index.html</fallback>
+                    <fallback>/fonts/FontAwesome.otf dist/fonts/FontAwesome.otf</fallback>
+                    <fallback>/fonts/fontawesome-webfont.eot fonts/fontawesome-webfont.eot</fallback>
+                    <fallback>/fonts/fontawesome-webfont.svg fonts/fontawesome-webfont.svg</fallback>
+                    <fallback>/fonts/fontawesome-webfont.ttf fonts/fontawesome-webfont.ttf</fallback>
+                    <fallback>/fonts/fontawesome-webfont.woff fonts/fontawesome-webfont.woff</fallback>
                 </configuration>
                 <executions>
                     <execution>

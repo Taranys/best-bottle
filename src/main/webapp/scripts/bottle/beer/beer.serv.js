@@ -12,7 +12,9 @@ angular.module('bestBottle.beer')
                 name: '',
                 description: '',
                 countryCode: 'BE',
-                color: 'YELLOW'
+                color: 'YELLOW',
+                draftRate: -1,
+                bottleRate: -1
             });
         };
 

@@ -49,6 +49,8 @@
             "delete": "Delete",
             "cancel": "Cancel",
             "save": "Save",
+            "localSave": "Local save",
+            "sendLocal": "Send local data on server",
             "return": "Return"
         },
         "messages": {

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bestBottle.beer')
-    .controller('BeerController', ['$scope', '$routeParams', '$location', '$http', '$sce', '$localStorage', 'Beers', 'FLAGS', 'BEER',
-        function ($scope, $routeParams, $location, $http, $sce, $localStorage, Beers, FLAGS, BEER) {
+    .controller('BeerController', ['$scope', '$rootScope', '$routeParams', '$location', '$http', '$sce', '$localStorage', 'BeerService', 'FLAGS', 'BEER',
+        function ($scope, $rootScope, $routeParams, $location, $http, $sce, $localStorage, BeerService, FLAGS, BEER) {
             $http.get('i18n/countries/fr.json')
                 .success(function (countries) {
                     $scope.countries = countries;
@@ -11,7 +11,7 @@ angular.module('bestBottle.beer')
                     console.error(error);
                 });
 
-            $scope.newOpinion = Beers.newOpinion();
+            $scope.newOpinion = BeerService.newOpinion();
 
             $scope.getFlagClass = function (language) {
                 if (language) {
@@ -55,9 +55,10 @@ angular.module('bestBottle.beer')
 
             $scope.create = function () {
                 $scope.saveOnGoing = true;
-                $scope.beer
-                    .$save(function (response) {
-                        $location.path('/beer/' + response.id);
+                BeerService.save($scope.beer)
+                    .then(function (beer) {
+                        var link = '/beer/' + ( beer.local ? 'local/' : '') + beer.id;
+                        $location.path(link);
                     })
                     .finally(function () {
                         $scope.saveOnGoing = false;
@@ -91,41 +92,44 @@ angular.module('bestBottle.beer')
 
 
             $scope.findOne = function (id) {
-                var beers = $localStorage.beers || [];
-                angular.forEach(beers, function (beer) {
-                    if (beer.id == id) {
-                        $scope.beer = beer;
-                    }
-                });
+//                var beers = $localStorage.beers || [];
+//                angular.forEach(beers, function (beer) {
+//                    if (beer.id == id) {
+//                        $scope.beer = beer;
+//                    }
+//                });
 
-                Beers.get({ id: id }, function (beer) {
+                BeerService.get(id).then(function (beer) {
                     $scope.beer = beer;
                 });
             };
 
             $scope.addOpinion = function (opinion) {
                 $scope.saveOnGoing = true;
-                Beers.addOpinion({id: $scope.beer.id }, opinion,
-                    function (beer) {
+                BeerService.addOpinion($scope.beer.id, opinion)
+                    .then(function (beer) {
                         $scope.beer = beer;
                         $scope.cancelOpinion();
                         $scope.saveOnGoing = false;
-                    }, function () {
+                    })
+                    .finally(function () {
                         $scope.saveOnGoing = false;
                     });
             };
 
             $scope.cancelOpinion = function () {
-                $scope.newOpinion = Beers.newOpinion();
+                $scope.newOpinion = BeerService.newOpinion();
                 $scope.displayOpinion = false;
             };
 
             $scope.init = function () {
-                if (!$routeParams.beerId) {
-                    $scope.creation = true;
-                    $scope.beer = Beers.new();
-                } else {
+                if ($routeParams.beerId) {
                     $scope.findOne($routeParams.beerId);
+                } else if ($routeParams.localBeerId) {
+                    $scope.findOne($routeParams.localBeerId);
+                } else {
+                    $scope.creation = true;
+                    $scope.beer = BeerService.new();
                 }
             };
         }]);
