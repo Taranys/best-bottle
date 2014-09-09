@@ -47,7 +47,7 @@
 
                 <!--USER-->
                 <div class="btn-group pull-right" dropdown style="margin-left: 5px">
-                    <button class="btn dropdown-toggle"
+                    <button id="userMenu" class="btn dropdown-toggle"
                             ng-class="{ 'btn-success' : authenticated, 'btn-warning': ! authenticated }">
                         <i class="fa fa-user"></i>
                         <i class="fa fa-question" ng-hide="authenticated"></i>
@@ -77,7 +77,7 @@
                             </a>
                         </li>
                         <li ng-switch-when="false">
-                            <a href="#/login">
+                            <a href="#/login" id="authenticationPage">
                                 <span class="glyphicon glyphicon-log-in"></span>
                                 <span translate="global.menu.account.login">Authenticate</span>
                             </a>

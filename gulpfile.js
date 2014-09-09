@@ -18,7 +18,8 @@ var gulp = require('gulp'),
     flatten = require('gulp-flatten'),
     clean = require('gulp-clean'),
     replace = require('gulp-replace'),
-    bower = require('gulp-bower');
+    bower = require('gulp-bower'),
+    protractor = require("gulp-protractor").protractor;
 
 var karma = require('gulp-karma')({configFile: 'src/test/javascript/karma.conf.js'});
 
@@ -43,6 +44,17 @@ gulp.task('bower', function () {
 
 gulp.task('test', function () {
     karma.once();
+});
+
+gulp.task('e2e', function () {
+    return gulp.src(["./src/test/javascript//e2e/**/*.js"])
+        .pipe(protractor({
+            configFile: "./src/test/javascript/protractor-conf.js",
+            args: ['--baseUrl', 'http://127.0.0.1:8080']
+        }))
+        .on('error', function (e) {
+            throw e;
+        });
 });
 
 gulp.task('copy', ['clean'], function () {
