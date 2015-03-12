@@ -1,0 +1,119 @@
+<div class="section-unit myjumb" ng-class="{jumbotron : jumbo}">
+    <div class="container">
+        <div id="jumbotron" class="row header" ng-class="{ bigjumbo : jumbo }">
+            <div class="col-xs-12 col-sm-6">
+                <a href="/" id="jumbo-title">Best bottle</a>
+                <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
+            </div>
+            <div class="col-xs-2 pull-right">
+                <!--ADMIN-->
+                <div class="btn-group pull-right visible-md visible-lg" dropdown style="margin-left: 5px">
+                    <button class="btn btn-primary dropdown-toggle" ng-show="isAdmin()">
+                        <span class="glyphicon glyphicon-tower"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#/tracker">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span translate="global.menu.account.tracker">User tracking</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/metrics">
+                                <span class="glyphicon glyphicon-dashboard"></span>
+                                <span translate="global.menu.account.metrics">Metrics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/audits">
+                                <span class="glyphicon glyphicon-bell"></span>
+                                <span translate="global.menu.account.audits">Audits</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/logs">
+                                <span class="glyphicon glyphicon-tasks"></span>
+                                <span translate="global.menu.account.logs">Logs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/docs">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span translate="global.menu.account.apidocs">API Docs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--USER-->
+                <div class="btn-group pull-right" dropdown style="margin-left: 5px">
+                    <button id="userMenu" class="btn dropdown-toggle"
+                            ng-class="{ 'btn-success' : authenticated, 'btn-warning': ! authenticated }">
+                        <i class="fa fa-user"></i>
+                        <i class="fa fa-question" ng-hide="authenticated"></i>
+                    </button>
+                    <ul ng-switch="authenticated" class="dropdown-menu" role="menu">
+                        <li ng-switch-when="true">
+                            <a href="#/settings">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                <span translate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/password"><span class="glyphicon glyphicon-lock"></span>
+                                <span translate="global.menu.account.password">Password</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/sessions">
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                <span translate="global.menu.account.sessions">Sessions</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="true">
+                            <a href="#/logout">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                <span translate="global.menu.account.logout">Log out</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="false">
+                            <a href="#/login" id="authenticationPage">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                <span translate="global.menu.account.login">Authenticate</span>
+                            </a>
+                        </li>
+                        <li ng-switch-when="false">
+                            <a href="#/register">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                <span translate="global.menu.account.register">Register</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--LANGUAGES-->
+                <div class="btn-group pull-right visible-md visible-lg" dropdown ng-controller="LanguageController">
+                    <button type="button" class="btn btn-primary dropdown-toggle">
+                        <span class="glyphicon glyphicon-flag"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li active-menu="{{language}}" ng-repeat="language in languages">
+                            <a href="#" ng-click="changeLanguage(language)">
+                                <span ng-class="getFlagClass(language)"></span>
+                                <span translate="global.language.{{language}}">WILL CHANGE</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--SEARCH-->
+            <div class="col-xs-10 col-sm-4 pull-right form-horizontal" ng-init="currentUrl = 'test'">
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" placeholder=" {{ 'global.search' | translate }} ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
