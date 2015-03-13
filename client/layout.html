@@ -1,0 +1,28 @@
+<head>
+  <title>Best bottle</title>
+</head>
+
+<body></body>
+
+<template name="MainLayout">
+  <header>
+    {{> navbar}}
+  </header>
+
+  <div class="development"></div>
+  <div class="container">
+    {{> yield}}
+  </div>
+
+  <div class="footer-top">
+    <div class="footer-inner">
+    </div>
+    <div class="footer-content">
+      <div class="container">
+        <div class="row">
+          <span>Copyright &copy; 2013&nbsp;Yoann Prot / Vincent Tisseront</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

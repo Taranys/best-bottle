@@ -1,1 +1,351 @@
 /* CSS declarations go here */
+
+body {
+  background-color: #EEEEEE;
+}
+
+input {
+  text-align: center;
+  color: #000000;
+}
+
+#login-dropdown-list div.dropdown-menu {
+  left: -268px;
+}
+
+.navbar .nav>li>a.brand {
+  padding-left: 20px;
+  margin-left: 0
+}
+
+.content {
+  margin-top: 70px;
+  width: 100%
+}
+
+footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  background: #ddd;
+  -webkit-box-shadow: 0 8px 6px 6px black;
+  -moz-box-shadow: 0 8px 6px 6px black;
+  box-shadow: 0 8px 6px 6px black
+}
+
+footer p {
+  padding: 5px 0 12px 10px
+}
+
+h3 {
+  font-family: 'Modern Antiqua';
+}
+
+.list-link {
+  font-family: 'Modern Antiqua';
+  font-size: 2em;
+}
+
+.myjumb {
+  background: url('/images/jumbo_save.jpg') center center repeat-x;
+  background-size: cover;
+  margin-bottom: 0px;
+  padding: 10px;
+}
+
+.header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.header #jumbo-title {
+  font-family: 'Modern Antiqua';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 30px;
+  color: #EEE;
+}
+
+.header #jumbo-subtitle {
+  font-family: 'Designosaur';
+  font-weight: normal;
+  font-style: italic;
+  display: none;
+}
+
+.bigjumbo {
+  margin-top: 50px;
+  /*margin-bottom: 20px;*/
+}
+
+.bigjumbo #jumbo-title {
+  font-size: 60px;
+  color: #EEE;
+  clear: both;
+  float: left;
+}
+
+.bigjumbo #jumbo-subtitle {
+  font-size: 25px;
+  color: #AAA;
+  padding-left: 20px;
+  display: block;
+  clear: both;
+  float: left;
+}
+
+.section-title {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.section-title span {
+  font-family: 'Designosaur';
+  font-weight: normal;
+  font-style: italic;
+  /*background: none repeat scroll 0% 0% #EEEEEE;*/
+
+  padding: 0px 20px;
+  /*position: relative;*/
+
+  color: #444;
+  font-size: 45px;
+  z-index: 5;
+}
+
+.footer-top {
+  color: #FFFFFF;
+  height: 790px;
+  overflow: hidden;
+}
+
+.footer-top {
+  height: auto;
+}
+
+.footer-top .footer-inner {
+  background: none repeat scroll 0 0 #32393A;
+  bottom: -50px;
+  height: inherit;
+  left: -20px;
+  padding: 0 20px 70px;
+  position: relative;
+  transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+  -webkit-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+  -moz-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+  -o-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+  -ms-transform: rotate(1deg) rotate3d(0, 0, 0, 0deg);
+  /*width: 110%;*/
+
+  z-index: 0;
+}
+
+.footer-top .footer-inner {
+  height: 400px;
+  left: -30px;
+  padding: 0;
+  width: 105%;
+}
+
+.footer-top .footer-content {
+  margin-top: -700px;
+  padding-bottom: 60px;
+  padding-top: 10px;
+  position: relative;
+  z-index: 999;
+}
+
+.footer-top .footer-content {
+  margin-top: -330px;
+}
+
+#beers-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.nav>li>a:hover,
+.nav>li>a:focus {
+  background-color: #CCC;
+}
+
+.development {
+  position: absolute;
+  width: 149px;
+  height: 149px;
+  top: 0;
+  left: 0;
+  border: 0;
+  z-index: 1000;
+  background-image: url("../images/development_ribbon.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.hero-unit {
+  margin: 50px auto 0 auto;
+  width: 300px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 60px;
+}
+
+.hero-unit h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.error {
+  color: white;
+  background-color: red;
+}
+
+.hipster {
+  display: inline-block;
+  width: 463px;
+  height: 640px;
+  background-image: url("../images/hipster.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.hand {
+  cursor: pointer;
+}
+
+#threadDump .popover,
+#healthCheck .popover {
+  top: inherit;
+  display: block;
+  font-size: 10px;
+  max-width: 1024px;
+}
+
+#healthCheck .popover {
+  margin-left: -50px;
+}
+
+.alert .popover pre {
+  font-size: 10px;
+}
+
+.voffset {
+  margin-top: 2px;
+}
+
+.voffset1 {
+  margin-top: 5px;
+}
+
+.voffset2 {
+  margin-top: 10px;
+}
+
+.voffset3 {
+  margin-top: 15px;
+}
+
+.voffset4 {
+  margin-top: 30px;
+}
+
+.voffset5 {
+  margin-top: 40px;
+}
+
+.voffset6 {
+  margin-top: 60px;
+}
+
+.voffset7 {
+  margin-top: 80px;
+}
+
+.voffset8 {
+  margin-top: 100px;
+}
+
+.voffset9 {
+  margin-top: 150px;
+}
+/* start Password strength bar style */
+
+ul#strength {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  margin-left: 15px;
+  padding: 0;
+  vertical-align: 2px;
+}
+
+.point:last {
+  margin: 0 !important;
+}
+
+.point {
+  background: #DDD;
+  border-radius: 2px;
+  display: inline-block;
+  height: 5px;
+  margin-right: 1px;
+  width: 20px;
+}
+
+.page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.ratingblock {
+  position: relative;
+  height: 100px;
+  background: url('../images/rating_bg.png') no-repeat;
+}
+
+.ratingblock .rating {
+  font-size: 4em;
+  padding: 0 5px;
+}
+
+.ratingblock .max {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 23px;
+  font-size: 2em;
+  width: 50px;
+  height: 60px;
+  padding: 40px 0 0 50px;
+}
+
+.date {
+  position: absolute;
+  top: -23px;
+  width: 100%;
+}
+
+.date span {
+  color: #000;
+  text-decoration: none;
+  font-style: italic;
+  font-size: 13px;
+  text-align: center;
+  padding: 2px 5px;
+  background: #eee;
+  border: 1px solid #ddd;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  width: 120px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  font-family: "Droid serif", serif;
+}
