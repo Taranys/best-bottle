@@ -1,22 +1,50 @@
 <template name="navbar">
-  <div class="section-unit myjumb {{#if jumbo}}jumbotron{{/if}}">
-    <div class="container">
-      <div id="jumbotron" class="row header {{#if jumbo}}bigjumbo{{/if}}">
-        <div class="col-xs-12 col-sm-6">
-          <a href="/" id="jumbo-title">Best bottle</a>
-          <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
-        </div>
-        <div class="pull-right">
+
+  <div class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Best bottle</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {{> loginButtons}}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-form">
+          <input class="form-control" type="text" placeholder="Recherche">
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+
+<!--
+ <div class="section-unit myjumb {{#if jumbo}}jumbotron{{/if}}">
+  <div class="container">
+    <div id="jumbotron" class="row header {{#if jumbo}}bigjumbo{{/if}}">
+      <div class="col-xs-12 col-sm-6">
+        <a href="/" id="jumbo-title">Best bottle</a>
+        <span id="jumbo-subtitle" class="hidden-xs">Enjoy your life</span>
+      </div>
+      <div class="pull-right">
+        <ul class="nav navbar-nav navbar-right">
           {{> loginButtons}}
-        </div>
-        <div class="col-xs-10 col-sm-4 pull-right form-horizontal">
-          <div class="form-group row">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" placeholder="Recherche">
-            </div>
+        </ul>
+      </div>
+      <div class="col-xs-10 col-sm-4 pull-right form-horizontal">
+        <div class="form-group row">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" placeholder="Recherche">
           </div>
         </div>
       </div>
     </div>
   </div>
-</template>
+</div>
+-->

@@ -3,7 +3,7 @@ if (Meteor.isClient) {
     data: [{
       title: 'Bouteilles',
       links: [{
-        link: '/beer',
+        link: '/beers',
         img: 'images/icons/beer.png',
         label: 'Bières'
       }, {
