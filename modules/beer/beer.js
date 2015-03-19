@@ -4,7 +4,8 @@ if (Meteor.isClient) {
       return CST.BEER.types;
     },
     beers: function getAllBeers() {
-      return Beers.find();
+      var beers = Beers.find();
+      return beers;
     }
   })
 }
